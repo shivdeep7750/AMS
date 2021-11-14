@@ -11,6 +11,9 @@
   <script type="text/javascript">
 
       var facultyID;
+      function gotopage(page){
+        window.location.replace("./"+page);
+      }
     function validate() {
         var x1 = new XMLHttpRequest();
 
@@ -26,6 +29,7 @@ x1.onload = function () {
     }
     else{
         facultyID=sessionStorage.getItem('userID');
+        sessionStorage.setItem('curClass',null);
         document.getElementById('namebanner').innerHTML="<strong>Welcome "+facultyID+"</strong>";
     }
     x1.abort();
@@ -134,7 +138,7 @@ window.location.replace("./index.html");
                                 </div>
                                 <div class="col-md-auto">
                                     
-                                    <div class="mbr-section-btn"><a href="https://mobiri.se" class="btn btn-primary display-4">Create New Class</a></div>
+                                    <div class="mbr-section-btn"><button onclick="" class="btn btn-primary display-4">Create New Class</button></div>
                                 </div>
                                 <div></div>
                             </div>
@@ -143,12 +147,13 @@ window.location.replace("./index.html");
                 </div>
             </div>
         </div>
+
         <div class="card">
             <div class="card-wrapper">
                 <div class="row align-items-center">
                     <div class="col-12 col-md-4">
                         <div class="image-wrapper">
-                            <img src="assets/images/mbr-815x434.png" alt="Mobirise">
+                            <img src="assets/images/mbr-815x434.png" >
                         </div>
                     </div>
                     <div class="col-12 col-md">
@@ -159,8 +164,10 @@ window.location.replace("./index.html");
                                     <p class="mbr-text mbr-fonts-style display-7">Manage Attendance</p>
                                 </div>
                                 <div class="col-md-auto">
-                                    
-                                    <div class="mbr-section-btn"><a href="attendance.html" class="btn btn-primary display-4">Take Attendance</a> <a href="https://mobiri.se" class="btn btn-primary display-4">View Stats</a> <a href="https://mobiri.se" class="btn btn-primary display-4">Edit</a> <a href="https://mobiri.se" class="btn btn-primary display-4">Remove</a></div>
+                                    <div class="mbr-section-btn"><button onclick="gotopage('attendance.html')" class="btn btn-primary display-4">Take Attendance</button> 
+                                        <button href="" class="btn btn-primary display-4">View Stats</button> 
+                                        <button href="" class="btn btn-primary display-4">Edit</button>
+                                         <button href="" class="btn btn-primary display-4">Remove</button></div>
                                 </div>
                                 <div></div>
                             </div>
@@ -169,6 +176,7 @@ window.location.replace("./index.html");
                 </div>
             </div>
         </div>
+
         
     </div>
 </section>
