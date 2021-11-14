@@ -13,6 +13,40 @@
     function clearall() {
         document.getElementById("password").value = "";
     }
+
+    function logout() {
+        var x = new XMLHttpRequest();
+        x.open("GET", "https://ms-attendancemonitor.herokuapp.com/logout");
+
+        x.setRequestHeader("resId", sessionStorage.getItem('resId'));
+        x.responseType = "blob";
+        //x.open("DELETE", "http://localhost:8080/logout");
+        x.send();
+        x.onloadend = function () {
+            if (x.status != 200) {
+                alert("Logout Failed!");
+                x.abort();
+                return;
+            }
+            else {
+window.location.replace("./index.html");
+            }
+        };
+    }
+
+    function validate() {
+ ///if any session (may) exist, then log it out
+        if(sessionStorage.getItem('resId')){
+            logout();
+            sessionStorage.setItem('resId')=null;
+        }
+    }
+validate();
+
+
+ 
+
+
     function login() {
         const id = "ADMIN";
         const type = "ADMIN";
@@ -71,7 +105,7 @@
   
   
 </head>
-<body onload="">
+<body>
   
   <section data-bs-version="5.1" class="form7 cid-sOhrH2BBfe" id="form7-t">
     
