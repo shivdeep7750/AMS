@@ -31,6 +31,7 @@
         if(sessionStorage.getItem('resId')!=null){
             logout();
             sessionStorage.setItem('resId',null);
+            sessionStorage.setItem('userID',null);
         }
     }
 validate();
@@ -68,6 +69,7 @@ validate();
             }
             else {
                 sessionStorage.setItem('resId',x.response);
+                sessionStorage.getItem('userID',id);
 window.location.replace("./teacher_controls.html");
                 clearall();
                 /////////////////
