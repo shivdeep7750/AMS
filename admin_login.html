@@ -22,16 +22,6 @@
         x.responseType = "blob";
         //x.open("DELETE", "http://localhost:8080/logout");
         x.send();
-        x.onloadend = function () {
-            if (x.status != 200) {
-                alert("Logout Failed!");
-                x.abort();
-                return;
-            }
-            else {
-window.location.replace("./index.html");
-            }
-        };
     }
 
     function validate() {
