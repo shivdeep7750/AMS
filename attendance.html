@@ -1,0 +1,254 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="Mobirise v5.5.0, mobirise.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
+    <meta name="description" content="">
+    <style>
+        tr {
+            height: 2.5em;
+        }
+        .odd {
+            background-color: rgb(148, 148, 148);
+        }
+    </style>
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
+    <link rel="stylesheet" type="text/css" href="/media/css/site-examples.css?_=aadaa7a732793b5fe2d64919b0c6763c1">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+
+    <script type="text/javascript" class="init">
+
+
+        function newrow() {
+            var tbr = document.getElementById('bdy');
+
+
+            var name_class = "attendance_TEMP2021_11_12_20_46_30";
+            var x = new XMLHttpRequest();
+            //x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/"+name_class);
+            x.open("GET", "http://localhost:8080/fetchlist/" + name_class);
+            x.send();
+            x.onload = function () {
+                if (x.status != 200) {
+                    alert("Something bad happened, Please try again!");
+                    x.abort();
+                }
+                else {
+                    console.log(x.response);
+
+                    if (null == tbr)
+                        console.log(0);
+                    else {
+                        var result = (JSON.parse(x.response).result);
+                        result.forEach(i => {
+                            var newRow = tbr.insertRow();
+                            newRow.setAttribute("value", i.UID, 0);
+                            var allrows = tbr.getElementsByTagName('tr');
+                            if (allrows.length % 2 == 0)
+                                newRow.className = "even";
+                            else
+                                newRow.className = "odd";
+                            var newCell = newRow.insertCell();
+                            newCell.className = "sorting_1";
+                            var newText = document.createTextNode(i.UID);
+                            newCell.appendChild(newText);
+                            newCell = newRow.insertCell();
+                            newText = document.createTextNode(i.UID);
+                            newCell.appendChild(newText);
+                            newCell = newRow.insertCell();
+                            newText = document.createTextNode(i.UID);
+                            newCell.appendChild(newText);
+                        });
+                        
+                    }
+
+                    x.abort();
+                }
+            };
+            x.onloadend = function () {
+                x.abort();
+            };
+
+        }
+
+        var present = new Set();
+        $(document).ready(function () {
+            $("#bdy").on('click', 'tr', function (e) {
+                e.preventDefault();
+                var id = $(this).attr('value');
+                if (present.has(id)) {
+                    present.delete(id);
+                    if($(this).hasClass("odd")){
+                    $(this).css({
+                        'background-color': 'rgb(148, 148, 148)',
+                        'color': 'black',
+                    });}
+                     else{
+                        $(this).css({
+                        'background-color': 'transparent',
+                        'color': 'black',
+                    });
+                     }
+                }
+                else {
+                    present.add(id);
+                    
+                    $(this).css({
+                        'background-color': '#53fc53',
+                        'color': 'white',
+                    });
+                }
+            });
+        });
+        function send() {
+            a = Array.from(present);
+            if (a.length == 0) {
+                alert("Seems like a mass bunk🥰");
+                return;
+            }
+            var TBLNAME = prompt("Name this attendance");
+            var x = new XMLHttpRequest();
+            //x.open("POST", "https://ms-attendancemonitor.herokuapp.com/attendancemark");
+            x.open("POST", "http://localhost:8080/attendancemark");
+            x.send(JSON.stringify({
+                uids: a,
+                tblname: TBLNAME
+            }));
+            x.onload = function () {
+                if (x.status == 406) { alert("Attendance failed, kindly retry!"); }
+                else if (x.status != 200) {
+                    alert("Something bad happened, Please try again!");
+                }
+                else {
+                    alert("Attendance marked✅");
+                }
+            };
+        }
+
+    </script>
+
+    <title>Attendance List</title>
+    <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="assets/animatecss/animate.css">
+    <link rel="stylesheet" href="assets/dropdown/css/style.css">
+    <link rel="stylesheet" href="assets/socicon/css/styles.css">
+    <link rel="stylesheet" href="assets/theme/css/style.css">
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap">
+    </noscript>
+    <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
+    <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+
+
+
+
+</head>
+
+<body onload="newrow()">
+
+    <section data-bs-version="5.1" class="menu cid-sOrZB2RGR5" once="menu" id="menu1-1w">
+
+        <nav class="navbar navbar-dropdown navbar-fixed-top collapsed">
+            <div class="container">
+                <div class="navbar-brand">
+
+                    <span class="navbar-caption-wrap"><a class="navbar-caption text-black text-primary display-7"
+                            href="index.html"><span
+                                class="mobi-mbri mobi-mbri-preview mbr-iconfont mbr-iconfont-btn"></span>Attendance
+                            Monitoring System</a></span>
+                </div>
+
+                <div class="collapse navbar-collapse" id="navbarSupportedContent">
+                    <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
+                        <li class="nav-item"><a class="nav-link link text-black display-4"
+                                href="https://mobirise.com">Menu Item 1</a></li>
+                    </ul>
+
+
+                </div>
+            </div>
+        </nav>
+
+    </section>
+    <section id="features9-13" data-bs-version="5.1" class=" cid-sOhBxcVSZw">
+        <div>
+            <h6 class="card-title mbr-fonts-style display-5" align="center"><strong>12 B</strong></h6>
+        </div>
+
+        <table id="exp" class="" style="width: 100%;">
+            <thead>
+                <tr>
+                    <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                        style="width: 133px;" aria-sort="ascending"
+                        aria-label="Name: activate to sort column descending">Name</th>
+                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                        style="width: 212px;" aria-label="Position: activate to sort column ascending">UID</th>
+                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                        style="width: 99px;" aria-label="Office: activate to sort column ascending">Presence %</th>
+            </thead>
+            <tbody id="bdy">
+
+            </tbody>
+        </table>
+        <div class="col-auto mbr-section-btn align-center">
+            <button type="cancel" class="btn btn-sescondary display-4"
+                onclick="location.href = 'login.html';">Cancel</button>
+            <button type="submit" class="btn btn-primary display-4" onclick="send()">Send</button>
+        </div>
+        </div>
+    </section>
+    <section data-bs-version="5.1" class="footer3 cid-sOrZB5Ms26 mbr-reveal" once="footers" id="footer3-1x">
+        <div class="container-fluid">
+            <div class="media-container-row align-center mbr-white">
+
+
+                <div class="row row-copirayt">
+                    <p class="mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7">Submitted by Shivdeep for
+                        Microsoft Engage'21</p>
+                </div>
+            </div>
+        </div>
+    </section>
+    <section
+        style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;">
+        <a href="https://mobirise.site/t" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
+        <p style="flex: 0 0 auto; margin:0; padding-right:1rem;"><a href="https://mobirise.site/q"
+                style="color:#aaa;">This page</a> was created with Mobirise templates</p>
+    </section>
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/web/assets/cookies-alert-plugin/cookies-alert-core.js"></script>
+    <script src="assets/web/assets/cookies-alert-plugin/cookies-alert-script.js"></script>
+    <script src="assets/smoothscroll/smooth-scroll.js"></script>
+    <script src="assets/ytplayer/index.js"></script>
+    <script src="assets/dropdown/js/navbar-dropdown.js"></script>
+    <script src="assets/theme/js/script.js"></script>
+
+
+    <input name="cookieData" type="hidden" data-cookie-customDialogSelector='null' data-cookie-colorText='#424a4d'
+        data-cookie-colorBg='rgba(234, 239, 241, 0.99)' data-cookie-textButton='Agree' data-cookie-colorButton=''
+        data-cookie-colorLink='#424a4d' data-cookie-underlineLink='true'
+        data-cookie-text="We use cookies to give you the best experience. Read our <a href='privacy.html'>cookie policy</a>.">
+    <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i
+                class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
+    <input name="animation" type="hidden">
+</body>
+
+</html>
