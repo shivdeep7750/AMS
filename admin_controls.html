@@ -46,6 +46,28 @@ x1.onload = function () {
     }
 
 
+
+    function logout() {
+        var x = new XMLHttpRequest();
+        x.open("GET", "https://ms-attendancemonitor.herokuapp.com/logout");
+
+        x.setRequestHeader("resId", sessionStorage.getItem('resId'));
+        x.responseType = "blob";
+        //x.open("DELETE", "http://localhost:8080/logout");
+        x.send();
+        x.onloadend = function () {
+            if (x.status != 200) {
+                alert("Logout Failed!");
+                x.abort();
+                return;
+            }
+            else {
+                alert("LOGOUT");
+window.location.replace("./index.html");
+            }
+        };
+
+
 </script>
   <title>Admin Controls</title>
   <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
@@ -78,7 +100,8 @@ x1.onload = function () {
                 <h1 class="mbr-section-title mbr-fonts-style mb-3 display-1"><strong>Welcome Admin</strong></h1>
                 
                 
-                <div class="mbr-section-btn mt-3"><a class="btn btn-success-outline display-4" href="#top">Change Password</a> <a class="btn btn-success-outline display-4" href="http://localhost:8080/logout">Logout</a></div>
+                <div class="mbr-section-btn mt-3"><button class="btn btn-success-outline display-4" href="#top">Update Key</button>
+                     <button class="btn btn-success-outline display-4" id="logout" onclick="logout()">Logout</button></div>
             </div>
         </div>
     </div>
