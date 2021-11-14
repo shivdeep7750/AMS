@@ -13,7 +13,11 @@
     function logout() {
         var x = new XMLHttpRequest();
         x.open("GET", "https://ms-attendancemonitor.herokuapp.com/logout");
+
+        x.setRequestHeader("resId", sessionStorage.getItem('resId'));
+        x.responseType = "blob";
         //x.open("DELETE", "http://localhost:8080/logout");
+        x.send();
         x.onloadend = function () {
             if (x.status != 200) {
                 alert("Logout Failed!");
@@ -79,7 +83,8 @@ window.location.replace("./index.html");
                 <h1 class="mbr-section-title mbr-fonts-style mb-3 display-1"><strong>Welcome XXXX</strong></h1>
                 
                 
-                <div class="mbr-section-btn mt-3"><a class="btn btn-success-outline display-4" href="#top">Update Profile</a> <a class="btn btn-success-outline display-4" id="logout" href="http://localhost:8080/logout">Logout</a></div>
+                <div class="mbr-section-btn mt-3"><button class="btn btn-success-outline display-4" href="#top">Update Profile</button>
+                     <button class="btn btn-success-outline display-4" id="logout" onclick="logout()">Logout</button></div>
             </div>
         </div>
     </div>
