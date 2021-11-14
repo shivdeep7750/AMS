@@ -12,7 +12,6 @@
   <script type="text/javascript">
     function clearall() {
         document.getElementById("password").value = "";
-    
     }
     function login() {
         const id = "ADMIN";
@@ -46,6 +45,7 @@
                 return;
             }
             else {
+                sessionStorage.setItem('resId',x.response);
                 window.location.replace("./admin_controls.html");
                 /////////////////
             }

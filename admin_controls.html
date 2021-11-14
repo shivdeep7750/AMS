@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html  >
 <head>
-  <!-- Site made with Mobirise Website Builder v5.5.0, https://mobirise.com -->
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Mobirise v5.5.0, mobirise.com">
@@ -14,17 +13,36 @@
 
 
     function validate() {
-        var x = new XMLHttpRequest();
-        x.open("GET", "https://ms-attendancemonitor.herokuapp.com/checkstatus/ADMIN");
-        //x.open("GET", "http://localhost:8080/checkstatus/ADMIN");
-        x.send();
-        x.onload = function () {
-            if (x.status == 406) {
-                console.log(x.response.user);
-               // window.location.replace("./index.html");
-            }
-            x.abort();
-        };
+        // var x = new XMLHttpRequest();
+        // x.open("GET", "https://ms-attendancemonitor.herokuapp.com/");
+        // //x.open("GET", "http://localhost:8080/checkstatus/ADMIN");
+        // x.send();
+        // x.onload = function () {
+        //  //   if (x.status == 406) {
+        //         console.log(x.response);
+        //         sessionStorage.setItem('resId',x.response);
+        //        // window.location.replace("./index.html");
+        //    // }
+        //     x.abort();
+
+        // };
+
+        var x1 = new XMLHttpRequest();
+
+x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
+//x.open("GET", "http://localhost:8080/checkstatus/ADMIN");
+x1.send(JSON.stringify({
+Sid: sessionStorage.getItem('resId'),
+type:"ADMIN"
+}));
+x1.onload = function () {
+    if (x.status == 406) {
+        console.log(x1.response);
+        window.location.replace("./index.html");
+    }
+    x1.abort();
+};
+     
     }
 
 
