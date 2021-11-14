@@ -12,7 +12,9 @@
     function clearall() {
         document.getElementById("password").value = "";
     }
-
+    function back(){
+        window.location.replace("./index.html");
+    }
     function logout() {
         var x = new XMLHttpRequest();
         x.open("GET", "https://ms-attendancemonitor.herokuapp.com/logout");
@@ -119,7 +121,8 @@ validate();
                             <input type="password" name="password" placeholder="Secret Key" data-form-field="password" class="form-control" value="" id="password">
                         </div>
                         
-                        <div class="col-auto mbr-section-btn align-center"><button type="submit" class="btn btn-primary display-4" onclick="login()">Login</button></div>
+                        <div class="col-auto mbr-section-btn align-center"><button type="submit" class="btn btn-primary display-4" onclick="login()">Login</button>
+                            <button type="back" class="btn btn-secondary display-4" onclick="back()">Back</button></div>
                     </div>
                 </form>
             </div>
