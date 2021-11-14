@@ -1,7 +1,6 @@
 <!DOCTYPE html>
 <html  >
 <head>
-  <!-- Site made with Mobirise Website Builder v5.5.0, https://mobirise.com -->
   <meta charset="UTF-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
   <meta name="generator" content="Mobirise v5.5.0, mobirise.com">
@@ -26,9 +25,9 @@
 
     function validate() {
  ///if any session (may) exist, then log it out
-        if(sessionStorage.getItem('resId')){
+        if(sessionStorage.getItem('resId')!=null){
             logout();
-            sessionStorage.setItem('resId')=null;
+            sessionStorage.setItem('resId',null);
         }
     }
 validate();
