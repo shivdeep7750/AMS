@@ -20,7 +20,8 @@
         x.send();
         x.onload = function () {
             if (x.status == 406) {
-                window.location.replace("./index.html");
+                console.log(x.response.user);
+               // window.location.replace("./index.html");
             }
             x.abort();
         };
