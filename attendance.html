@@ -28,16 +28,12 @@
         src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
 
     <script type="text/javascript" class="init">
-
-
-        function newrow() {
+    function newrow() {
             var tbr = document.getElementById('bdy');
-
-
             var name_class = "attendance_TEMP2021_11_12_20_46_30";
             var x = new XMLHttpRequest();
-            //x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/"+name_class);
-            x.open("GET", "http://localhost:8080/fetchlist/" + name_class);
+            x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/"+name_class);
+            //x.open("GET", "http://localhost:8080/fetchlist/" + name_class);
             x.send();
             x.onload = function () {
                 if (x.status != 200) {
@@ -76,11 +72,28 @@
                     x.abort();
                 }
             };
-            x.onloadend = function () {
-                x.abort();
-            };
-
         }
+ 
+function validate() {
+        var x1 = new XMLHttpRequest();
+
+x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
+//x.open("GET", "http://localhost:8080/checkstatus/ADMIN");
+x1.send(JSON.stringify({
+Sid: sessionStorage.getItem('resId'),
+type:"faculty"
+}));
+x1.onload = function () {
+    if (x1.status == 406) {
+        window.location.replace("./index.html");
+    }else{
+        newrow();
+    }
+    x1.abort();
+};
+     
+    }
+validate();
 
         var present = new Set();
         $(document).ready(function () {
@@ -162,7 +175,7 @@
 
 </head>
 
-<body onload="newrow()">
+<body>
 
     <section data-bs-version="5.1" class="menu cid-sOrZB2RGR5" once="menu" id="menu1-1w">
 
@@ -176,14 +189,6 @@
                             Monitoring System</a></span>
                 </div>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <ul class="navbar-nav nav-dropdown nav-right" data-app-modern-menu="true">
-                        <li class="nav-item"><a class="nav-link link text-black display-4"
-                                href="https://mobirise.com">Menu Item 1</a></li>
-                    </ul>
-
-
-                </div>
             </div>
         </nav>
 
@@ -193,7 +198,7 @@
             <h6 class="card-title mbr-fonts-style display-5" align="center"><strong>12 B</strong></h6>
         </div>
 
-        <table id="exp" class="" style="width: 100%;">
+        <table id="example" class="display" style="width: 100%;">
             <thead>
                 <tr>
                     <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
@@ -210,7 +215,7 @@
         </table>
         <div class="col-auto mbr-section-btn align-center">
             <button type="cancel" class="btn btn-sescondary display-4"
-                onclick="location.href = 'login.html';">Cancel</button>
+                onclick="location.href = 'teacher_controls.html';">Cancel</button>
             <button type="submit" class="btn btn-primary display-4" onclick="send()">Send</button>
         </div>
         </div>
@@ -230,8 +235,6 @@
     <section
         style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;">
         <a href="https://mobirise.site/t" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
-        <p style="flex: 0 0 auto; margin:0; padding-right:1rem;"><a href="https://mobirise.site/q"
-                style="color:#aaa;">This page</a> was created with Mobirise templates</p>
     </section>
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/web/assets/cookies-alert-plugin/cookies-alert-core.js"></script>
