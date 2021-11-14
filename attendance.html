@@ -132,8 +132,8 @@ validate();
             }
             var TBLNAME = prompt("Name this attendance");
             var x = new XMLHttpRequest();
-            //x.open("POST", "https://ms-attendancemonitor.herokuapp.com/attendancemark");
-            x.open("POST", "http://localhost:8080/attendancemark");
+            x.open("POST", "https://ms-attendancemonitor.herokuapp.com/attendancemark");
+            //x.open("POST", "http://localhost:8080/attendancemark");
             x.send(JSON.stringify({
                 uids: a,
                 tblname: TBLNAME
@@ -145,6 +145,7 @@ validate();
                 }
                 else {
                     alert("Attendance marked✅");
+                    window.location.replace("./teacher_controls.html");
                 }
             };
         }
