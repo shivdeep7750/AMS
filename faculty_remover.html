@@ -10,6 +10,10 @@
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
   <script type="text/javascript" >
+        function clearall() {
+        document.getElementById("mail").value = "";
+        document.getElementById("UID").value = "";
+    }
     function validate() {
             var x1 = new XMLHttpRequest();
     
@@ -50,6 +54,9 @@ function dele() {
         x.onload = function () {
             if (x.status != 200) {
                 alert("Failed to delete any relevent entry!");
+            }
+            else{
+                clearall();
             }
         };
     }
