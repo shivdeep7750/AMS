@@ -99,9 +99,9 @@
             var tbr = document.getElementById('bdy');
             var name_class = "attendance_TEMP2021_11_12_20_46_30";///////////////////////////////
             var x = new XMLHttpRequest();
-            x.open("POST", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + name_class);
-            x.setRequestHeader("resId", sessionStorage.getItem('resId'));
-            x.setRequestHeader("userType", sessionStorage.getItem('userType'));
+            x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + name_class);
+           // x.setRequestHeader("resId", sessionStorage.getItem('resId'));
+            //x.setRequestHeader("userType", sessionStorage.getItem('userType'));
             //x.responseType = "blob";
             x.send();
             x.onload = function () {
