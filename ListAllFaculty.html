@@ -73,6 +73,9 @@
                             newCell = newRow.insertCell();
                             newText = document.createTextNode(i.Email);
                             newCell.appendChild(newText);
+                            newCell = newRow.insertCell();
+                            newText = document.createTextNode(i.Mobile);
+                            newCell.appendChild(newText);
                         });
 
                     }
@@ -160,6 +163,8 @@
                         style="width: 212px;" >UID</th>
                         <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
                         style="width: 212px;" >Email</th>
+                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                        style="width: 212px;" >Mobile</th>
                     
             </thead>
             <tbody id="bdy">
