@@ -33,12 +33,11 @@
                     x.abort();
                 }
                 else {
-                    console.log(x.response);
-
                     if (null == tbr)
                         console.log(0);
                     else {
                         var result = (JSON.parse(x.response).result);
+                        console.log(result);
                         result.forEach(i => {
                             var newRow = tbr.insertRow();
                             newRow.setAttribute("value", i.UID, 0);
