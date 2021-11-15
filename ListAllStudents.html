@@ -97,12 +97,11 @@
     <script type="text/javascript">
         function newrow() {
             var tbr = document.getElementById('bdy');
-            var name_class = "attendance_TEMP2021_11_12_20_46_30";///////////////////////////////
+            var tblname = "students";///////////////////////////////
             var x = new XMLHttpRequest();
-            x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + name_class);
+            x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + tblname);
             x.setRequestHeader("resId", sessionStorage.getItem('resId'));
             x.setRequestHeader("userType", sessionStorage.getItem('userType'));
-            //x.responseType = "blob";
             x.send();
             x.onload = function () {
                 if (x.status != 200) {
@@ -118,7 +117,7 @@
                             return;
                         }
                         var result = JSON.parse(x.response).result;
-                     
+                      
                         console.log(x.response);
                         result.forEach(i => {
                             var newRow = tbr.insertRow();
@@ -130,10 +129,7 @@
                                 newRow.className = "odd";
                             var newCell = newRow.insertCell();
                             newCell.className = "sorting_1";
-                            var newText = document.createTextNode(i.UID);
-                            newCell.appendChild(newText);
-                            newCell = newRow.insertCell();
-                            newText = document.createTextNode(i.UID);
+                            var newText = document.createTextNode(i.Name);
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
                             newText = document.createTextNode(i.UID);
@@ -150,10 +146,9 @@
         function validate() {
             var x1 = new XMLHttpRequest();
             x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
-            //x.open("GET", "http://localhost:8080/checkstatus/ADMIN");
             x1.send(JSON.stringify({
                 Sid: sessionStorage.getItem('resId'),
-                type: "faculty"
+                type: "ADMIN"
             }));
             x1.onload = function () {
                 if (x1.status != 200) {
@@ -168,7 +163,7 @@
         validate();
     </script>
 
-    <title>Attendance List</title>
+    <title>Student List</title>
 
     <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -213,7 +208,7 @@
     </section>
     <section id="features9-13" data-bs-version="5.1" class=" cid-sOhBxcVSZw">
         <div>
-            <h6 class="card-title mbr-fonts-style display-5" align="center"><strong>12 B</strong></h6>
+            <h6 class="card-title mbr-fonts-style display-5" align="center"><strong>Students</strong></h6>
         </div>
 
         <table id="example" class="display" style="width: 100%;">
@@ -224,17 +219,15 @@
                         aria-label="Name: activate to sort column descending">Name</th>
                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
                         style="width: 212px;" aria-label="Position: activate to sort column ascending">UID</th>
-                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                        style="width: 99px;" aria-label="Office: activate to sort column ascending">Presence %</th>
+                    
             </thead>
             <tbody id="bdy">
 
             </tbody>
         </table>
         <div class="col-auto mbr-section-btn align-center">
-            <button type="cancel" class="btn btn-sescondary display-4"
-                onclick="location.href = 'teacher_controls.html';">Cancel</button>
-            <button type="submit" class="btn btn-primary display-4" onclick="send()">Send</button>
+            <button type="back" class="btn btn-sescondary display-4"
+                onclick="location.href = 'admin_controls.html';">Back</button>
         </div>
         </div>
     </section>
