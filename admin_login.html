@@ -16,12 +16,12 @@
         window.location.replace("./index.html");
     }
     function logout() {
-        var x = new XMLHttpRequest();
-        x.open("GET", "https://ms-attendancemonitor.herokuapp.com/logout");
+        var x1 = new XMLHttpRequest();
+        x1.open("GET", "https://ms-attendancemonitor.herokuapp.com/logout");
 
-        x.setRequestHeader("resId", sessionStorage.getItem('resId'));
-        x.responseType = "blob";
-        x.send();
+        x1.setRequestHeader("resId", sessionStorage.getItem('resId'));
+        x1.responseType = "blob";
+        x1.send();
     }
 
     function validate() {

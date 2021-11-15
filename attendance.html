@@ -123,19 +123,19 @@ validate();
                 return;
             }
             var TBLNAME = prompt("Name this attendance");
-            var x = new XMLHttpRequest();
-            x.open("POST", "https://ms-attendancemonitor.herokuapp.com/attendancemark");
+            var x2 = new XMLHttpRequest();
+            x2.open("POST", "https://ms-attendancemonitor.herokuapp.com/attendancemark");
             //x.open("POST", "http://localhost:8080/attendancemark");
-            x.setRequestHeader("resId", sessionStorage.getItem('resId'));
-        x.setRequestHeader("userType", sessionStorage.getItem('userType'));
-        x.responseType = "blob";
+            x2.setRequestHeader("resId", sessionStorage.getItem('resId'));
+        x2.setRequestHeader("userType", sessionStorage.getItem('userType'));
+        x2.responseType = "blob";
             x.send(JSON.stringify({
                 uids: a,
                 tblname: TBLNAME
             }));
-            x.onload = function () {
-                if (x.status == 406) { alert("Attendance failed, kindly retry!"); }
-                else if (x.status != 200) {
+            x2.onload = function () {
+                if (x2.status == 406) { alert("Attendance failed, kindly retry!"); }
+                else if (x2.status != 200) {
                     alert("Something bad happened, Please try again!");
                 }
                 else {
