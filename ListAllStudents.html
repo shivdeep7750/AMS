@@ -36,8 +36,8 @@
             var tblname = "students";///////////////////////////////
             var x = new XMLHttpRequest();
             x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + tblname);
-            x.setRequestHeader("resId", sessionStorage.getItem('resId'));
-            x.setRequestHeader("userType", sessionStorage.getItem('userType'));
+            // x.setRequestHeader("resId", sessionStorage.getItem('resId'));
+            // x.setRequestHeader("userType", sessionStorage.getItem('userType'));
             x.send();
             x.onload = function () {
                 if (x.status != 200) {
