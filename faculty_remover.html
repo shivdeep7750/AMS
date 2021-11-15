@@ -29,9 +29,8 @@ x1.onload = function () {
 validate();
 
 function dele() {
-        const id = document.getElementById("UID").value.toUpperCase();
-        const mail = document.getElementById("mail").value.toLowerCase();
-       console.log(id+" "+mail);
+        var id = document.getElementById("UID").value.toUpperCase();
+        var mail = document.getElementById("mail").value.toLowerCase();
         if (mail == "" || id == "" ) {
             alert("Problem encountered, Kindly cross check!");
             clearall();
@@ -43,15 +42,15 @@ function dele() {
         x.setRequestHeader("userType", sessionStorage.getItem('userType'));
         //x.responseType = "blob";
         x.send(JSON.stringify({
-            id: id,
+            UID: id,
             mail:mail
         }));
         x.onload = function () {
             if (x.status != 200) {
                 alert("Failed to delete any relevent entry!");
-                x.abort();
             }
                 clearall();
+                x.abort();
         };
     }
 
