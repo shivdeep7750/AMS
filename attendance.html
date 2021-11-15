@@ -18,6 +18,35 @@
     </style>
     
     <script type="text/javascript" class="init">
+             var present = new Set();
+        $(document).ready(function () {
+            $("#bdy").on('click', 'tr', function (e) {
+                e.preventDefault();
+                var id = $(this).attr('value');
+                if (present.has(id)) {
+                    present.delete(id);
+                    if($(this).hasClass("odd")){
+                    $(this).css({
+                        'background-color': 'rgb(148, 148, 148)',
+                        'color': 'black',
+                    });}
+                     else{
+                        $(this).css({
+                        'background-color': 'transparent',
+                        'color': 'black',
+                    });
+                     }
+                }
+                else {
+                    present.add(id);
+                    
+                    $(this).css({
+                        'background-color': '#53fc53',
+                        'color': 'white',
+                    });
+                }
+            });
+        });
     function newrow() {
             var tbr = document.getElementById('bdy');
             var name_class = "attendance_TEMP2021_11_12_20_46_30";///////////////////////////////
@@ -86,35 +115,7 @@ x1.onload = function () {
     }
 validate();
 
-        var present = new Set();
-        $(document).ready(function () {
-            $("#bdy").on('click', 'tr', function (e) {
-                e.preventDefault();
-                var id = $(this).attr('value');
-                if (present.has(id)) {
-                    present.delete(id);
-                    if($(this).hasClass("odd")){
-                    $(this).css({
-                        'background-color': 'rgb(148, 148, 148)',
-                        'color': 'black',
-                    });}
-                     else{
-                        $(this).css({
-                        'background-color': 'transparent',
-                        'color': 'black',
-                    });
-                     }
-                }
-                else {
-                    present.add(id);
-                    
-                    $(this).css({
-                        'background-color': '#53fc53',
-                        'color': 'white',
-                    });
-                }
-            });
-        });
+   
         function send() {
             a = Array.from(present);
             if (a.length == 0) {
