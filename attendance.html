@@ -23,11 +23,12 @@
         tr {
             height: 2.5em;
         }
+
         .odd {
             background-color: rgb(148, 148, 148);
         }
     </style>
-    
+
     <script type="text/javascript">
         var present = new Set();
         $(document).ready(function () {
@@ -36,21 +37,22 @@
                 var id = $(this).attr('value');
                 if (present.has(id)) {
                     present.delete(id);
-                    if($(this).hasClass("odd")){
-                    $(this).css({
-                        'background-color': 'rgb(148, 148, 148)',
-                        'color': 'black',
-                    });}
-                     else{
+                    if ($(this).hasClass("odd")) {
                         $(this).css({
-                        'background-color': 'transparent',
-                        'color': 'black',
-                    });
-                     }
+                            'background-color': 'rgb(148, 148, 148)',
+                            'color': 'black',
+                        });
+                    }
+                    else {
+                        $(this).css({
+                            'background-color': 'transparent',
+                            'color': 'black',
+                        });
+                    }
                 }
                 else {
                     present.add(id);
-                    
+
                     $(this).css({
                         'background-color': '#53fc53',
                         'color': 'white',
@@ -58,11 +60,11 @@
                 }
             });
         });
-    
 
-   
+
+
         function send() {
-           var a = Array.from(present);
+            var a = Array.from(present);
             if (a.length == 0) {
                 alert("Seems like a mass bunk🥰");
                 return;
@@ -71,9 +73,9 @@
             var x2 = new XMLHttpRequest();
             x2.open("POST", "https://ms-attendancemonitor.herokuapp.com/attendancemark");
             //x.open("POST", "http://localhost:8080/attendancemark");
-           // x2.setRequestHeader("resId", sessionStorage.getItem('resId'));
-       // x2.setRequestHeader("userType", sessionStorage.getItem('userType'));
-        //x2.responseType = "blob";
+            x2.setRequestHeader("resId", sessionStorage.getItem('resId'));
+            x2.setRequestHeader("userType", sessionStorage.getItem('userType'));
+            x2.responseType = "blob";
             x2.send(JSON.stringify({
                 uids: a,
                 tblname: TBLNAME
@@ -92,77 +94,77 @@
 
     </script>
 
-<script type="text/javascript" >
-function newrow() {
-    var tbr = document.getElementById('bdy');
-    var name_class = "attendance_TEMP2021_11_12_20_46_30";///////////////////////////////
-    var x = new XMLHttpRequest();
-    x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/"+name_class);       
-// x.setRequestHeader("resId", sessionStorage.getItem('resId'));
-//x.setRequestHeader("userType", sessionStorage.getItem('userType'));
-//x.responseType = "blob";
-    x.send();
-    x.onload = function () {
-        if (x.status != 200) {
-            alert("Something bad happened, Please try again!");
-            x.abort();
+    <script type="text/javascript">
+        function newrow() {
+            var tbr = document.getElementById('bdy');
+            var name_class = "attendance_TEMP2021_11_12_20_46_30";///////////////////////////////
+            var x = new XMLHttpRequest();
+            x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + name_class);
+            x.setRequestHeader("resId", sessionStorage.getItem('resId'));
+            x.setRequestHeader("userType", sessionStorage.getItem('userType'));
+            x.responseType = "blob";
+            x.send();
+            x.onload = function () {
+                if (x.status != 200) {
+                    alert("Something bad happened, Please try again!");
+                    x.abort();
+                }
+                else {
+                    if (null == tbr)
+                        console.log(0);
+                    else {
+                        var result = (JSON.parse(x.response).result);
+                        console.log(result);
+                        result.forEach(i => {
+                            var newRow = tbr.insertRow();
+                            newRow.setAttribute("value", i.UID, 0);
+                            var allrows = tbr.getElementsByTagName('tr');
+                            if (allrows.length % 2 == 0)
+                                newRow.className = "even";
+                            else
+                                newRow.className = "odd";
+                            var newCell = newRow.insertCell();
+                            newCell.className = "sorting_1";
+                            var newText = document.createTextNode(i.UID);
+                            newCell.appendChild(newText);
+                            newCell = newRow.insertCell();
+                            newText = document.createTextNode(i.UID);
+                            newCell.appendChild(newText);
+                            newCell = newRow.insertCell();
+                            newText = document.createTextNode(i.UID);
+                            newCell.appendChild(newText);
+                        });
+
+                    }
+
+                    x.abort();
+                }
+            };
         }
-        else {
-            if (null == tbr)
-                console.log(0);
-            else {
-                var result = (JSON.parse(x.response).result);
-                console.log(result);
-                result.forEach(i => {
-                    var newRow = tbr.insertRow();
-                    newRow.setAttribute("value", i.UID, 0);
-                    var allrows = tbr.getElementsByTagName('tr');
-                    if (allrows.length % 2 == 0)
-                        newRow.className = "even";
-                    else
-                        newRow.className = "odd";
-                    var newCell = newRow.insertCell();
-                    newCell.className = "sorting_1";
-                    var newText = document.createTextNode(i.UID);
-                    newCell.appendChild(newText);
-                    newCell = newRow.insertCell();
-                    newText = document.createTextNode(i.UID);
-                    newCell.appendChild(newText);
-                    newCell = newRow.insertCell();
-                    newText = document.createTextNode(i.UID);
-                    newCell.appendChild(newText);
-                });
-                
-            }
 
-            x.abort();
+        function validate() {
+            var x1 = new XMLHttpRequest();
+            x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
+            //x.open("GET", "http://localhost:8080/checkstatus/ADMIN");
+            x1.send(JSON.stringify({
+                Sid: sessionStorage.getItem('resId'),
+                type: "faculty"
+            }));
+            x1.onload = function () {
+                if (x1.status == 406) {
+                    window.location.replace("./index.html");
+                } else {
+                    newrow();
+                }
+                x1.abort();
+            };
+
         }
-    };
-}
-
-function validate() {
-var x1 = new XMLHttpRequest();
-x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
-//x.open("GET", "http://localhost:8080/checkstatus/ADMIN");
-x1.send(JSON.stringify({
-Sid: sessionStorage.getItem('resId'),
-type:"faculty"
-}));
-x1.onload = function () {
-if (x1.status == 406) {
-window.location.replace("./index.html");
-}else{
-newrow();
-}
-x1.abort();
-};
-
-}
-validate();
-</script>
+        validate();
+    </script>
 
     <title>Attendance List</title>
-   
+
     <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
