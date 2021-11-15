@@ -44,9 +44,10 @@ function dele() {
         }
         var x = new XMLHttpRequest();
         x.open("POST", "https://ms-attendancemonitor.herokuapp.com/facultydel");
-      //  x.setRequestHeader("resId", sessionStorage.getItem('resId'));
-        //x.setRequestHeader("userType", sessionStorage.getItem('userType'));
-        //x.responseType = "blob";
+        x.setRequestHeader("resId", sessionStorage.getItem('resId'));
+        x.setRequestHeader("userType", sessionStorage.getItem('userType'));
+        console.log(sessionStorage.getItem('userType'));
+        x.responseType = "blob";
         x.send(JSON.stringify({
             UID: id,
             mail:mail
