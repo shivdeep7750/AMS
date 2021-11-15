@@ -28,10 +28,10 @@ x1.onload = function () {
     }
 validate();
 
-function del() {
+function dele() {
         const id = document.getElementById("UID").value.toUpperCase();
         const mail = document.getElementById("mail").value.toLowerCase();
-       
+       console.log(id+" "+mail);
         if (mail == "" || id == "" ) {
             alert("Problem encountered, Kindly cross check!");
             clearall();
@@ -39,7 +39,6 @@ function del() {
         }
         var x = new XMLHttpRequest();
         x.open("POST", "https://ms-attendancemonitor.herokuapp.com/facultydel");
-        //x.open("POST", "http://localhost:8080/login");
         x.setRequestHeader("resId", sessionStorage.getItem('resId'));
         x.setRequestHeader("userType", sessionStorage.getItem('userType'));
         //x.responseType = "blob";
@@ -90,14 +89,14 @@ function del() {
                 <form  class="mbr-form form-with-styler mx-auto" data-form-title="Form Name">
                     <div class="dragArea row">
                         <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="UID">
-                            <input type="text" name="UID" placeholder="UID" data-form-field="UID" class="form-control" id="UID">
+                            <input type="text" name="UID" placeholder="UID" data-form-field="UID" class="form-control" value="" id="UID">
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="email">
-                            <input type="email" name="email" placeholder="Email" data-form-field="email" class="form-control" id="mail">
+                            <input type="email" name="email" placeholder="Email" data-form-field="email" class="form-control" value="" id="mail">
                         </div>
                         
                         <div class="col-auto mbr-section-btn align-center">
-                            <button class="btn btn-secondary display-4" onclick="del()">Delete</button>
+                            <button class="btn btn-secondary display-4" onclick="dele()">Delete</button>
                             <button type="back" class="btn btn-primary display-4" onclick="location.href = 'admin_controls.html';">Back</button></div>
                     </div>
                 </form>
