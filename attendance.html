@@ -113,8 +113,8 @@
                     if (null == tbr)
                         console.log(0);
                     else {
-                        var result = (JSON.parse(x.response).result);
-                        console.log(result);
+                        var result = JSON.parse(x.response).result;
+                        console.log(x.response);
                         result.forEach(i => {
                             var newRow = tbr.insertRow();
                             newRow.setAttribute("value", i.UID, 0);
@@ -151,7 +151,7 @@
                 type: "faculty"
             }));
             x1.onload = function () {
-                if (x1.status == 406) {
+                if (x1.status != 200) {
                     window.location.replace("./index.html");
                 } else {
                     newrow();
