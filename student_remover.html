@@ -9,7 +9,59 @@
   <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
   <meta name="description" content="Removes student from database">
   
-  
+  <script type="text/javascript">
+    function clearall() {
+        document.getElementById("mail").value = "";
+        document.getElementById("UID").value = "";
+    }
+    function validate() {
+        var x1 = new XMLHttpRequest();
+
+        x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
+        //x.open("GET", "http://localhost:8080/checkstatus/ADMIN");
+        x1.send(JSON.stringify({
+            Sid: sessionStorage.getItem('resId'),
+            type: "ADMIN"
+        }));
+        x1.onload = function () {
+            if (x1.status == 406) {
+                window.location.replace("./index.html");
+            }
+        };
+
+    }
+    validate();
+</script>
+<script type="text/javascript">
+    function dele() {
+        var id = document.getElementById("UID").value.toUpperCase();
+        var batch = document.getElementById("batch").value.toLowerCase();
+        if (batch == "" || id == "") {
+            alert("Problem encountered, Kindly cross check!");
+            clearall();
+            return;
+        }
+        var x = new XMLHttpRequest();
+        x.open("POST", "https://ms-attendancemonitor.herokuapp.com/studentdel");
+        x.setRequestHeader("resId", sessionStorage.getItem('resId'));
+        x.setRequestHeader("userType", sessionStorage.getItem('userType'));
+        x.responseType = "blob";
+        x.send(JSON.stringify({
+            UID: id,
+            batch: batch
+        }));
+        x.onload = function () {
+            if (x.status != 200) {
+                alert("Failed to delete any relevent entry!");
+            }
+            else {
+                clearall();
+            }
+        };
+    }
+
+</script>
+
   <title>Remove Student</title>
   <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
   <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -47,13 +99,14 @@
                     </div>
                     <div class="dragArea row">
                         <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="name">
-                            <input type="text" name="name" placeholder="UID" data-form-field="name" class="form-control" value="" id="name-form6-1m">
+                            <input type="text" name="UID" placeholder="UID" data-form-field="name" class="form-control" value="" id="UID">
                         </div>
                         <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="email">
-                            <input type="email" name="email" placeholder="Email" data-form-field="email" class="form-control" value="" id="email-form6-1m">
+                            <input type="text" name="batch" placeholder="Batch" data-form-field="batch" class="form-control" value="" id="batch">
                         </div>
                         
-                        <div class="col-auto mbr-section-btn align-center"><button type="submit" class="btn btn-secondary display-4">Delete</button></div>
+                        <div class="col-auto mbr-section-btn align-center"><button type="submit" class="btn btn-secondary display-4" onclick="dele()">Delete</button>
+                            <button type="back" class="btn btn-primary display-4" onclick="location.href = 'admin_controls.html';">Back</button></div>
                     </div>
                 </form>
             </div>

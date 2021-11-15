@@ -51,6 +51,24 @@
                 }
             };
         }
+        function validate() {
+            var x1 = new XMLHttpRequest();
+
+            x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
+            //x.open("GET", "http://localhost:8080/checkstatus/ADMIN");
+            x1.send(JSON.stringify({
+                Sid: sessionStorage.getItem('resId'),
+                type: "ADMIN"
+            }));
+            x1.onload = function () {
+                if (x1.status == 406) {
+                    window.location.replace("./index.html");
+                }
+                // x1.abort();
+            };
+
+        }
+        validate();
 
     </script>
     <title>Add Student</title>
@@ -113,7 +131,7 @@
                             <div class="col-auto mbr-section-btn align-center"><button type="submit"
                                     class="btn btn-primary display-4" onclick="add()">Add</button>
                                 <button type="back" class="btn btn-secondary display-4"
-                                    onclick="admin_controls.html">Cancel</button>
+                                    onclick="admin_controls.html">Back</button>
                             </div>
                         </div>
                     </form>
