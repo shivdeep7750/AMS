@@ -23,9 +23,9 @@
             var name_class = "attendance_TEMP2021_11_12_20_46_30";///////////////////////////////
             var x = new XMLHttpRequest();
             x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/"+name_class);       
-        x.setRequestHeader("resId", sessionStorage.getItem('resId'));
-        x.setRequestHeader("userType", sessionStorage.getItem('userType'));
-        x.responseType = "blob";
+       // x.setRequestHeader("resId", sessionStorage.getItem('resId'));
+        //x.setRequestHeader("userType", sessionStorage.getItem('userType'));
+        //x.responseType = "blob";
             x.send();
             x.onload = function () {
                 if (x.status != 200) {
@@ -125,9 +125,9 @@ validate();
             var x2 = new XMLHttpRequest();
             x2.open("POST", "https://ms-attendancemonitor.herokuapp.com/attendancemark");
             //x.open("POST", "http://localhost:8080/attendancemark");
-            x2.setRequestHeader("resId", sessionStorage.getItem('resId'));
-        x2.setRequestHeader("userType", sessionStorage.getItem('userType'));
-        x2.responseType = "blob";
+           // x2.setRequestHeader("resId", sessionStorage.getItem('resId'));
+       // x2.setRequestHeader("userType", sessionStorage.getItem('userType'));
+        //x2.responseType = "blob";
             x.send(JSON.stringify({
                 uids: a,
                 tblname: TBLNAME
