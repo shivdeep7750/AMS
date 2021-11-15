@@ -52,6 +52,9 @@ validate();
                 return;
             }
             else {
+                sessionStorage.setItem('resId',null);
+                sessionStorage.setItem('userID',null);
+                sessionStorage.setItem('userType',null);
 window.location.replace("./index.html");
             }
         };
@@ -147,7 +150,8 @@ window.location.replace("./index.html");
                 </div>
             </div>
         </div>
-
+<table>
+    <tr>
         <div class="card">
             <div class="card-wrapper">
                 <div class="row align-items-center">
@@ -176,7 +180,38 @@ window.location.replace("./index.html");
                 </div>
             </div>
         </div>
-
+        </tr>
+        <tr>
+            <div class="card">
+                <div class="card-wrapper">
+                    <div class="row align-items-center">
+                        <div class="col-12 col-md-4">
+                            <div class="image-wrapper">
+                                <img src="assets/images/mbr-815x434.png" >
+                            </div>
+                        </div>
+                        <div class="col-12 col-md">
+                            <div class="card-box">
+                                <div class="row">
+                                    <div class="col-md">
+                                        <h6 class="card-title mbr-fonts-style display-5"><strong>12 B</strong></h6>
+                                        <p class="mbr-text mbr-fonts-style display-7">Manage Attendance</p>
+                                    </div>
+                                    <div class="col-md-auto">
+                                        <div class="mbr-section-btn"><button onclick="gotopage('attendance.html')" class="btn btn-primary display-4">Take Attendance</button> 
+                                            <button href="" class="btn btn-primary display-4">View Stats</button> 
+                                            <button href="" class="btn btn-primary display-4">Edit</button>
+                                             <button href="" class="btn btn-primary display-4">Remove</button></div>
+                                    </div>
+                                    <div></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            </tr>
+</table>
         
     </div>
 </section>

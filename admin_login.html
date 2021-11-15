@@ -21,15 +21,16 @@
 
         x.setRequestHeader("resId", sessionStorage.getItem('resId'));
         x.responseType = "blob";
-        //x.open("DELETE", "http://localhost:8080/logout");
         x.send();
     }
 
     function validate() {
  ///if any session (may) exist, then log it out
         if(sessionStorage.getItem('resId')!=null){
-            logout();
+            logout();    
             sessionStorage.setItem('resId',null);
+                sessionStorage.setItem('userID',null);
+                sessionStorage.setItem('userType',null);
         }
     }
 validate();
@@ -71,6 +72,8 @@ validate();
             }
             else {
                 sessionStorage.setItem('resId',x.response);
+                sessionStorage.setItem('userType','ADMIN');
+                
                 window.location.replace("./admin_controls.html");
                 /////////////////
             }

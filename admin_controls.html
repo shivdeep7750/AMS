@@ -37,7 +37,6 @@ type:"ADMIN"
 }));
 x1.onload = function () {
     if (x1.status == 406) {
-        console.log(x1.response);
         window.location.replace("./index.html");
     }
     x1.abort();
@@ -62,6 +61,9 @@ validate();
                 return;
             }
             else {
+                sessionStorage.setItem('resId',null);
+                sessionStorage.setItem('userID',null);
+                sessionStorage.setItem('userType',null);
 window.location.replace("./index.html");
             }
         };
