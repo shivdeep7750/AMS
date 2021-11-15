@@ -102,7 +102,7 @@
             x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + name_class);
             x.setRequestHeader("resId", sessionStorage.getItem('resId'));
             x.setRequestHeader("userType", sessionStorage.getItem('userType'));
-            x.responseType = "blob";
+            //x.responseType = "blob";
             x.send();
             x.onload = function () {
                 if (x.status != 200) {
