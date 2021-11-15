@@ -33,7 +33,7 @@
     <script type="text/javascript">
         function newrow() {
             var tbr = document.getElementById('bdy');
-            var tblname = "students";///////////////////////////////
+            var tblname = "faculty";///////////////////////////////
             var x = new XMLHttpRequest();
             x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + tblname);
             // x.setRequestHeader("resId", sessionStorage.getItem('resId'));
@@ -71,7 +71,7 @@
                             newText = document.createTextNode(i.UID);
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
-                            newText = document.createTextNode(i.Batch);
+                            newText = document.createTextNode(i.Email);
                             newCell.appendChild(newText);
                         });
 
@@ -147,7 +147,7 @@
     </section>
     <section id="features9-13" data-bs-version="5.1" class=" cid-sOhBxcVSZw">
         <div>
-            <h6 class="card-title mbr-fonts-style display-5" align="center"><strong>Students</strong></h6>
+            <h6 class="card-title mbr-fonts-style display-5" align="center"><strong>Faculties</strong></h6>
         </div>
 
         <table id="example" class="display" style="width: 100%;">
@@ -159,7 +159,7 @@
                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
                         style="width: 212px;" >UID</th>
                         <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                        style="width: 212px;" >Batch</th>
+                        style="width: 212px;" >Email</th>
                     
             </thead>
             <tbody id="bdy">
