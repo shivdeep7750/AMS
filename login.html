@@ -20,9 +20,7 @@
     function logout() {
         var x1 = new XMLHttpRequest();
         x1.open("GET", "https://ms-attendancemonitor.herokuapp.com/logout");
-
         x1.setRequestHeader("resId", sessionStorage.getItem('resId'));
-        
         x1.responseType = "blob";
         x1.send();
     }
@@ -32,15 +30,15 @@
         if(sessionStorage.getItem('resId')!=null){
             logout();
             sessionStorage.setItem('resId',null);
-              //  sessionStorage.setItem('userID',null);
-              //  sessionStorage.setItem('userType',null);
+          sessionStorage.setItem('userID',null);
+              sessionStorage.setItem('userType',null);
         
         }
     }
 validate();
 
     function login() {
-        const id = document.getElementById("UID").value.toUpperCase();
+        const id = document.getElementById("UID").value;
         const type = "faculty";
         const pass = document.getElementById("password").value;
        
@@ -73,7 +71,7 @@ validate();
             else {
                 sessionStorage.setItem('resId',x.response);
                 sessionStorage.setItem('userID',id);
-               // sessionStorage.setItem('userType','faculty');
+                sessionStorage.setItem('userType','faculty');
                 console.log("Logged In");
 window.location.replace("./teacher_controls.html");
                 /////////////////
