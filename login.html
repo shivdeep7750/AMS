@@ -10,6 +10,34 @@
   
   <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
   <script type="text/javascript">
+
+function clearall() {
+        document.getElementById("password").value = "";
+        document.getElementById("UID").value = "";
+    }
+    function back(){
+        window.location.replace("./index.html");
+    }
+    function logout() {
+        var x1 = new XMLHttpRequest();
+        x1.open("GET", "https://ms-attendancemonitor.herokuapp.com/logout");
+        x1.setRequestHeader("resId", sessionStorage.getItem('resId'));
+        x1.responseType = "blob";
+        x1.send();
+    }
+
+    function validate() {
+ ///if any session (may) exist, then log it out
+        if(sessionStorage.getItem('resId')!=null){
+            logout();
+            sessionStorage.setItem('resId',null);
+          sessionStorage.setItem('userID',null);
+              sessionStorage.setItem('userType',null);
+        
+        }
+    }
+validate();
+
          function login() {
         const id = document.getElementById("UID").value;
         const type = "faculty";
@@ -50,32 +78,7 @@ window.location.replace("./teacher_controls.html");
             }
         };
     }
-    function clearall() {
-        document.getElementById("password").value = "";
-        document.getElementById("UID").value = "";
-    }
-    function back(){
-        window.location.replace("./index.html");
-    }
-    function logout() {
-        var x1 = new XMLHttpRequest();
-        x1.open("GET", "https://ms-attendancemonitor.herokuapp.com/logout");
-        x1.setRequestHeader("resId", sessionStorage.getItem('resId'));
-        x1.responseType = "blob";
-        x1.send();
-    }
-
-    function validate() {
- ///if any session (may) exist, then log it out
-        if(sessionStorage.getItem('resId')!=null){
-            logout();
-            sessionStorage.setItem('resId',null);
-          sessionStorage.setItem('userID',null);
-              sessionStorage.setItem('userType',null);
-        
-        }
-    }
-validate();
+  
 
  
 </script>
@@ -111,6 +114,11 @@ validate();
         <div class="row justify-content-center mt-4">
             <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
                 <form class="mbr-form form-with-styler mx-auto" data-form-title="Form Name">
+                    <div class="row">
+                        <div hidden="hidden" data-form-alert="" class="alert alert-success col-12"></div>
+                        <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">Oops...! some
+                            problem!</div>
+                    </div>
                     <div class="dragArea row">
                         <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="UID">
                             <input type="text" name="UID" placeholder="UID" data-form-field="UID" class="form-control" value="" id="UID">
