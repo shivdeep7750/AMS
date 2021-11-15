@@ -31,6 +31,8 @@
             var x = new XMLHttpRequest();
             x.open("POST", "https://ms-attendancemonitor.herokuapp.com/addstudent");
             //x.open("POST", "http://localhost:8080/addstudent");
+            x.setRequestHeader("resId", sessionStorage.getItem('resId'));
+        x.setRequestHeader("userType", sessionStorage.getItem('userType'));
             x.send(JSON.stringify({
                 name: name,
                 UID: UID,
@@ -38,7 +40,7 @@
                 batch: batch
             }));
             x.onload = function () {
-                if (x.status != 200 || x.response.status=="ERROR") {
+                if (x.status != 200) {
                     alert("Something bad happened with network, Please try again!\n Error Code:"+x.status);
                     document.getElementById("UID").value = "";
             x.abort();
