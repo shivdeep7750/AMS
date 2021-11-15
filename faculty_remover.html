@@ -20,7 +20,7 @@ type:"ADMIN"
 }));
 x1.onload = function () {
     if (x1.status == 406) {
-       // window.location.replace("./index.html");
+        window.location.replace("./index.html");
     }
     x1.abort();
 };
@@ -42,7 +42,7 @@ function del() {
         //x.open("POST", "http://localhost:8080/login");
         x.setRequestHeader("resId", sessionStorage.getItem('resId'));
         x.setRequestHeader("userType", sessionStorage.getItem('userType'));
-        x.responseType = "blob";
+        //x.responseType = "blob";
         x.send(JSON.stringify({
             id: id,
             mail:mail
@@ -96,7 +96,8 @@ function del() {
                             <input type="email" name="email" placeholder="Email" data-form-field="email" class="form-control" id="mail">
                         </div>
                         
-                        <div class="col-auto mbr-section-btn align-center"><button type="submit" class="btn btn-secondary display-4" onclick="del()">Delete</button>
+                        <div class="col-auto mbr-section-btn align-center">
+                            <button class="btn btn-secondary display-4" onclick="del()">Delete</button>
                             <button type="back" class="btn btn-primary display-4" onclick="location.href = 'admin_controls.html';">Back</button></div>
                     </div>
                 </form>
