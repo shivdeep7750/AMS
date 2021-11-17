@@ -130,16 +130,16 @@
 
 
         function delclass(ClassName) {
-            var x4 = new XMLHttpRequest();
-            x4.open("POST", "https://ms-attendancemonitor.herokuapp.com/delclass");
-            x4.setRequestHeader("resId", sessionStorage.getItem('resId'));
-            x4.setRequestHeader("userType", sessionStorage.getItem('userType'));
-            x4.send(JSON.stringify({
+            var x5 = new XMLHttpRequest();
+            x5.open("POST", "https://ms-attendancemonitor.herokuapp.com/delclass");
+            x5.setRequestHeader("resId", sessionStorage.getItem('resId'));
+            x5.setRequestHeader("userType", sessionStorage.getItem('userType'));
+            x5.send(JSON.stringify({
                 UID: facultyID,
                 Class: ClassName
-            });
-            x4.onload = function () {
-                if (x4.status != 200) {
+            }));
+            x5.onload = function () {
+                if (x5.status != 200) {
                     alert("Failed to delete class!");
                 }
                 else {
