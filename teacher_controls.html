@@ -18,7 +18,6 @@
             var tblname = facultyID;///////////////////////////////
             var x2 = new XMLHttpRequest();
             x2.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + tblname);
-      
             x2.send();
             x2.onload = function () {
                 if (x2.status != 200) {
@@ -61,7 +60,7 @@
             }));
             x1.onload = function () {
                 if (x1.status == 406) {
-                    window.location.replace("./index.html");
+                   // window.location.replace("./index.html");
                 }
                 else {
                     facultyID = sessionStorage.getItem('userID');
@@ -79,7 +78,6 @@
             var x = new XMLHttpRequest();
             x.open("GET", "https://ms-attendancemonitor.herokuapp.com/logout");
             x.setRequestHeader("resId", sessionStorage.getItem('resId'));
-            x.responseType = "blob";
             //x.open("DELETE", "http://localhost:8080/logout");
             x.send();
             x.onloadend = function () {
@@ -95,6 +93,31 @@
                     window.location.replace("./index.html");
                 }
             };
+        }
+
+        function createclass(){
+        var ClassName = document.getElementById("ClassName").value;
+        if (ClassName == "") {
+            alert("Give class a valid name!");
+            return;
+        }
+        var x4 = new XMLHttpRequest();
+        x4.open("POST", "https://ms-attendancemonitor.herokuapp.com/studentdel");
+        x4.setRequestHeader("resId", sessionStorage.getItem('resId'));
+        x4.setRequestHeader("userType", sessionStorage.getItem('userType'));
+        x4.send(JSON.stringify({
+            UID: id,
+            Section: ClassName
+        }));
+        x4.onload = function () {
+            if (x4.status != 200) {
+                alert("Failed to create class, Kindly try with a diffrent name!");
+            }
+            else {
+                document.getElementById("ClassName").value="";
+                location.reload(); 
+            }
+        };
         }
 
     </script>
@@ -191,10 +214,10 @@
                                         </h6>
                                         <p class="mbr-text mbr-fonts-style display-7">Create</p>
                                     </div>
-                                    <div class="col-md-auto">
-
-                                        <div class="mbr-section-btn"><button onclick="location.href = 'NewClass.html';"
-                                                class="btn btn-primary display-4">Create New Class</button></div>
+                                    <div class="row-md-auto">
+                                            <input type="text" name="ClassName" placeholder="Class Name (Class names can't be reused!)" data-form-field="ClassName" class="form-control" value="" id="ClassName">
+                                            <button onclick="createclass()"
+                                                class="btn btn-success-outline display-3">Create New Class</button>
                                     </div>
                                     <div></div>
                                 </div>
