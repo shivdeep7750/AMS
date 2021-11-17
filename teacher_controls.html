@@ -109,7 +109,7 @@
                 }
             }
             var x4 = new XMLHttpRequest();
-            x4.open("POST", "https://ms-attendancemonitor.herokuapp.com/studentdel");
+            x4.open("POST", "https://ms-attendancemonitor.herokuapp.com/createclass");
             x4.setRequestHeader("resId", sessionStorage.getItem('resId'));
             x4.setRequestHeader("userType", sessionStorage.getItem('userType'));
             x4.send(JSON.stringify({
