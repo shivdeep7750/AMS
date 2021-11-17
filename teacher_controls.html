@@ -10,11 +10,11 @@
     <meta name="description" content="">
 
     <script type="text/javascript">
-                var facultyID;
+        var facultyID;
 
-      function newrow() {
+        function newrow() {
             var tbr = document.getElementById('bdy');
-                             
+
             var tblname = facultyID;///////////////////////////////
             var x2 = new XMLHttpRequest();
             x2.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + tblname);
@@ -28,7 +28,7 @@
                     if (null == tbr)
                         console.log(0);
                     else {
-                        if(x2.response==undefined){
+                        if (x2.response == undefined) {
                             alert("Probably an OPTIONS ERROR, Please try refresh to see data!");
                             return;
                         }
@@ -36,8 +36,8 @@
                         console.log(x2.response);
                         result.forEach(i => {
                             var newRow = tbr.insertRow();
-                            newRow.setAttribute("value",i.Section, 0);
-                            newRow.innerHTML+='<div class="card"> <div class="card-wrapper"> <div class="row align-items-center"> <div class="col-12 col-md-4"> <div class="image-wrapper"> <img src="assets/images/mbr-815x434.png"> </div> </div> <div class="col-12 col-md"> <div class="card-box"> <div class="row"> <div class="col-md"> <h6 class="card-title mbr-fonts-style display-5"><strong>'+i.Section+'</strong> </h6> <p class="mbr-text mbr-fonts-style display-7">Manage Attendance</p> </div> <div class="col-md-auto"> <div class="mbr-section-btn"><button onclick="attendance('+i.Section+')" class="btn btn-primary display-4">Take Attendance</button> <button href="" class="btn btn-primary display-4">View Stats</button> <button href="" class="btn btn-primary display-4">Edit</button> <button href="" class="btn btn-primary display-4">Remove</button> </div> </div> <div></div> </div> </div> </div> </div> </div> </div>';
+                            newRow.setAttribute("value", i.Section, 0);
+                            newRow.innerHTML += '<div class="card"> <div class="card-wrapper"> <div class="row align-items-center"> <div class="col-12 col-md-4"> <div class="image-wrapper"> <img src="assets/images/mbr-815x434.png"> </div> </div> <div class="col-12 col-md"> <div class="card-box"> <div class="row"> <div class="col-md"> <h6 class="card-title mbr-fonts-style display-5"><strong>' + i.Section + '</strong> </h6> <p class="mbr-text mbr-fonts-style display-7">Manage Attendance</p> </div> <div class="col-md-auto"> <div class="mbr-section-btn"><button onclick="attendance(' + i.Section + ')" class="btn btn-primary display-4">Take Attendance</button> <button href="" class="btn btn-primary display-4">View Stats</button> <button href="" class="btn btn-primary display-4">Edit</button> <button href="" class="btn btn-primary display-4">Remove</button> </div> </div> <div></div> </div> </div> </div> </div> </div> </div>';
                         });
 
                     }
@@ -46,7 +46,7 @@
             };
         }
         function attendance(page) {
-            sessionStorage.setItem('curSection',page);
+            sessionStorage.setItem('curSection', page);
             window.location.replace("./" + attendance.html);
         }
         function validate() {
@@ -95,29 +95,36 @@
             };
         }
 
-        function createclass(){
-        var ClassName = document.getElementById("ClassName").value;
-        if (ClassName == "") {
-            alert("Give class a valid name!");
-            return;
-        }
-        var x4 = new XMLHttpRequest();
-        x4.open("POST", "https://ms-attendancemonitor.herokuapp.com/studentdel");
-        x4.setRequestHeader("resId", sessionStorage.getItem('resId'));
-        x4.setRequestHeader("userType", sessionStorage.getItem('userType'));
-        x4.send(JSON.stringify({
-            UID: facultyID,
-            Section: ClassName
-        }));
-        x4.onload = function () {
-            if (x4.status != 200) {
-                alert("Failed to create class, Kindly try with a diffrent name!");
+        function createclass() {
+            var ClassName = document.getElementById("ClassName").value;
+            if (ClassName == "") {
+                alert("Give class a valid name!");
+                return;
             }
-            else {
-                document.getElementById("ClassName").value="";
-                location.reload(); 
+            var i = ClassName.length;
+            while (i--) {
+                if (ClassName.charAt(i) == ' ') {
+                    alert("White spaces not allowed!");
+                    return;
+                }
             }
-        };
+            var x4 = new XMLHttpRequest();
+            x4.open("POST", "https://ms-attendancemonitor.herokuapp.com/studentdel");
+            x4.setRequestHeader("resId", sessionStorage.getItem('resId'));
+            x4.setRequestHeader("userType", sessionStorage.getItem('userType'));
+            x4.send(JSON.stringify({
+                UID: facultyID,
+                Section: ClassName
+            }));
+            x4.onload = function () {
+                if (x4.status != 200) {
+                    alert("Failed to create class, Kindly try with a diffrent name!");
+                }
+                else {
+                    document.getElementById("ClassName").value = "";
+                    location.reload();
+                }
+            };
         }
 
     </script>
@@ -215,9 +222,11 @@
                                         <p class="mbr-text mbr-fonts-style display-7">Create</p>
                                     </div>
                                     <div class="row-md-auto">
-                                            <input type="text" name="ClassName" placeholder="Class Name (Class names can't be reused!)" data-form-field="ClassName" class="form-control" value="" id="ClassName">
-                                            <button onclick="createclass()"
-                                                class="btn btn-success-outline display-3">Create New Class</button>
+                                        <input type="text" name="ClassName"
+                                            placeholder="Class Name (Class names can't be reused!)"
+                                            data-form-field="ClassName" class="form-control" value="" id="ClassName">
+                                        <button onclick="createclass()" class="btn btn-success-outline display-3">Create
+                                            New Class</button>
                                     </div>
                                     <div></div>
                                 </div>
@@ -253,7 +262,8 @@
     </section>
     <section
         style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;">
-        <a href="https://mobirise.site/u" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a></section>
+        <a href="https://mobirise.site/u" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
+    </section>
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
     <script src="assets/web/assets/cookies-alert-plugin/cookies-alert-core.js"></script>
     <script src="assets/web/assets/cookies-alert-plugin/cookies-alert-script.js"></script>
