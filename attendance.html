@@ -97,7 +97,7 @@
     <script type="text/javascript">
         function newrow() {
             var tbr = document.getElementById('bdy');
-            var name_class = "Class_"+sessionStorage.getItem('userID')+"_"+sessionStorage.getItem('curSection');
+            var name_class = "class_"+sessionStorage.getItem('userID')+"_"+sessionStorage.getItem('curSection');
             var x = new XMLHttpRequest();
             x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + name_class);
             x.send();
