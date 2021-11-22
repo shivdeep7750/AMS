@@ -129,7 +129,7 @@
         function allstudentrows(){
             var tbrAll = document.getElementById('bdy1');
             var x6 = new XMLHttpRequest();
-            x6.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/"+Section);
+            x6.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/class_"+sessionStorage.getItem('userID')+"_"+Section);
             x6.send();
             x6.onload = function () {
                 if (x6.status != 200) {
