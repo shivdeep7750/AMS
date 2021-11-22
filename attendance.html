@@ -144,13 +144,13 @@
                                 newRow.className = "odd";
                             var newCell = newRow.insertCell();
                             newCell.className = "sorting_1";
-                            var newText = document.createTextNode(i.UID);
+                            var newText = document.createTextNode(i.Name);
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
-                            newText = document.createTextNode(i.Name);
+                            newText = document.createTextNode(i.UID);
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
-                            newText = document.createTextNode(i.Present);
+                            newText = document.createTextNode(i.Attendance);
                             newCell.appendChild(newText);
                         });
                     }
