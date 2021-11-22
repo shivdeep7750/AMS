@@ -78,7 +78,8 @@
             x2.responseType = "blob";
             x2.send(JSON.stringify({
                 uids: a,
-                tblname: TBLNAME
+                tblname: TBLNAME,
+                Section: sessionStorage.getItem('curSection')
             }));
             x2.onload = function () {
                 if (x2.status == 406) { alert("Attendance failed, kindly retry!"); }
@@ -156,6 +157,7 @@
                 if (x1.status != 200) {
                     window.location.replace("./index.html");
                 } else {
+                    document.getElementById('namebanner').innerHTML = "<strong>" + sessionStorage.getItem('curSection') + "</strong>";
                     newrow();
                 }
                 x1.abort();
@@ -210,7 +212,7 @@
     </section>
     <section id="features9-13" data-bs-version="5.1" class=" cid-sOhBxcVSZw">
         <div>
-            <h6 class="card-title mbr-fonts-style display-5" align="center"><strong>12 B</strong></h6>
+            <h6 class="card-title mbr-fonts-style display-5" align="center" id="namebanner"><strong>12 B</strong></h6>
         </div>
 
         <table id="example" class="display" style="width: 100%;">
