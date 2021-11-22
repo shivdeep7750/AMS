@@ -144,7 +144,7 @@
                         }
                         var result = JSON.parse(x6.response).result;
                             result.forEach(i => {
-                                if(temp.has(i.UID)){continue;}
+                                if(!temp.has(i.UID)){
                             var newRow = tbrAll.insertRow();
                             newRow.setAttribute("value", i.UID, 0);
                             var allrows = tbrAll.getElementsByTagName('tr');
@@ -160,7 +160,7 @@
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
                             newText = document.createTextNode(i.Batch);
-                            newCell.appendChild(newText);
+                            newCell.appendChild(newText);}
                         });
                     }
                 }
