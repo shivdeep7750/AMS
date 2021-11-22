@@ -100,6 +100,8 @@
             x2.open("POST", "https://ms-attendancemonitor.herokuapp.com/updateclasslist");
             x2.setRequestHeader("resId", sessionStorage.getItem('resId'));
             x2.setRequestHeader("userType", sessionStorage.getItem('userType'));
+            x2.setRequestHeader("uname", sessionStorage.getItem('userID'));
+
             x2.send(JSON.stringify({
                 tbr: tbr,
                 tba: tba,
