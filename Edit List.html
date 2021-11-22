@@ -201,10 +201,10 @@
                                 newRow.className = "odd";
                             var newCell = newRow.insertCell();
                             newCell.className = "sorting_1";
-                            var newText = document.createTextNode(i.Name);
+                            var newText = document.createTextNode(i.UID);
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
-                            newText = document.createTextNode(i.UID);
+                            newText = document.createTextNode(i.Attendance);
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
                      
@@ -293,9 +293,9 @@
             <thead>
                 <tr>
                     <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                        style="width: 133px;" aria-sort="ascending" >Name</th>
+                        style="width: 133px;" aria-sort="ascending" >UID</th>
                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                        style="width: 212px;" >UID</th>
+                        style="width: 212px;" >Attendance Count</th>
             </thead>
             <tbody id="bdy">
 
