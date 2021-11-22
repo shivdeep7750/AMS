@@ -27,16 +27,19 @@
         .odd {
             background-color: rgb(148, 148, 148);
         }
+        .float-child {
+    float: left;}
     </style>
 
     <script type="text/javascript">
-        var present = new Set();
+        var remove = new Set();
+        var add = new Set();        
         $(document).ready(function () {
             $("#bdy").on('click', 'tr', function (e) {
                 e.preventDefault();
                 var id = $(this).attr('value');
-                if (present.has(id)) {
-                    present.delete(id);
+                if (remove.has(id)) {
+                    remove.delete(id);
                     if ($(this).hasClass("odd")) {
                         $(this).css({
                             'background-color': 'rgb(148, 148, 148)',
@@ -51,7 +54,34 @@
                     }
                 }
                 else {
-                    present.add(id);
+                    remove.add(id);
+
+                    $(this).css({
+                        'background-color': '#e44725',
+                        'color': 'white',
+                    });
+                }
+            });
+            $("#bdy1").on('click', 'tr', function (e) {
+                e.preventDefault();
+                var id = $(this).attr('value');
+                if (add.has(id)) {
+                    add.delete(id);
+                    if ($(this).hasClass("odd")) {
+                        $(this).css({
+                            'background-color': 'rgb(148, 148, 148)',
+                            'color': 'black',
+                        });
+                    }
+                    else {
+                        $(this).css({
+                            'background-color': 'transparent',
+                            'color': 'black',
+                        });
+                    }
+                }
+                else {
+                    add.add(id);
 
                     $(this).css({
                         'background-color': '#53fc53',
@@ -62,45 +92,25 @@
         });
 
 
-
+///////
         function send() {
-            var a = Array.from(present);
-            if (a.length == 0) {
-                alert("Seems like a mass bunk🥰");
-                return;
-            }
-            var TBLNAME = prompt("Name this attendance");
+            var tbr = Array.from(remove);
+            var tba = Array.from(add);
             var x2 = new XMLHttpRequest();
-            x2.open("POST", "https://ms-attendancemonitor.herokuapp.com/attendancemark");
-            //x.open("POST", "http://localhost:8080/attendancemark");
+            x2.open("POST", "https://ms-attendancemonitor.herokuapp.com/updateclasslist");
             x2.setRequestHeader("resId", sessionStorage.getItem('resId'));
             x2.setRequestHeader("userType", sessionStorage.getItem('userType'));
-            x2.responseType = "blob";
             x2.send(JSON.stringify({
-                uids: a,
-                tblname: TBLNAME,
+                tbr: tbr,
+                tba: tba,
                 Section: sessionStorage.getItem('curSection')
             }));
             x2.onload = function () {
-                if (x2.status == 406) { alert("Attendance failed, kindly retry!"); }
+                if (x2.status == 406) { alert("Update failed, kindly retry!"); }
                 else if (x2.status != 200) {
                     alert("Something bad happened, Please try again!");
                 }
-                else {
-                    var sms = new XMLHttpRequest();
-            sms.open("POST", "https://ms-attendancemonitor.herokuapp.com/sendsms");
-            sms.setRequestHeader("resId", sessionStorage.getItem('resId'));
-            sms.setRequestHeader("userType", sessionStorage.getItem('userType'));
-            sms.send(JSON.stringify({
-                Section: sessionStorage.getItem('curSection')
-            }));
-            x2.onload = function () {
-                if(sms.status!=200){alert("SMS Service Failed"); }
-                else {
-                    alert("SMS Delivered");
-                    window.location.replace("./teacher_controls.html");
-                }
-            };
+                else
                     window.location.replace("./teacher_controls.html");
                 }
             };
@@ -108,11 +118,54 @@
 
        
             
-        }
+        
 
     </script>
 
     <script type="text/javascript">
+        var temp = new Set();
+        function allstudentrows(){
+            var tbrAll = document.getElementById('bdy');
+            var x6 = new XMLHttpRequest();
+            x6.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/students");
+            x6.send();
+            x6.onload = function () {
+                if (x6.status != 200) {
+                    alert("Something bad happened, Please try again!");
+                    x6.abort();
+                }
+                else {
+                    if (null == tbrAll)
+                        console.log(0);
+                    else {
+                        if(x6.response==undefined){
+                            alert("Probably an OPTIONS ERROR, Please try refresh to see data!");
+                            return;
+                        }
+                        var result = JSON.parse(x6.response).result;
+                            result.forEach(i => {
+                                if(temp.has(i.UID)){continue;}
+                            var newRow = tbrAll.insertRow();
+                            newRow.setAttribute("value", i.UID, 0);
+                            var allrows = tbrAll.getElementsByTagName('tr');
+                            if (allrows.length % 2 == 0)
+                                newRow.className = "even";
+                            else
+                                newRow.className = "odd";
+                            var newCell = newRow.insertCell();
+                            var newText = document.createTextNode(i.UID);
+                            newCell.appendChild(newText);
+                            newCell = newRow.insertCell();
+                            newText = document.createTextNode(i.Name);
+                            newCell.appendChild(newText);
+                            newCell = newRow.insertCell();
+                            newText = document.createTextNode(i.Batch);
+                            newCell.appendChild(newText);
+                        });
+                    }
+                }
+            };
+        }
         function newrow() {
             var tbr = document.getElementById('bdy');
             var name_class = "class_"+sessionStorage.getItem('userID')+"_"+sessionStorage.getItem('curSection');
@@ -136,6 +189,7 @@
                      
                         console.log(x.response);
                         result.forEach(i => {
+                            temp.add(i.UID);
                             var newRow = tbr.insertRow();
                             newRow.setAttribute("value", i.UID, 0);
                             var allrows = tbr.getElementsByTagName('tr');
@@ -151,27 +205,28 @@
                             newText = document.createTextNode(i.Name);
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
-                            newText = document.createTextNode(i.Present);
-                            newCell.appendChild(newText);
+                     
                         });
                     }
-
-                   // x.abort();
+                    allstudentrows();
                 }
             };
+
+
+          
+
         }
 
         function validate() {
             var x1 = new XMLHttpRequest();
             x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
-            //x.open("GET", "http://localhost:8080/checkstatus/ADMIN");
             x1.send(JSON.stringify({
                 Sid: sessionStorage.getItem('resId'),
                 type: "faculty"
             }));
             x1.onload = function () {
                 if (x1.status != 200) {
-                    window.location.replace("./index.html");
+                  //  window.location.replace("./index.html");
                 } else {
                     document.getElementById('namebanner').innerHTML = "<strong>" + sessionStorage.getItem('curSection') + "</strong>";
                     newrow();
@@ -226,30 +281,201 @@
 
     </section>
     <section id="features9-13" data-bs-version="5.1" class=" cid-sOhBxcVSZw">
-        <div>
-            <h6 class="card-title mbr-fonts-style display-5" align="center" id="namebanner"><strong>12 B</strong></h6>
-        </div>
+        <div class="float-child" style="width:30%; padding-left: 2%;">
+            <h6 class="card-title mbr-fonts-style display-5" align="left" id="namebanner"><strong>Class List</strong></h6>
+            <h6 class="card-title mbr-fonts-style display-7" align="left" style="color: firebrick;">Select students to be removed from the class list</h6>
 
-        <table id="example" class="display" style="width: 100%;">
+
+        <table class="display">
             <thead>
                 <tr>
                     <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                        style="width: 133px;" aria-sort="ascending"
-                        aria-label="Name: activate to sort column descending">Name</th>
+                        style="width: 133px;" aria-sort="ascending" >Name</th>
                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                        style="width: 212px;" aria-label="Position: activate to sort column ascending">UID</th>
-                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                        style="width: 99px;" aria-label="Office: activate to sort column ascending">Presence %</th>
+                        style="width: 212px;" >UID</th>
             </thead>
             <tbody id="bdy">
 
             </tbody>
         </table>
-        <div class="col-auto mbr-section-btn align-center">
+    </div>
+    <div class="float-child" style="width:70%; padding-left: 2%; ">
+        <h6 class="card-title mbr-fonts-style display-5" align="left"><strong>All Students List</strong></h6>
+        <h6 class="card-title mbr-fonts-style display-7" align="left" style="color: rgb(22, 230, 122);">Select students to be added to the class list</h6>
+
+    <table class="display" >
+        <thead>
+            <tr>
+                <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                    style="width: 133px;" aria-sort="ascending">Name</th>
+                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                    style="width: 212px;" >UID</th>
+                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                    style="width: 212px;" >Batch</th>
+                 
+        </thead>
+        <tbody id="bdy1">
+            <tr>
+                <td>1</td>
+                <td>2</td>
+                <td>3</td>
+            </tr>
+            <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>  <tr>
+                <td>1</td>
+                <td>1</td>
+                <td>1</td>
+            </tr>
+        </tbody>
+    </table>
+</div>
+        <div class=" align-center"> 
             <button type="cancel" class="btn btn-sescondary display-4"
                 onclick="location.href = 'teacher_controls.html';">Cancel</button>
-            <button type="submit" class="btn btn-primary display-4" onclick="send()">Send</button>
-        </div>
+            <button type="submit" class="btn btn-primary display-4" onclick="send()">Update List</button>
         </div>
     </section>
     <section data-bs-version="5.1" class="footer3 cid-sOrZB5Ms26 mbr-reveal" once="footers" id="footer3-1x">
