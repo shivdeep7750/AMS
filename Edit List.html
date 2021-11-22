@@ -129,7 +129,7 @@
         function allstudentrows(){
             var tbrAll = document.getElementById('bdy1');
             var x6 = new XMLHttpRequest();
-            x6.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/students");
+            x6.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/"+Section);
             x6.send();
             x6.onload = function () {
                 if (x6.status != 200) {
@@ -155,10 +155,10 @@
                             else
                                 newRow.className = "odd";
                             var newCell = newRow.insertCell();
-                            var newText = document.createTextNode(i.UID);
+                            var newText = document.createTextNode(i.Name);
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
-                            newText = document.createTextNode(i.Name);
+                            newText = document.createTextNode(i.UID);
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
                             newText = document.createTextNode(i.Batch);
@@ -201,10 +201,10 @@
                                 newRow.className = "odd";
                             var newCell = newRow.insertCell();
                             newCell.className = "sorting_1";
-                            var newText = document.createTextNode(i.UID);
+                            var newText = document.createTextNode(i.Name);
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
-                            newText = document.createTextNode(i.Name);
+                            newText = document.createTextNode(i.UID);
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
                      
