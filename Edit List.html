@@ -27,8 +27,7 @@
         .odd {
             background-color: rgb(148, 148, 148);
         }
-        .float-child {
-    float: left;}
+
     </style>
 
     <script type="text/javascript">
@@ -227,7 +226,7 @@
             }));
             x1.onload = function () {
                 if (x1.status != 200) {
-                    window.location.replace("./index.html");
+                   // window.location.replace("./index.html");
                 } else {
                     document.getElementById('namebanner').innerHTML = "<strong>" + sessionStorage.getItem('curSection') + "</strong>";
                     newrow();
@@ -236,6 +235,9 @@
             };
         }
         validate();
+        function clear(){
+            $('p').removeClass('hidden');
+        }
     </script>
 
     <title>Attendance List</title>
@@ -263,7 +265,7 @@
 
 </head>
 
-<body>
+<body onload="clear()">
 
     <section data-bs-version="5.1" class="menu cid-sOrZB2RGR5" once="menu" id="menu1-1w">
 
@@ -281,30 +283,30 @@
         </nav>
 
     </section>
-    <section id="features9-13" data-bs-version="5.1" class=" cid-sOhBxcVSZw">
-        <div class="float-child" style="width:30%; padding-left: 1%;">
+    <section id="features9-13" data-bs-version="5.1" class=" cid-sOhBxcVSZw" style="display: flex;">
+        <div  style="width:30%; padding-left: 1%;">
             <h6 class="card-title mbr-fonts-style display-5" align="left" id="namebanner"><strong>Class List</strong></h6>
             <h6 class="card-title mbr-fonts-style display-7" align="left" style="color: firebrick;">Select students to be removed from the class list</h6>
 
 
-        <table class="display">
+        <table class="display" style="display: block; width: 100%;">
             <thead>
                 <tr>
-                    <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                    <th class="sorting  sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
                          aria-sort="ascending" style="width: 15%;">UID</th>
                          <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
                          aria-sort="ascending" style="width: 15%;">Name</th>
             </thead>
-            <tbody id="bdy">
-
+            <tbody id="bdy" class="" style="width:100%">
+              
             </tbody>
         </table>
     </div>
-    <div class="float-child" style="width:70%; padding-left: 1%; ">
+    <div  style="width:70%; padding-left: 1%; ">
         <h6 class="card-title mbr-fonts-style display-5" align="left"><strong>All Students List</strong></h6>
         <h6 class="card-title mbr-fonts-style display-7" align="left" style="color: rgb(22, 230, 122);">Select students to be added to the class list</h6>
 
-    <table class="display" >
+    <table class="display" style="width: 100%; padding-right: 1%;">
         <thead>
             <tr>
                 <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
@@ -315,18 +317,19 @@
                      >Batch</th>
                  
         </thead>
-        <tbody id="bdy1">
+        <tbody id="bdy1" class="">
           
         </tbody>
     </table>
 </div>
-        <div class=" align-center" style="align-content: center;"> 
-            <button type="cancel" class="btn btn-sescondary display-4"
-                onclick="location.href = 'teacher_controls.html';">Cancel</button>
-            <button type="submit" class="btn btn-primary display-4" onclick="send()">Update List</button>
-        </div>
+        
     </section>
-    <section data-bs-version="5.1" class="footer3 cid-sOrZB5Ms26 mbr-reveal" once="footers" id="footer3-1x">
+    <div class=" align-center cid-sOhBxcVSZw" style="align-content: center; background-color: none;"> 
+        <button type="cancel" class="btn btn-sescondary display-4"
+            onclick="location.href = 'teacher_controls.html';">Cancel</button>
+        <button type="submit" class="btn btn-primary display-4" onclick="send()">Update List</button>
+    </div>
+    <section data-bs-version="5.1" class="footer3 cid-sOrZB5Ms26 mbr-reveal" once="footers" id="footer3-1x" style="position: absolute; bottom: 0%; width: 100%;">
         <div class="container-fluid">
             <div class="media-container-row align-center mbr-white">
 
@@ -338,8 +341,8 @@
             </div>
         </div>
     </section>
-    <section
-        style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;">
+    
+    <section style="display: none;background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; " >
         <a href="https://mobirise.site/t" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
     </section>
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
