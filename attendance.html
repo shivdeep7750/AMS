@@ -69,7 +69,8 @@
                 alert("Seems like a mass bunk🥰");
                 return;
             }
-            var TBLNAME = prompt("Name this attendance");
+            
+            var TBLNAME = "";
             var x2 = new XMLHttpRequest();
             x2.open("POST", "https://ms-attendancemonitor.herokuapp.com/attendancemark");
             x2.setRequestHeader("resId", sessionStorage.getItem('resId'));
