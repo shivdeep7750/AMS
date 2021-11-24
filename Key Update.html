@@ -39,7 +39,7 @@
             const newpass = document.getElementById("new_password").value;
             const newpass_rep = document.getElementById("password_repeat").value;
 
-            if (old == "" || newpass_rep != newpass) {
+            if (old == "" || newpass_rep != newpass || newpass=="") {
                 alert("Problem encountered, Kindly cross check!");
                 clearall();
                 return;
