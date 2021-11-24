@@ -64,7 +64,7 @@ function edit(page){
             }));
             x1.onload = function () {
                 if (x1.status == 406) {
-                  //  window.location.replace("./index.html");
+                    window.location.replace("./index.html");
                 }
                 else {
                     facultyID = sessionStorage.getItem('userID');
@@ -173,7 +173,19 @@ function edit(page){
     <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
 
     
-
+    <style>
+@media only screen and (max-width:600px){
+.image-wrapper{
+    display: none;
+}
+.card-title{
+    align-self: center;
+}
+p{
+    align-self: center;
+}
+}
+    </style>
 
 </head>
 
@@ -232,8 +244,8 @@ function edit(page){
                 <div class="card-wrapper">
                     <div class="row align-items-center">
                         <div class="col-12 col-md-4">
-                            <div class="image-wrapper">
-                                <img src="assets/images/mbr-815x717.png" alt="Mobirise">
+                            <div class="image-wrapper" >
+                                <img src="assets/images/mbr-815x717.png" alt="class" style="max-width: 20%; height: auto;">
                             </div>
                         </div>
                         <div class="col-12 col-md">
