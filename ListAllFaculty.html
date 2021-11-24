@@ -36,8 +36,6 @@
             var tblname = "faculty";///////////////////////////////
             var x = new XMLHttpRequest();
             x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + tblname);
-            // x.setRequestHeader("resId", sessionStorage.getItem('resId'));
-            // x.setRequestHeader("userType", sessionStorage.getItem('userType'));
             x.send();
             x.onload = function () {
                 if (x.status != 200) {
@@ -80,7 +78,6 @@
 
                     }
 
-                   // x.abort();
                 }
             };
         }
@@ -172,12 +169,12 @@
             </tbody>
         </table>
         <div class="col-auto mbr-section-btn align-center">
-            <button type="back" class="btn btn-sescondary display-4"
+            <button type="back" class="btn display-4"
                 onclick="location.href = 'admin_controls.html';">Back</button>
         </div>
         </div>
     </section>
-    <section data-bs-version="5.1" class="footer3 cid-sOrZB5Ms26 mbr-reveal" once="footers" id="footer3-1x">
+    <section data-bs-version="5.1" class="footer3 cid-sOrZB5Ms26 mbr-reveal" once="footers" id="footer3-1x"  style="position: absolute; bottom: 0%; width: 100%;">
         <div class="container-fluid">
             <div class="media-container-row align-center mbr-white">
 
@@ -190,7 +187,7 @@
         </div>
     </section>
     <section
-        style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: flex;">
+        style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: none;">
         <a href="https://mobirise.site/t" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
     </section>
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
