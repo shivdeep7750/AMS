@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content="Mobirise v5.5.0, mobirise.com">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
     <meta name="description" content="">
@@ -36,11 +35,7 @@
             }
         }
         validate();
-
-        function clear(){
-            $('p').removeClass('hidden');        
-        }
-
+        
 
 
 
@@ -84,6 +79,9 @@
                 }
             };
         }
+        function clear(){
+            $(document).getElementById('hidden').removeClass('hidden');
+        }
 
     </script>
 
@@ -111,7 +109,7 @@
 
 </head>
 
-<body onload="clear()">
+<body style="background-color: #e6c63b;">
     <section data-bs-version="5.1" class="menu cid-sOhrH3H697" once="menu" id="menu1-v" >
 
         <nav class="navbar navbar-dropdown navbar-fixed-top collapsed">
@@ -129,9 +127,8 @@
         </nav>
 
     </section>
-    <section data-bs-version="5.1" class="form7 cid-sOhrH2BBfe" id="form7-s" style="min-height: 0px; display: block;">
+    <section data-bs-version="5.1" class="form7 cid-sOqUXyJAqs" id="form7-s" style="min-height: 0px; display: block;">
 
-        <div class="mbr-overlay"></div>
         <div class="container">
             <div class="mbr-section-head">
                 <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
@@ -165,7 +162,7 @@
         </div>
     </section>
 
-    <section data-bs-version="5.1" class="footer3 cid-sOhrH36pKk mbr-reveal" once="footers" id="footer3-u">
+    <section data-bs-version="5.1" class="footer3 cid-sOhrH36pKk " once="footers" id="footer3-u" style="position: absolute; bottom: 0px; width: 100%;">
 
 
 
@@ -202,7 +199,7 @@
     <input name="cookieData" type="hidden" data-cookie-customDialogSelector='null' data-cookie-colorText='#424a4d'
         data-cookie-colorBg='rgba(234, 239, 241, 0.99)' data-cookie-textButton='Agree' data-cookie-colorButton=''
         data-cookie-colorLink='#424a4d' data-cookie-underlineLink='true'
-        data-cookie-text="We use cookies to give you the best experience. Read our <a href='privacy.html'>cookie policy</a>.">
+        data-cookie-text="We use cookies to give you the best experience.">
     <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i
                 class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
     <input name="animation" type="hidden">
