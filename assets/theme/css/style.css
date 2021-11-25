@@ -343,10 +343,13 @@ nav .mbr-section-btn {
 }
 
 .mbr-fullscreen {
-
+  display: flex;
+  display: -moz-flex;
+  display: -ms-flex;
+  display: -o-flex;
   align-items: center;
   height: 100vh;
-width: auto;
+  width: auto;
   padding-top: 3rem;
   padding-bottom: 3rem;
 }
