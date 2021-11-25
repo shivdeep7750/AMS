@@ -91,7 +91,8 @@
                             newText = document.createTextNode(i.UID);
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
-                            newText = document.createTextNode(100*(i.Attendance/i.Total));
+                            var val=100*((parseInt(i.Attendance)*1.0)/parseInt(i.Total));
+                            newText = document.createTextNode(val.toString());
                             newCell.appendChild(newText);
                             document.getElementById('count_reg').innerHTML = sizeofres;
                         });
