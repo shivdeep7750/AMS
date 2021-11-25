@@ -53,10 +53,10 @@
                             return;
                         }
                         var result = JSON.parse(x.response).result;
-                     console.log(result.size);
 
-
+                        var sizeofres=0;
                         result.forEach(i => {
+                          sizeofres++;
                             var newRow = tbr.insertRow();
                             newRow.setAttribute("value", i.UID, 0);
                             var allrows = tbr.getElementsByTagName('tr');
@@ -74,7 +74,9 @@
                             newCell = newRow.insertCell();
                             newText = document.createTextNode(i.Attendance);
                             newCell.appendChild(newText);
+                            document.getElementById('count_reg').innerHTML = sizeofres;
                         });
+
                     }
 
                 }
