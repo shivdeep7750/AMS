@@ -81,6 +81,28 @@
 
                 }
             };
+            var totalclasses = new XMLHttpRequest();
+            totalclasses.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + sessionStorage.getItem('userID'));
+            totalclasses.send();
+            totalclasses.onload = function () {
+                if (totalclasses.status != 200) {
+                    alert("Something bad happened, Please try again!");
+                    totalclasses.abort();
+                }
+                else {
+                        if(totalclasses.response==undefined){
+                            return;
+                        }else{
+                        var result = JSON.parse(totalclasses.response).result;
+                        result.forEach(i => {
+                          if(i.Section==sessionStorage.getItem('curSection')){
+                            document.getElementById('count_classes').innerHTML = i.Total;
+                            break;
+                          }
+                        });
+                      }
+                }
+            };
         }
 
         function validate() {
