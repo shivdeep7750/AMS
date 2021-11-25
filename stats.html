@@ -36,7 +36,26 @@
         function newrow() {
             var tbr = document.getElementById('bdy');
             var name_class = "class_"+sessionStorage.getItem('userID')+"_"+sessionStorage.getItem('curSection');
-            var x = new XMLHttpRequest();
+           
+            var totalclasses = new XMLHttpRequest();
+            totalclasses.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + sessionStorage.getItem('userID'));
+            totalclasses.send();
+            totalclasses.onload = function () {
+                if (totalclasses.status != 200) {
+                    alert("Something bad happened, Please try again!");
+                    totalclasses.abort();
+                }
+                else {
+                        if(totalclasses.response==undefined){
+                            return;
+                        }else{
+                        var result = JSON.parse(totalclasses.response).result;
+                        result.forEach(i => {
+                          if(i.Section==sessionStorage.getItem('curSection')){
+                            document.getElementById('count_classes').innerHTML = i.Total;
+
+
+                            var x = new XMLHttpRequest();
             x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + name_class);
             x.send();
             x.onload = function () {
@@ -72,7 +91,7 @@
                             newText = document.createTextNode(i.UID);
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
-                            newText = document.createTextNode(i.Attendance);
+                            newText = document.createTextNode(100*(i.Attendance/i.Total));
                             newCell.appendChild(newText);
                             document.getElementById('count_reg').innerHTML = sizeofres;
                         });
@@ -81,22 +100,6 @@
 
                 }
             };
-            var totalclasses = new XMLHttpRequest();
-            totalclasses.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + sessionStorage.getItem('userID'));
-            totalclasses.send();
-            totalclasses.onload = function () {
-                if (totalclasses.status != 200) {
-                    alert("Something bad happened, Please try again!");
-                    totalclasses.abort();
-                }
-                else {
-                        if(totalclasses.response==undefined){
-                            return;
-                        }else{
-                        var result = JSON.parse(totalclasses.response).result;
-                        result.forEach(i => {
-                          if(i.Section==sessionStorage.getItem('curSection')){
-                            document.getElementById('count_classes').innerHTML = i.Total;
                           }
                         });
                       }
