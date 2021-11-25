@@ -126,7 +126,63 @@
             background-color: #fafafa;
         }
     </style>
-    
+    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+    <script type="text/javascript">
+      google.charts.load('current', {'packages':['bar']});
+      google.charts.setOnLoadCallback(drawStuff);
+
+      function drawStuff() {
+        var height=70*20;
+        var data = new google.visualization.arrayToDataTable([
+          ['Date', 'Count'],
+          ["20/11/2021", 44],
+          ["20/11/2021", 92],
+          ["20/11/2021", 41],
+          ["20/11/2021", 70],
+          ["20/11/2021", 54],["20/11/2021", 44],
+          ["20/11/2021", 92],
+          ["20/11/2021", 41],
+          ["20/11/2021", 70],
+          ["20/11/2021", 54],["20/11/2021", 44],
+          ["20/11/2021", 92],
+          ["20/11/2021", 41],
+          ["20/11/2021", 70],
+          ["20/11/2021", 54],["20/11/2021", 44],
+          ["20/11/2021", 92],
+          ["20/11/2021", 41],
+          ["20/11/2021", 70],
+          ["20/11/2021", 54]
+        ]);
+
+
+        var options = {
+          title: 'Head Counts',
+          legend: { position: 'none' },
+          height: height,
+          chart: { title: 'Head Counts'},
+          bars: 'horizontal', // Required for Material Bar Charts.
+	        fontSize: 20,
+          axes: {
+            x: {
+              0: { side: 'top', label: 'Count'} // Top x-axis.
+            }
+          },
+          bar: { groupWidth: "90%" },
+        };
+
+        var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+        chart.draw(data, options);
+
+      };
+
+
+
+    </script>
+<script type="text/javascript">
+  $(window).resize(function(){
+    drawStuff();
+  });
+  </script> 
   <style>
     
     .small-box {
@@ -300,7 +356,7 @@
 </div>
 </div>
 <div>
-  <h6 class="card-title mbr-fonts-style display-5" align="center" id="namebanner"><strong>CENTER</strong></h6>
+  <h6 class="card-title mbr-fonts-style display-5" align="center" id="namebanner"><strong></strong></h6>
 </div>
 
 <section id="features9-13" data-bs-version="5.1" class=" cid-sOhBxcVSZw">
@@ -324,77 +380,15 @@
         </div>
     </section>
     <div class="col-auto mbr-section-btn align-center">
-      <button type="cancel" class="btn btn-sescondary display-4"
-          onclick="location.href = 'teacher_controls.html';">Cancel</button>
+      <button type="back" class="btn display-4"
+          onclick="location.href = 'teacher_controls.html';">Back</button>
   </div>
     <section class="cid-sOhBxcVSZw" style="background-color: #fafafa;">
       <center>
     <div id="top_x_div" style=" width: 100%; padding-left: 1%; padding-right: 1%;"></div></center>
     </section>
 	
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawStuff);
 
-      function drawStuff() {
-        var height=70*20;
-        var data = new google.visualization.arrayToDataTable([
-          ['Date', 'Count'],
-          ["20/11/2021", 44],
-          ["20/11/2021", 92],
-          ["20/11/2021", 41],
-          ["20/11/2021", 70],
-          ["20/11/2021", 54],["20/11/2021", 44],
-          ["20/11/2021", 92],
-          ["20/11/2021", 41],
-          ["20/11/2021", 70],
-          ["20/11/2021", 54],["20/11/2021", 44],
-          ["20/11/2021", 92],
-          ["20/11/2021", 41],
-          ["20/11/2021", 70],
-          ["20/11/2021", 54],["20/11/2021", 44],
-          ["20/11/2021", 92],
-          ["20/11/2021", 41],
-          ["20/11/2021", 70],
-          ["20/11/2021", 54]
-        ]);
-
-
-        var options = {
-          title: 'Head Counts',
-          legend: { position: 'none' },
-          height: height,
-          chart: { title: 'Head Counts'},
-          bars: 'horizontal', // Required for Material Bar Charts.
-	        fontSize: 20,
-          axes: {
-            x: {
-              0: { side: 'top', label: 'Count'} // Top x-axis.
-            }
-          },
-          bar: { groupWidth: "90%" },
-        };
-
-        var chart = new google.charts.Bar(document.getElementById('top_x_div'));
-        chart.draw(data, options);
-
-      };
-
-
-// var x = window.matchMedia("(max-width: 700px)")
-// if (x.matches) { // If media query matches
-//     options.width = 500;
-//   } else {
-//     options.width= 1000;
-//   }
-
-    </script>
-<script type="text/javascript">
-  $(window).resize(function(){
-    drawStuff();
-  });
-  </script> 
 
 <section data-bs-version="5.1" class="footer3 cid-sOhueoz4hE mbr-reveal" once="footers" id="footer3-y" style="position: absolute; bottom: 0%; width: 100%;">
   <div class="container-fluid">
