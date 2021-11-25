@@ -83,7 +83,6 @@
         function validate() {
             var x1 = new XMLHttpRequest();
             x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
-            //x.open("GET", "http://localhost:8080/checkstatus/ADMIN");
             x1.send(JSON.stringify({
                 Sid: sessionStorage.getItem('resId'),
                 type: "faculty"
@@ -98,7 +97,7 @@
                 x1.abort();
             };
         }
-        //validate();
+        validate();
     </script>
 
     <title>Stats</title>
