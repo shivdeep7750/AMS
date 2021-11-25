@@ -53,8 +53,11 @@
                             return;
                         }
                         var result = JSON.parse(x.response).result;
-                     
-                        console.log(x.response);
+                     console.log(result.length());
+                     console.log(result.size);
+                     console.log(result.length);
+
+
                         result.forEach(i => {
                             var newRow = tbr.insertRow();
                             newRow.setAttribute("value", i.UID, 0);
