@@ -50,9 +50,9 @@
                             return;
                         }else{
                         var result = JSON.parse(totalclasses.response).result;
-                        result.forEach(i => {
-                          if(i.Section==sessionStorage.getItem('curSection')){
-                            document.getElementById('count_classes').innerHTML = i.Total;
+                        result.forEach(j => {
+                          if(j.Section==sessionStorage.getItem('curSection')){
+                            document.getElementById('count_classes').innerHTML = j.Total;
 
 
                             var x = new XMLHttpRequest();
@@ -91,7 +91,7 @@
                             newText = document.createTextNode(i.UID);
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
-                            var val=100*((parseInt(i.Attendance)*1.0)/parseInt(i.Total));
+                            var val=100*((parseInt(i.Attendance)*1.0)/parseInt(j.Total));
                             newText = document.createTextNode(val.toString());
                             newCell.appendChild(newText);
                             document.getElementById('count_reg').innerHTML = sizeofres;
