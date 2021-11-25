@@ -29,38 +29,7 @@
         }
     </style>
 
-    <script type="text/javascript">
-        var present = new Set();
-        $(document).ready(function () {
-            $("#bdy").on('click', 'tr', function (e) {
-                e.preventDefault();
-                var id = $(this).attr('value');
-                if (present.has(id)) {
-                    present.delete(id);
-                    if ($(this).hasClass("odd")) {
-                        $(this).css({
-                            'background-color': 'rgb(148, 148, 148)',
-                            'color': 'black',
-                        });
-                    }
-                    else {
-                        $(this).css({
-                            'background-color': 'transparent',
-                            'color': 'black',
-                        });
-                    }
-                }
-                else {
-                    present.add(id);
-
-                    $(this).css({
-                        'background-color': '#53fc53',
-                        'color': 'white',
-                    });
-                }
-            });
-        });
-
+  
     </script>
 
     <script type="text/javascript">
@@ -129,7 +98,7 @@
                 x1.abort();
             };
         }
-        //validate();
+        validate();
     </script>
 
     <title>Stats</title>
@@ -260,14 +229,7 @@
   }
   
   
-  @media screen and (max-width: 600px) {
-    
-  #top_x_div{
-    width:300px !important;
-     /* overflow:scroll; */
-  }
-  
-  }
+ 
   svg > g > rect {  /*#salesChart is ID of your google chart*/
     fill: #fafafa;
 }
@@ -363,7 +325,7 @@
 
     <section class="cid-sOhBxcVSZw" style="background-color: #fafafa;">
       <center>
-    <div id="top_x_div" style=" width: 80%;"></div></center>
+    <div id="top_x_div" style=" width: 100%; padding-left: 1%; padding-right: 1%;"></div></center>
     </section>
 	
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
@@ -372,9 +334,22 @@
       google.charts.setOnLoadCallback(drawStuff);
 
       function drawStuff() {
+        var height=70*20;
         var data = new google.visualization.arrayToDataTable([
           ['Date', 'Count'],
           ["20/11/2021", 44],
+          ["20/11/2021", 92],
+          ["20/11/2021", 41],
+          ["20/11/2021", 70],
+          ["20/11/2021", 54],["20/11/2021", 44],
+          ["20/11/2021", 92],
+          ["20/11/2021", 41],
+          ["20/11/2021", 70],
+          ["20/11/2021", 54],["20/11/2021", 44],
+          ["20/11/2021", 92],
+          ["20/11/2021", 41],
+          ["20/11/2021", 70],
+          ["20/11/2021", 54],["20/11/2021", 44],
           ["20/11/2021", 92],
           ["20/11/2021", 41],
           ["20/11/2021", 70],
@@ -385,15 +360,16 @@
         var options = {
           title: 'Head Counts',
           legend: { position: 'none' },
+          height: height,
           chart: { title: 'Head Counts'},
-          bars: 'vertical', // Required for Material Bar Charts.
+          bars: 'horizontal', // Required for Material Bar Charts.
 	        fontSize: 20,
           axes: {
             x: {
               0: { side: 'top', label: 'Count'} // Top x-axis.
             }
           },
-          bar: { groupWidth: "100%" },
+          bar: { groupWidth: "90%" },
         };
 
         var chart = new google.charts.Bar(document.getElementById('top_x_div'));
@@ -408,11 +384,13 @@
 //   } else {
 //     options.width= 1000;
 //   }
-$(window).resize(function(){
-  drawStuff();
-});
-    </script>
 
+    </script>
+<script type="text/javascript">
+  $(window).resize(function(){
+    drawStuff();
+  });
+  </script> 
 
 <section data-bs-version="5.1" class="footer3 cid-sOhueoz4hE mbr-reveal" once="footers" id="footer3-y" style="position: absolute; bottom: 0%; width: 100%;">
   <div class="container-fluid">

@@ -40,7 +40,7 @@ function edit(page){
                         result.forEach(i => {
                             var newRow = tbr.insertRow();
                             newRow.setAttribute("value", i.Section, 0);
-                            newRow.innerHTML += '<div class="card"> <div class="card-wrapper"> <div class="row align-items-center"> <div class="col-12 col-md-4"> <div class="image-wrapper"> <img src="assets/images/mbr-815x434.png"> </div> </div> <div class="col-12 col-md"> <div class="card-box"> <div class="row"> <div class="col-md"> <h6 class="card-title mbr-fonts-style display-5"><strong>' + i.Section + '</strong> </h6> <p class="mbr-text mbr-fonts-style display-7">Manage Attendance</p> </div> <div class="col-md-auto"> <div class="mbr-section-btn"><button onclick="attendance(\'' + i.Section + '\')" class="btn btn-primary display-4">Take Attendance</button> <button class="btn btn-primary display-4">View Stats</button> <button class="btn btn-primary display-4" onclick="edit(\'' + i.Section + '\')">Edit</button> <button class="btn btn-primary display-4" onclick="delclass(\''+i.Section+'\')">Remove</button> </div> </div> <div></div> </div> </div> </div> </div> </div> </div>';
+                            newRow.innerHTML += '<div class="card"> <div class="card-wrapper"> <div class="row align-items-center"> <div class="col-12 col-md-4"> <div class="image-wrapper"> <img src="assets/images/mbr-815x434.png"> </div> </div> <div class="col-12 col-md"> <div class="card-box"> <div class="row"> <div class="col-md"> <h6 class="card-title mbr-fonts-style display-5"><strong>' + i.Section + '</strong> </h6> <p class="mbr-text mbr-fonts-style display-7">Manage Attendance</p> </div> <div class="col-md-auto"> <div class="mbr-section-btn"><button onclick="attendance(\'' + i.Section + '\')" class="btn btn-primary display-4">Take Attendance</button> <button class="btn btn-primary display-4" onclick="stats(\'' + i.Section + '\')" >View Stats</button> <button class="btn btn-primary display-4" onclick="edit(\'' + i.Section + '\')">Edit</button> <button class="btn btn-primary display-4" onclick="delclass(\''+i.Section+'\')">Remove</button> </div> </div> <div></div> </div> </div> </div> </div> </div> </div>';
                         });
 
                     }
@@ -49,9 +49,12 @@ function edit(page){
             };
         }
         function attendance(page) {
-            console.log(page);
             sessionStorage.setItem('curSection', page);
             window.location.replace("./attendance.html");
+        }
+        function stats(page) {
+            sessionStorage.setItem('curSection', page);
+            window.location.replace("./stats.html");
         }
         function validate() {
             var x1 = new XMLHttpRequest();
