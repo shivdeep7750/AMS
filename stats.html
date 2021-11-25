@@ -1,119 +1,138 @@
+<!DOCTYPE html>
 <html>
-  <head>
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
 
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="generator" content="Mobirise v5.5.0, mobirise.com">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
+    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
+    <link rel="stylesheet" type="text/css" href="/media/css/site-examples.css?_=aadaa7a732793b5fe2d64919b0c6763c1">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+
+    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+    <script type="text/javascript" language="javascript"
+        src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+
+    <meta name="description" content="">
     <style>
-	*{
-		padding-left:10px;
-	}
-	.small-box {
-  position: relative;
-  display: block;
-  margin-bottom: 15px;
+        tr {
+            height: 2.5em;
+        }
 
-    border: none !important;
-    border-radius: 5px !important;
-    box-shadow: 5px 5px 5px 5px #999;
-    outline: none;
-}
-.small-box > .inner {
-  padding: 10px;
-}
-.small-box > .small-box-footer {
-  position: relative;
-  text-align: center;
-  padding: 3px 0;
-  color: #fff;
-  color: rgba(255, 255, 255, 0.8);
-  display: block;
-  z-index: 10;
-  background: rgba(0, 0, 0, 0.1);
-  text-decoration: none;
-}
-.small-box h3 {
-  font-size: 38px;
-  font-weight: bold;
-  margin: 0 0 10px 0;
-  white-space: nowrap;
-  padding: 0;
-}
-.small-box p {
-  font-size: 15px;
-}
-.small-box p > small {
-  display: block;
-  color: #f9f9f9;
-  font-size: 13px;
-  margin-top: 5px;
-}
-.small-box h3,
-.small-box p {
-  z-index: 5px;
-}
-.small-box{
-  top: auto;
-  bottom:8px;
-  right: 5px;
-  z-index: 0;
-  font-size: 70px;
-  color: rgba(0, 0, 0, 0.15);
-}
-.small-box:hover {
-  text-decoration: none;
-  color: #f9f9f9;
-}
-.small-box:hover {
-  animation-name: tansformAnimation;
-  animation-duration: .5s;
-  animation-iteration-count: 1;
-  animation-timing-function: ease;
-  animation-fill-mode: forwards;
-  -webkit-animation-name: tansformAnimation;
-  -webkit-animation-duration: .5s;
-  -webkit-animation-iteration-count: 1;
-  -webkit-animation-timing-function: ease;
-  -webkit-animation-fill-mode: forwards;
-  -moz-animation-name: tansformAnimation;
-  -moz-animation-duration: .5s;
-  -moz-animation-iteration-count: 1;
-  -moz-animation-timing-function: ease;
-  -moz-animation-fill-mode: forwards;
-}
-
-@keyframes tansformAnimation {
-  from {
-    font-size: 70px;
-  }
-  to {
-    font-size: 76px;
-  }
-}
-@-webkit-keyframes tansformAnimation {
-  from {
-    font-size: 70px;
-  }
-  to {
-    font-size: 76px;
-  }
-}
-.bg-yellow{
-  background-color: #e0961a !important;
-}
-
-.bg-pink{
-  background-color: #e60773 !important;
-}
-
-
-@media screen and (max-width: 600px) {
-  
-#top_x_div{
-	width:300px !important;
-	 overflow:scroll;
-}
-
-}
+        .odd {
+            background-color: rgb(148, 148, 148);
+        }
     </style>
+
+    <script type="text/javascript">
+        var present = new Set();
+        $(document).ready(function () {
+            $("#bdy").on('click', 'tr', function (e) {
+                e.preventDefault();
+                var id = $(this).attr('value');
+                if (present.has(id)) {
+                    present.delete(id);
+                    if ($(this).hasClass("odd")) {
+                        $(this).css({
+                            'background-color': 'rgb(148, 148, 148)',
+                            'color': 'black',
+                        });
+                    }
+                    else {
+                        $(this).css({
+                            'background-color': 'transparent',
+                            'color': 'black',
+                        });
+                    }
+                }
+                else {
+                    present.add(id);
+
+                    $(this).css({
+                        'background-color': '#53fc53',
+                        'color': 'white',
+                    });
+                }
+            });
+        });
+
+    </script>
+
+    <script type="text/javascript">
+        function newrow() {
+            var tbr = document.getElementById('bdy');
+            var name_class = "class_"+sessionStorage.getItem('userID')+"_"+sessionStorage.getItem('curSection');
+            var x = new XMLHttpRequest();
+            x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + name_class);
+            x.send();
+            x.onload = function () {
+                if (x.status != 200) {
+                    alert("Something bad happened, Please try again!");
+                    x.abort();
+                }
+                else {
+                    if (null == tbr)
+                        console.log(0);
+                    else {
+                        if(x.response==undefined){
+                            alert("Probably an OPTIONS ERROR, Please try refresh to see data!");
+                            return;
+                        }
+                        var result = JSON.parse(x.response).result;
+                     
+                        console.log(x.response);
+                        result.forEach(i => {
+                            var newRow = tbr.insertRow();
+                            newRow.setAttribute("value", i.UID, 0);
+                            var allrows = tbr.getElementsByTagName('tr');
+                            if (allrows.length % 2 == 0)
+                                newRow.className = "even";
+                            else
+                                newRow.className = "odd";
+                            var newCell = newRow.insertCell();
+                            newCell.className = "sorting_1";
+                            var newText = document.createTextNode(i.Name);
+                            newCell.appendChild(newText);
+                            newCell = newRow.insertCell();
+                            newText = document.createTextNode(i.UID);
+                            newCell.appendChild(newText);
+                            newCell = newRow.insertCell();
+                            newText = document.createTextNode(i.Attendance);
+                            newCell.appendChild(newText);
+                        });
+                    }
+
+                }
+            };
+        }
+
+        function validate() {
+            var x1 = new XMLHttpRequest();
+            x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
+            //x.open("GET", "http://localhost:8080/checkstatus/ADMIN");
+            x1.send(JSON.stringify({
+                Sid: sessionStorage.getItem('resId'),
+                type: "faculty"
+            }));
+            x1.onload = function () {
+                if (x1.status != 200) {
+                    window.location.replace("./index.html");
+                } else {
+                    document.getElementById('namebanner').innerHTML = "<strong>" + sessionStorage.getItem('curSection') + "</strong>";
+                    newrow();
+                }
+                x1.abort();
+            };
+        }
+        //validate();
+    </script>
+
+    <title>Stats</title>
 
     <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
     <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
@@ -123,9 +142,141 @@
     <link rel="stylesheet" href="assets/dropdown/css/style.css">
     <link rel="stylesheet" href="assets/socicon/css/styles.css">
     <link rel="stylesheet" href="assets/theme/css/style.css">
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap">
+    </noscript>
+    <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
+    <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+    
+    
+    <style>
+        body{
+            background-color: #fafafa;
+        }
+    </style>
+    
+  <style>
+    
+    .small-box {
+    position: relative;
+    display: block;
+    margin-bottom: 15px;
+  
+      border: none !important;
+      border-radius: 5px !important;
+      box-shadow: 5px 5px 5px 5px #999;
+      outline: none;
+  }
+  .small-box > .inner {
+    padding: 10px;
+  }
+  .small-box > .small-box-footer {
+    position: relative;
+    text-align: center;
+    padding: 3px 0;
+    color: #fff;
+    color: rgba(255, 255, 255, 0.8);
+    display: block;
+    z-index: 10;
+    background: rgba(0, 0, 0, 0.1);
+    text-decoration: none;
+  }
+  .small-box h3 {
+    font-size: 38px;
+    font-weight: bold;
+    margin: 0 0 10px 0;
+    white-space: nowrap;
+    padding: 0;
+  }
+  .small-box p {
+    font-size: 15px;
+  }
+  .small-box p > small {
+    display: block;
+    color: #f9f9f9;
+    font-size: 13px;
+    margin-top: 5px;
+  }
+  .small-box h3,
+  .small-box p {
+    z-index: 5px;
+  }
+  .small-box{
+    top: auto;
+    bottom:8px;
+    right: 5px;
+    z-index: 0;
+    font-size: 70px;
+    color: rgba(0, 0, 0, 0.15);
+  }
+  .small-box:hover,:focus-visible {
+    text-decoration: none;
+    color: #f9f9f9;
+  }
+  .small-box:hover,:focus-visible {
+    animation-name: tansformAnimation;
+    animation-duration: .5s;
+    animation-iteration-count: 1;
+    animation-timing-function: ease;
+    animation-fill-mode: forwards;
+    -webkit-animation-name: tansformAnimation;
+    -webkit-animation-duration: .5s;
+    -webkit-animation-iteration-count: 1;
+    -webkit-animation-timing-function: ease;
+    -webkit-animation-fill-mode: forwards;
+    -moz-animation-name: tansformAnimation;
+    -moz-animation-duration: .5s;
+    -moz-animation-iteration-count: 1;
+    -moz-animation-timing-function: ease;
+    -moz-animation-fill-mode: forwards;
+  }
+  
+  @keyframes tansformAnimation {
+    from {
+      font-size: 70px;
+    }
+    to {
+      font-size: 76px;
+    }
+  }
+  @-webkit-keyframes tansformAnimation {
+    from {
+      font-size: 70px;
+    }
+    to {
+      font-size: 76px;
+    }
+  }
+  .bg-yellow{
+    background-color: #e0961a !important;
+  }
+  
+  .bg-pink{
+    background-color: #e60773 !important;
+  }
+  
+  
+  @media screen and (max-width: 600px) {
+    
+  #top_x_div{
+    width:300px !important;
+     /* overflow:scroll; */
+  }
+  
+  }
+  svg > g > rect {  /*#salesChart is ID of your google chart*/
+    fill: #fafafa;
+}
+      </style>
+    
 
-	
-  </head>
+
+</head>
+
   <body>
 
  <section data-bs-version="5.1" class="menu cid-sOrZB2RGR5" once="menu" id="menu1-1w">
@@ -210,9 +361,10 @@
         </div>
     </section>
 
-
-
-    <div id="top_x_div" style="width: 1000; height: 500px; margin-top:5%;"></div>
+    <section class="cid-sOhBxcVSZw" style="background-color: #fafafa;">
+      <center>
+    <div id="top_x_div" style=" width: 80%;"></div></center>
+    </section>
 	
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script type="text/javascript">
@@ -221,7 +373,7 @@
 
       function drawStuff() {
         var data = new google.visualization.arrayToDataTable([
-          ['Date', 'Percentage'],
+          ['Date', 'Count'],
           ["20/11/2021", 44],
           ["20/11/2021", 92],
           ["20/11/2021", 41],
@@ -231,44 +383,70 @@
 
 
         var options = {
-          title: 'Chess opening moves',
-          width: 500,
+          title: 'Head Counts',
           legend: { position: 'none' },
-          chart: { title: 'Percentage attendance',
-                   subtitle: 'students attended by percentage' },
-          bars: 'horizontal', // Required for Material Bar Charts.
-	  fontSize: 20,
+          chart: { title: 'Head Counts'},
+          bars: 'vertical', // Required for Material Bar Charts.
+	        fontSize: 20,
           axes: {
             x: {
-              0: { side: 'top', label: 'Percentage'} // Top x-axis.
+              0: { side: 'top', label: 'Count'} // Top x-axis.
             }
           },
-          bar: { groupWidth: "90%" }
+          bar: { groupWidth: "100%" },
         };
 
         var chart = new google.charts.Bar(document.getElementById('top_x_div'));
         chart.draw(data, options);
+
       };
 
 
-var x = window.matchMedia("(max-width: 700px)")
-if (x.matches) { // If media query matches
-    options.width = 500;
-  } else {
-    options.width= 1000;
-  }
-
-    </script>
-
- <script type="text/javascript">
+// var x = window.matchMedia("(max-width: 700px)")
+// if (x.matches) { // If media query matches
+//     options.width = 500;
+//   } else {
+//     options.width= 1000;
+//   }
 $(window).resize(function(){
   drawStuff();
 });
-</script> 
+    </script>
 
 
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
-  </body>
+<section data-bs-version="5.1" class="footer3 cid-sOhueoz4hE mbr-reveal" once="footers" id="footer3-y" style="position: absolute; bottom: 0%; width: 100%;">
+  <div class="container-fluid">
+      <div class="media-container-row align-center mbr-white">
+
+
+          <div class="row row-copirayt">
+              <p class="mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7">Submitted by Shivdeep for
+                  Microsoft Engage'21</p>
+          </div>
+      </div>
+  </div>
+</section>
+<section
+  style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: none;">
+  <a href="https://mobirise.site/y" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
+
+</section>
+<script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+<script src="assets/web/assets/cookies-alert-plugin/cookies-alert-core.js"></script>
+<script src="assets/web/assets/cookies-alert-plugin/cookies-alert-script.js"></script>
+<script src="assets/smoothscroll/smooth-scroll.js"></script>
+<script src="assets/ytplayer/index.js"></script>
+<script src="assets/dropdown/js/navbar-dropdown.js"></script>
+<script src="assets/theme/js/script.js"></script>
+
+
+<input name="cookieData" type="hidden" data-cookie-customDialogSelector='null' data-cookie-colorText='#424a4d'
+  data-cookie-colorBg='rgba(234, 239, 241, 0.99)' data-cookie-textButton='Agree' data-cookie-colorButton=''
+  data-cookie-colorLink='#424a4d' data-cookie-underlineLink='true'
+  data-cookie-text="We use cookies to give you the best experience.">
+<div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i
+          class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
+<input name="animation" type="hidden">
+</body>
+
 </html>
