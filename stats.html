@@ -123,14 +123,15 @@
             return;
           }
           var result = JSON.parse(graphdata.response).result;
+          console.log(result);
           result.forEach(i => {
             var temp=[];
             temp.push(i.TimeStamp);
             
             temp.push(i.Present);
-            // if(document.getElementById('count_present').innerHTML=='NA'){
-            // document.getElementById('count_present').innerHTML = i.Present;
-            // document.getElementById('count_absent').innerHTML = i.Absent;}
+            if(document.getElementById('count_present').innerHTML=='NA'){
+            document.getElementById('count_present').innerHTML = i.Present;
+            document.getElementById('count_absent').innerHTML = i.Absent;}
 
             grapharray.push(temp);
 
@@ -144,7 +145,7 @@
         
     function drawStuff() {
       if(grapharray.length>1){
-        var height = 60 * (grapharray.length-1);
+        var height = 70 * (grapharray.length);
         var data = new google.visualization.arrayToDataTable(grapharray);
 
 
