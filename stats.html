@@ -124,7 +124,7 @@
             document.getElementById('count_absent').innerHTML = i.Absent;}
             grapharray.push(temp);
           });
-          drawStuff();
+          if(drawStuff())
           assignvalue();
         }
       };
@@ -153,8 +153,9 @@
 
         var chart = new google.charts.Bar(document.getElementById('top_x_div'));
         chart.draw(data, options);
+        return true;
       }
-
+      return false;
       }
 
       function assignvalue(){
@@ -208,7 +209,9 @@
 
   <script type="text/javascript">
     $(window).resize(function () {
-      drawStuff().then(assignvalue());
+      if(drawStuff()){
+        assignvalue();
+      }
     });
   </script>
   <style>
