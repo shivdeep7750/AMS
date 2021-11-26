@@ -1,14 +1,11 @@
 <!DOCTYPE html>
 <html>
-
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content="Mobirise v5.5.0, mobirise.com">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
     <meta name="description" content="">
-
     <script type="text/javascript"
         src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
     <script type="text/javascript">
@@ -39,25 +36,29 @@
             }
         }
         validate();
-
+ 
+        function ErrorHandler(event) {
+            alert("Invalid Credentials!");
+        }
         function login() {
             const id = document.getElementById("UID").value;
             const type = "faculty";
             const pass = document.getElementById("password").value;
 
             if (pass == "" || id == "") {
-                alert("Problem encountered, Kindly cross check!");
+                alert("Kindly provide a valid input!");
                 clearall();
                 return;
             }
+            
             var x = new XMLHttpRequest();
             x.open("POST", "https://ms-attendancemonitor.herokuapp.com/login");
-            //x.open("POST", "http://localhost:8080/login");
-            x.send(JSON.stringify({
+            x.addEventListener("error", ErrorHandler);
+            x.send(btoa(JSON.stringify({
                 id: id,
                 pass: CryptoJS.MD5(pass).toString(CryptoJS.enc.Hex),
                 type: type
-            }));
+            })));
             x.onload = function () {
                 if (x.status == 407) {
                     alert("Wrong Credentials!");
@@ -66,7 +67,7 @@
                     return;
                 }
                 else if (x.status != 200) {
-                    alert("Something bad happened with network, Please try again!\n Error Code:" + x.status);
+                    alert("Something bad happened with network, Please try again!");
                     clearall();
                     x.abort();
                     return;
