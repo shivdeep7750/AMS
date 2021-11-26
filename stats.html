@@ -125,7 +125,7 @@
           var result = JSON.parse(graphdata.response).result;
           result.forEach(i => {
             var temp=[];
-            temp.push(i.TimeStamp);
+            temp.push((i.TimeStamp).toString());
             
             temp.push(i.Present);
             if(document.getElementById('count_present').innerHTML=='NA'){
