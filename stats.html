@@ -125,8 +125,7 @@
           var result = JSON.parse(graphdata.response).result;
           result.forEach(i => {
             var temp=[];
-            temp.push(i.Date);
-            
+            temp.push(i.TimeStamp);
             temp.push(i.Present);
             if(document.getElementById('count_present').innerHTML=='NA'){
             document.getElementById('count_present').innerHTML = i.Present;
@@ -144,6 +143,7 @@
         
     function drawStuff() {
       if(grapharray.length>1){
+        console.log(grapharray.length);
         var height = 60 * (grapharray.length-1);
         var data = new google.visualization.arrayToDataTable(grapharray);
 
