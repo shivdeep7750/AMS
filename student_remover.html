@@ -36,7 +36,7 @@
         var id = document.getElementById("UID").value.toUpperCase();
         var batch = document.getElementById("batch").value.toLowerCase();
         if (batch == "" || id == "") {
-            alert("Problem encountered, Kindly cross check!");
+            alert("Invalid input, Kindly cross check!");
             clearall();
             return;
         }
@@ -44,7 +44,6 @@
         x.open("POST", "https://ms-attendancemonitor.herokuapp.com/studentdel");
         x.setRequestHeader("resId", sessionStorage.getItem('resId'));
         x.setRequestHeader("userType", sessionStorage.getItem('userType'));
-        x.responseType = "blob";
         x.send(JSON.stringify({
             UID: id,
             batch: batch
@@ -80,9 +79,6 @@
     }
 </style>
   
-  
-  
-  
 </head>
 <body>
   
@@ -91,18 +87,13 @@
     <nav class="navbar navbar-dropdown navbar-fixed-top collapsed">
         <div class="container">
             <div class="navbar-brand">
-                
                 <span class="navbar-caption-wrap"><a class="navbar-caption text-black text-primary display-7" href="index.html"><span class="mobi-mbri mobi-mbri-preview mbr-iconfont mbr-iconfont-btn"></span>Attendance Monitoring System</a></span>
             </div>
-            
-          
         </div>
     </nav>
 
 </section>
   <section data-bs-version="5.1" class="form6 cid-sOqTSjb3GQ" id="form6-1m">
-    
-    
     <div class="container">
         <div class="mbr-section-head">
             <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2"><strong>Student Remover</strong></h3>
