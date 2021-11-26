@@ -128,8 +128,9 @@
             temp.push(i.Date);
             
             temp.push(i.Present);
+            if(document.getElementById('count_present').innerHTML=='NA'){
             document.getElementById('count_present').innerHTML = i.Present;
-            document.getElementById('count_absent').innerHTML = i.Absent;
+            document.getElementById('count_absent').innerHTML = i.Absent;}
 
             grapharray.push(temp);
 
