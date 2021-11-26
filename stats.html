@@ -126,7 +126,11 @@
 
           });
           drawStuff();
-
+          var paths = document.getElementsByTagName("path");
+          var i;
+          for (i = 0; i < paths.length; i++) {
+            paths[i].value = grapharrayWH[i];
+          } 
         }
       };
   
