@@ -19,16 +19,6 @@
     src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
 
   <meta name="description" content="">
-  <style>
-    tr {
-      height: 2.5em;
-    }
-
-    .odd {
-      background-color: rgb(148, 148, 148);
-    }
-  </style>
-
 
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
@@ -72,7 +62,6 @@
                       console.log(0);
                     else {
                       if (x.response == undefined) {
-                        alert("Probably an OPTIONS ERROR, Please try refresh to see data!");
                         return;
                       }
                       var result = JSON.parse(x.response).result;
@@ -147,8 +136,6 @@
       if(grapharray.length>1){
         var height = 70 * (grapharray.length);
         var data = new google.visualization.arrayToDataTable(grapharray);
-
-
         var options = {
           title: 'Head Counts',
           legend: { position: 'none' },
@@ -211,18 +198,22 @@
   <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
 
 
-  <style>
-    body {
-      background-color: #fafafa;
-    }
-  </style>
-
   <script type="text/javascript">
     $(window).resize(function () {
       drawStuff();
     });
   </script>
   <style>
+          tr {
+      height: 2.5em;
+    }
+
+    .odd {
+      background-color: rgb(148, 148, 148);
+    }
+    body {
+      background-color: #fafafa;
+    }
     .small-box {
       position: relative;
       display: block;

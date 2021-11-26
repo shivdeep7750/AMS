@@ -15,6 +15,7 @@
         document.getElementById("phone").value = "";
     }
     function back() {
+        history.pushState(null, null, $(window).attr("href"));
         window.location.replace("./teacher_controls.html");
     }
     function validate() {
