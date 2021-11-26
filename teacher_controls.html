@@ -128,7 +128,7 @@
                     return;
                 }
             }
-            let sqlnameregix =  /^(?![0-9]+$)(?!-)[a-zA-Z0-9-]{,63}(?<!-)$/;
+            let sqlnameregix =  /^[a-zA-Z]([._](?![._])|[a-zA-Z0-9]){4,18}[a-zA-Z0-9]$/;
             if (!ClassName.match(sqlnameregix)) {
                 alert("Invalid Class Name, Special characters are not allowed!"); 
                 return;
