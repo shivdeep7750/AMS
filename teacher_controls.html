@@ -13,12 +13,12 @@
         var facultyID;
         function edit(page) {
             sessionStorage.setItem('curSection', page);
-            window.location.replace("./Edit List.html");
+            window.location.href = "./Edit List.html";
         }
         function newrow() {
             var tbr = document.getElementById('bdy');
 
-            var tblname = facultyID;///////////////////////////////
+            var tblname = facultyID;
             var x2 = new XMLHttpRequest();
             x2.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + tblname);
             x2.send();
@@ -32,7 +32,6 @@
                         console.log(0);
                     else {
                         if (x2.response == undefined) {
-                            alert("Probably an OPTIONS ERROR, Please try refresh to see data!");
                             return;
                         }
                         var result = JSON.parse(x2.response).result;
@@ -52,15 +51,14 @@
 
         function attendance(page) {
             sessionStorage.setItem('curSection', page);
-            window.location.replace("./attendance.html");
+            window.location.href = "./attendance.html";
         }
         function stats(page) {
             sessionStorage.setItem('curSection', page);
-            window.location.replace("./stats.html");
+            wwindow.location.href = "./stats.html";
         }
         function notify(page) {
             var notification = new XMLHttpRequest();
-
             notification.open("POST", "https://ms-attendancemonitor.herokuapp.com/notify");
             notification.send(JSON.stringify({
                 sid: sessionStorage.getItem('resId'),
@@ -72,7 +70,6 @@
             notification.onload = function () {
                 document.getElementById("notify_" + page).value = "";
             };
-
         }
         function validate() {
             var x1 = new XMLHttpRequest();
@@ -132,6 +129,11 @@
                     return;
                 }
             }
+            let sqlnameregix =  /^(?![0-9]+$)(?!-)[a-zA-Z0-9-]{,63}(?<!-)$/;
+            if (!ClassName.match(sqlnameregix)) {
+                alert("Invalid Class Name, Special characters are not allowed!"); 
+                return;
+            } 
             var x4 = new XMLHttpRequest();
             x4.open("POST", "https://ms-attendancemonitor.herokuapp.com/createclass");
             x4.setRequestHeader("resId", sessionStorage.getItem('resId'));
@@ -332,7 +334,7 @@
     <input name="cookieData" type="hidden" data-cookie-customDialogSelector='null' data-cookie-colorText='#424a4d'
         data-cookie-colorBg='rgba(234, 239, 241, 0.99)' data-cookie-textButton='Agree' data-cookie-colorButton=''
         data-cookie-colorLink='#424a4d' data-cookie-underlineLink='true'
-        data-cookie-text="We use cookies to give you the best experience. Read our <a href='privacy.html'>cookie policy</a>.">
+        data-cookie-text="We use cookies to give you the best experience.">
     <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i
                 class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
     <input name="animation" type="hidden">
