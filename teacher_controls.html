@@ -155,6 +155,8 @@
 
 
         function delclass(ClassName) {
+            var confirmation=prompt("Enter '"+ClassName+"' to confirm deletion process. (Case Sensitive)");
+            if(confirmation!=ClassName)return;
             var x5 = new XMLHttpRequest();
             x5.open("POST", "https://ms-attendancemonitor.herokuapp.com/delclass");
             x5.setRequestHeader("resId", sessionStorage.getItem('resId'));
@@ -252,11 +254,6 @@
 
     <section data-bs-version="5.1" class="features8 cid-sOhBxcVSZw" xmlns="http://www.w3.org/1999/html"
         id="features9-13">
-
-
-
-
-
         <div class="container">
             <div class="card">
                 <div class="card-wrapper">
