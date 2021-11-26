@@ -142,6 +142,7 @@
     }
         
     function drawStuff() {
+      if(grapharray.length>1){
         var height = 60 * (grapharray.length-1);
         var data = new google.visualization.arrayToDataTable(grapharray);
 
@@ -163,6 +164,7 @@
 
         var chart = new google.charts.Bar(document.getElementById('top_x_div'));
         chart.draw(data, options);
+      }
 
       }
 
@@ -374,7 +376,7 @@
       <div class="small-box bg-yellow">
         <div class="inner">
           <p> <b style="font-size:19px !important;"> Registered Students</b></p>
-          <h3 id="count_reg"></h3>
+          <h3 id="count_reg">0</h3>
           <div style="border-bottom:1px solid #525252; margin-bottom:5px; visibility:hidden;"></div>
         </div>
       </div>
@@ -397,7 +399,7 @@
       <div class="small-box bg-yellow">
         <div class="inner">
           <p><b style="font-size:19px !important;"> Total Classes</b></p>
-          <h3 id="count_classes"></h3>
+          <h3 id="count_classes">0</h3>
           <div style="border-bottom:1px solid #525252; margin-bottom:5px; visibility:hidden;"></div>
         </div>
       </div>
