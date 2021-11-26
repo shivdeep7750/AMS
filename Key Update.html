@@ -1,169 +1,202 @@
 <!DOCTYPE html>
-<html  >
+<html>
+
 <head>
-  <meta charset="UTF-8">
-  <meta http-equiv="X-UA-Compatible" content="IE=edge">
-  <meta name="generator" content="Mobirise v5.5.0, mobirise.com">
-  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-  <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
-  <meta name="description" content="">
-  <script type="text/javascript"
-  src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+    <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
+    <meta name="description" content="">
+    <script type="text/javascript"
+        src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
 
-  <script type="text/javascript" class="init">
-
-
-    function validate() {
-
-        var x1 = new XMLHttpRequest();
-
-        x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
-        x1.send(JSON.stringify({
-            Sid: sessionStorage.getItem('resId'),
-            type:  sessionStorage.getItem('userType')
-        }));
-        x1.onload = function () {
-            if (x1.status == 406) {
-                window.location.replace("./index.html");
-            }
-            x1.abort();
-        };
-
-    }
-    validate();
+    <script type="text/javascript" class="init">
 
 
-    function keyupdate() {
+        function validate() {
 
-         const old = document.getElementById("old_password").value;
+            var x1 = new XMLHttpRequest();
+
+            x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
+            x1.send(JSON.stringify({
+                Sid: sessionStorage.getItem('resId'),
+                type: sessionStorage.getItem('userType')
+            }));
+            x1.onload = function () {
+                if (x1.status == 406) {
+                    window.location.replace("./index.html");
+                }
+                x1.abort();
+            };
+
+        }
+        validate();
+
+
+        function keyupdate() {
+
+            const old = document.getElementById("old_password").value;
             const newpass = document.getElementById("new_password").value;
             const newpass_rep = document.getElementById("password_repeat").value;
 
-            if (old == "" || newpass_rep != newpass || newpass=="") {
-                alert("Problem encountered, Kindly cross check!");
+            if (old == "" || newpass_rep != newpass || newpass == "") {
+                alert("Invalid input!");
                 clearall();
                 return;
             }
             var x = new XMLHttpRequest();
             x.open("POST", "https://ms-attendancemonitor.herokuapp.com/keyupdate");
             x.setRequestHeader("resId", sessionStorage.getItem('resId'));
-        x.setRequestHeader("userType", sessionStorage.getItem('userType'));
-            x.send(JSON.stringify({
-                uid:  sessionStorage.getItem('userID'),
+            x.setRequestHeader("userType", sessionStorage.getItem('userType'));
+            x.send(btoa(JSON.stringify({
+                uid: sessionStorage.getItem('userID'),
                 oldpass: CryptoJS.MD5(old).toString(CryptoJS.enc.Hex),
                 newpass: CryptoJS.MD5(newpass).toString(CryptoJS.enc.Hex)
-            }));
+            })));
             x.onload = function () {
                 if (x.status != 200) {
-                    alert("Something bad happened with network, Please try again!\n Error Code:" + x.status);
+                    alert("Something bad happened, Please try again!");
                     clearall();
                     x.abort();
                     return;
                 }
                 else {
-                    window.location.replace("./admin_controls.html");
-                    /////////////////
+                    window.location.href = "./admin_controls.html";
                 }
             };
-    }
+        }
 
 
-</script>
-  
-  <title>Key Updater</title>
-  <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
-  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
-  <link rel="stylesheet" href="assets/animatecss/animate.css">
-  <link rel="stylesheet" href="assets/dropdown/css/style.css">
-  <link rel="stylesheet" href="assets/socicon/css/styles.css">
-  <link rel="stylesheet" href="assets/theme/css/style.css">
-  <link rel="preload" href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap" as="style" onload="this.onload=null;this.rel='stylesheet'">
-  <noscript><link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"></noscript>
-  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css"><link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-  
-  <style>
-    body{
-        background-color: #e6c63b;
-    }
-</style>
-  
-  
+    </script>
+
+    <title>Key Updater</title>
+    <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+    <link rel="stylesheet" href="assets/animatecss/animate.css">
+    <link rel="stylesheet" href="assets/dropdown/css/style.css">
+    <link rel="stylesheet" href="assets/socicon/css/styles.css">
+    <link rel="stylesheet" href="assets/theme/css/style.css">
+    <link rel="preload"
+        href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
+        as="style" onload="this.onload=null;this.rel='stylesheet'">
+    <noscript>
+        <link rel="stylesheet"
+            href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap">
+    </noscript>
+    <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
+    <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
+
+    <style>
+        body {
+            background-color: #e6c63b;
+        }
+    </style>
+
+
 </head>
+
 <body>
-  
-<section data-bs-version="5.1" class="menu cid-sOqXNGPl9M" once="menu" id="menu1-1u">
-    
-    <nav class="navbar navbar-dropdown navbar-fixed-top collapsed">
+
+    <section data-bs-version="5.1" class="menu cid-sOqXNGPl9M" once="menu" id="menu1-1u">
+
+        <nav class="navbar navbar-dropdown navbar-fixed-top collapsed">
+            <div class="container">
+                <div class="navbar-brand">
+
+                    <span class="navbar-caption-wrap"><a class="navbar-caption text-black text-primary display-7"
+                            href="index.html"><span
+                                class="mobi-mbri mobi-mbri-preview mbr-iconfont mbr-iconfont-btn"></span>Attendance
+                            Monitoring System</a></span>
+                </div>
+
+
+            </div>
+        </nav>
+
+    </section>
+    <section data-bs-version="5.1" class="form7 cid-sOqPNY7r9T" id="form7-1s">
+
         <div class="container">
-            <div class="navbar-brand">
-                
-                <span class="navbar-caption-wrap"><a class="navbar-caption text-black text-primary display-7" href="index.html"><span class="mobi-mbri mobi-mbri-preview mbr-iconfont mbr-iconfont-btn"></span>Attendance Monitoring System</a></span>
-            </div>
-            
-         
-        </div>
-    </nav>
+            <div class="mbr-section-head">
+                <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
+                    Update Secret Key</h3>
 
-</section>
-  <section data-bs-version="5.1" class="form7 cid-sOqPNY7r9T" id="form7-1s">
-    
-    <div class="container">
-        <div class="mbr-section-head">
-            <h3 class="mbr-section-title mbr-fonts-style align-center mb-0 display-2">
-                Update Secret Key</h3>
-            
-        </div>
-        <div class="row justify-content-center mt-4">
-            <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
-                <form  class="mbr-form form-with-styler mx-auto" data-form-title="Form Name">
-                    <div class="row">
-                        <div hidden="hidden" data-form-alert="" class="alert alert-success col-12"></div>
-                        <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">Oops...! some
-                            problem!</div>
-                    </div>
-                    <div class="dragArea row">
-                        <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="name">
-                            <input type="password" name="name" placeholder="Old Secret Key" data-form-field="name" class="form-control" value="" id="old_password">
+            </div>
+            <div class="row justify-content-center mt-4">
+                <div class="col-lg-8 mx-auto mbr-form" data-form-type="formoid">
+                    <form class="mbr-form form-with-styler mx-auto" data-form-title="Form Name">
+                        <div class="row">
+                            <div hidden="hidden" data-form-alert="" class="alert alert-success col-12"></div>
+                            <div hidden="hidden" data-form-alert-danger="" class="alert alert-danger col-12">Oops...!
+                                some
+                                problem!</div>
                         </div>
-                        <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="password_new">
-                            <input type="password" name="password_new" placeholder="New Secret Key" data-form-field="password" class="form-control" value="" id="new_password">
+                        <div class="dragArea row">
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="name">
+                                <input type="password" name="name" placeholder="Old Secret Key" data-form-field="name"
+                                    class="form-control" value="" id="old_password">
+                            </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="password_new">
+                                <input type="password" name="password_new" placeholder="New Secret Key"
+                                    data-form-field="password" class="form-control" value="" id="new_password">
+                            </div>
+                            <div data-for="password_new_rep" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
+                                <input type="password" name="password_new_rep" placeholder="Repeat New Secret Key"
+                                    data-form-field="password" class="form-control" value="" id="password_repeat">
+                            </div>
+                            <div class="col-auto mbr-section-btn align-center"><button type="submit"
+                                    class="btn btn-primary display-4" onclick="keyupdate()">Update Key</button>
+                                <button type="back" class="btn display-4"
+                                    onclick="location.href = 'admin_controls.html';">Back</button>
+                            </div>
                         </div>
-                        <div data-for="password_new_rep" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
-                            <input type="password" name="password_new_rep" placeholder="Repeat New Secret Key" data-form-field="password" class="form-control" value="" id="password_repeat">
-                        </div>
-                        <div class="col-auto mbr-section-btn align-center"><button type="submit" class="btn btn-primary display-4" onclick="keyupdate()">Update Key</button>
-                            <button type="back" class="btn display-4" onclick="location.href = 'admin_controls.html';">Back</button></div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
         </div>
-    </div>
-</section>
+    </section>
 
 
-<section data-bs-version="5.1" class="footer3 cid-sOqXNFXy0v mbr-reveal" once="footers" id="footer3-1t" style="position: absolute; bottom: 0%; width: 100%;">
+    <section data-bs-version="5.1" class="footer3 cid-sOqXNFXy0v mbr-reveal" once="footers" id="footer3-1t"
+        style="position: absolute; bottom: 0%; width: 100%;">
 
-    
 
-    
 
-    <div class="container-fluid">
-        <div class="media-container-row align-center mbr-white">
-            
-            
-            <div class="row row-copirayt">
-                <p class="mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7">Submitted by Shivdeep for Microsoft Engage'21</p>
+
+
+        <div class="container-fluid">
+            <div class="media-container-row align-center mbr-white">
+
+
+                <div class="row row-copirayt">
+                    <p class="mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7">Submitted by Shivdeep for
+                        Microsoft Engage'21</p>
+                </div>
             </div>
         </div>
-    </div>
-</section>
-<section style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: none;"><a href="https://mobirise.site/z" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a></section><script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>  <script src="assets/web/assets/cookies-alert-plugin/cookies-alert-core.js"></script>  <script src="assets/web/assets/cookies-alert-plugin/cookies-alert-script.js"></script>  <script src="assets/smoothscroll/smooth-scroll.js"></script>  <script src="assets/ytplayer/index.js"></script>  <script src="assets/dropdown/js/navbar-dropdown.js"></script>  <script src="assets/theme/js/script.js"></script>  <script src="assets/formoid/formoid.min.js"></script>  
-  
+    </section>
+    <section
+        style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: none;">
+        <a href="https://mobirise.site/z" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a></section>
+    <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+    <script src="assets/web/assets/cookies-alert-plugin/cookies-alert-core.js"></script>
+    <script src="assets/web/assets/cookies-alert-plugin/cookies-alert-script.js"></script>
+    <script src="assets/smoothscroll/smooth-scroll.js"></script>
+    <script src="assets/ytplayer/index.js"></script>
+    <script src="assets/dropdown/js/navbar-dropdown.js"></script>
+    <script src="assets/theme/js/script.js"></script>
+    <script src="assets/formoid/formoid.min.js"></script>
 
-<input name="cookieData" type="hidden" data-cookie-customDialogSelector='null' data-cookie-colorText='#424a4d' data-cookie-colorBg='rgba(234, 239, 241, 0.99)' data-cookie-textButton='Agree' data-cookie-colorButton='' data-cookie-colorLink='#424a4d' data-cookie-underlineLink='true' data-cookie-text="We use cookies to give you the best experience. Read our <a href='privacy.html'>cookie policy</a>.">
-   <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
+
+    <input name="cookieData" type="hidden" data-cookie-customDialogSelector='null' data-cookie-colorText='#424a4d'
+        data-cookie-colorBg='rgba(234, 239, 241, 0.99)' data-cookie-textButton='Agree' data-cookie-colorButton=''
+        data-cookie-colorLink='#424a4d' data-cookie-underlineLink='true'
+        data-cookie-text="We use cookies to give you the best experience.">
+    <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i
+                class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
     <input name="animation" type="hidden">
-  </body>
+</body>
+
 </html>
