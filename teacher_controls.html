@@ -40,7 +40,7 @@ function edit(page){
                         result.forEach(i => {
                             var newRow = tbr.insertRow();
                             newRow.setAttribute("value", i.Section, 0);
-                            newRow.innerHTML += '<div class="card" style="margin-bottom: 2em;"> <div class="card-wrapper"> <div class="row align-items-center"> <div class="col-12 col-md-4"> <div class="image-wrapper"> <img src="assets/images/mbr-815x434.png"> </div> </div> <div class="col-12 col-md"> <div class="card-box"> <div class="row"> <div class="col-xxl-3 col-lg-5"> <h6 class="card-title mbr-fonts-style display-5" style="font-size:2rem;"><strong>' + i.Section + '</strong> </h6> <p class="mbr-text mbr-fonts-style display-7">Manage Attendance</p> </div> <div class="col-xxl-auto col-lg-auto"> <div class="mbr-section-btn"><button onclick="attendance(\'' + i.Section + '\')" class="btn btn-primary display-4">Take Attendance</button> <button class="btn btn-primary display-4" onclick="stats(\'' + i.Section + '\')" >View Stats</button> <button class="btn btn-primary display-4" onclick="edit(\'' + i.Section + '\')">Edit</button> <button class="btn btn-primary display-4" onclick="delclass(\''+i.Section+'\')">Remove</button> <div style="display:flex; height: auto;max-width: auto;border: aquamarine;border-radius: 4px;margin: 0.6em;"><input type="text" class="form-control" value="" id="notification" placeholder="Notify" style="margin: 0.6em;margin-right: 0em;"> <button onclick="notify(\''+i.Section+'\')" style="width: 50%;font-family: \'Jost\', sans-serif;font-size: 1.1rem;margin-left: 0em;" class="display-3 btn">Notify</button></div> </div> </div> <div></div> </div> </div> </div> </div> </div> </div>';
+                            newRow.innerHTML += '<div class="card" style="margin-bottom: 2em;"> <div class="card-wrapper"> <div class="row align-items-center"> <div class="col-12 col-md-4"> <div class="image-wrapper"> <img src="assets/images/mbr-815x434.png"> </div> </div> <div class="col-12 col-md"> <div class="card-box"> <div class="row"> <div class="col-xxl-3 col-lg-5"> <h6 class="card-title mbr-fonts-style display-5" style="font-size:2rem;"><strong>' + i.Section + '</strong> </h6> <p class="mbr-text mbr-fonts-style display-7">Manage Attendance</p> </div> <div class="col-xxl-auto col-lg-auto"> <div class="mbr-section-btn"><button onclick="attendance(\'' + i.Section + '\')" class="btn btn-primary display-4">Take Attendance</button> <button class="btn btn-primary display-4" onclick="stats(\'' + i.Section + '\')" >View Stats</button> <button class="btn btn-primary display-4" onclick="edit(\'' + i.Section + '\')">Edit</button> <button class="btn btn-primary display-4" onclick="delclass(\''+i.Section+'\')">Remove</button> <div style="display:flex; height: auto;max-width: auto;border: aquamarine;border-radius: 4px;margin: 0.6em;"><input type="text" class="form-control" value="" id="notify_'+i.Section+'" placeholder="Notify" style="margin: 0.6em;margin-right: 0em;"> <button onclick="notify(\''+i.Section+'\')" style="width: 50%;font-family: \'Jost\', sans-serif;font-size: 1.1rem;margin-left: 0em;" class="display-3 btn">Notify</button></div> </div> </div> <div></div> </div> </div> </div> </div> </div> </div>';
                         });
 
                     }
@@ -57,6 +57,22 @@ function edit(page){
         function stats(page) {
             sessionStorage.setItem('curSection', page);
             window.location.replace("./stats.html");
+        }
+        function notify(page) {
+            var notification = new XMLHttpRequest();
+
+            notification.open("POST", "https://ms-attendancemonitor.herokuapp.com/notify");
+            notification.send(JSON.stringify({
+                sid: sessionStorage.getItem('resId'),
+                username:  sessionStorage.getItem('userID'),
+                section: page,
+                type: "faculty",
+                msg: document.getElementById("notify_"+page).value
+            }));
+           notification.onload= function(){
+            document.getElementById("notify_"+page).value="";
+           };
+
         }
         function validate() {
             var x1 = new XMLHttpRequest();
