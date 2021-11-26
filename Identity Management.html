@@ -67,13 +67,12 @@
             }));
             x.onload = function () {
                 if (x.status != 200) {
-                    alert("Something bad happened with network, Please try again!\n Error Code:" + x.status);
+                    alert("Something bad happened, Possibly email is already taken up!");
                     clearall();
                     x.abort();
                     return;
                 }
                 else {
-                    alert("Data Updated");
                     clearall();
                 }
             };

@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content="Mobirise v5.5.0, mobirise.com">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
     <meta name="description" content="Removes faculty from database">
@@ -20,7 +19,6 @@
             var x1 = new XMLHttpRequest();
 
             x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
-            //x.open("GET", "http://localhost:8080/checkstatus/ADMIN");
             x1.send(JSON.stringify({
                 Sid: sessionStorage.getItem('resId'),
                 type: "ADMIN"
@@ -29,9 +27,7 @@
                 if (x1.status == 406) {
                     window.location.replace("./index.html");
                 }
-                // x1.abort();
             };
-
         }
         validate();
     </script>
@@ -40,7 +36,13 @@
             var id = document.getElementById("UID").value.toUpperCase();
             var mail = document.getElementById("mail").value.toLowerCase();
             if (mail == "" || id == "") {
-                alert("Problem encountered, Kindly cross check!");
+                alert("Invalid Input!");
+                clearall();
+                return;
+            }
+            let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (!mail.match(regexEmail)) {
+                alert("Invalid email!");
                 clearall();
                 return;
             }
@@ -48,7 +50,6 @@
             x.open("POST", "https://ms-attendancemonitor.herokuapp.com/facultydel");
             x.setRequestHeader("resId", sessionStorage.getItem('resId'));
             x.setRequestHeader("userType", sessionStorage.getItem('userType'));
-            x.responseType = "blob";
             x.send(JSON.stringify({
                 UID: id,
                 mail: mail
@@ -84,7 +85,7 @@
     <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
     <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
     <style>
-        body{
+        body {
             background-color: #e6c63b;
         }
     </style>
@@ -107,7 +108,7 @@
                             Monitoring System</a></span>
                 </div>
 
-        
+
             </div>
         </nav>
 
@@ -153,7 +154,8 @@
 
 
 
-    <section data-bs-version="5.1" class="footer3 cid-sOqUXBrJZ7 mbr-reveal" once="footers" id="footer3-1r"style="position: absolute; bottom: 0%; width: 100%;">
+    <section data-bs-version="5.1" class="footer3 cid-sOqUXBrJZ7 mbr-reveal" once="footers" id="footer3-1r"
+        style="position: absolute; bottom: 0%; width: 100%;">
 
 
 
@@ -169,10 +171,11 @@
                 </div>
             </div>
         </div>
-  
+
         <section
             style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: none;">
-            <a href="https://mobirise.site/i" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a></section>
+            <a href="https://mobirise.site/i" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
+        </section>
         <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
         <script src="assets/web/assets/cookies-alert-plugin/cookies-alert-core.js"></script>
         <script src="assets/web/assets/cookies-alert-plugin/cookies-alert-script.js"></script>
@@ -186,7 +189,7 @@
         <input name="cookieData" type="hidden" data-cookie-customDialogSelector='null' data-cookie-colorText='#424a4d'
             data-cookie-colorBg='rgba(234, 239, 241, 0.99)' data-cookie-textButton='Agree' data-cookie-colorButton=''
             data-cookie-colorLink='#424a4d' data-cookie-underlineLink='true'
-            data-cookie-text="We use cookies to give you the best experience. Read our <a href='privacy.html'>cookie policy</a>.">
+            data-cookie-text="We use cookies to give you the best experience.">
         <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i
                     class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
         <input name="animation" type="hidden">
