@@ -37,7 +37,7 @@
 
     function update() {
             const phone = document.getElementById("phone").value;
-            const email = document.getElementById("email").value;
+            const email = document.getElementById("email").value.toLowerCase();
             if (phone == "" || isNaN(phone) || phone.length != 10) {
                 alert("Phone number should be exactly 10 digits!");
                 clearall();

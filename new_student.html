@@ -23,7 +23,7 @@
             const UID = (document.getElementById("UID").value).toUpperCase();
             const phone = document.getElementById("phone").value;
             const batch = document.getElementById("batch").value;
-            const email = document.getElementById("email").value;
+            const email = document.getElementById("email").value.toLowerCase();
 
             if (name == "" || batch == "") {
                 alert("Invalid data!");
