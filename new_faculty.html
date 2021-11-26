@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content="Mobirise v5.5.0, mobirise.com">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
     <meta name="description" content="Add new faculty to the database">
@@ -20,14 +19,30 @@
             const UID = (document.getElementById("UID").value).toUpperCase();
             const phone = document.getElementById("phone").value;
             const email = document.getElementById("email").value;
-            if (name == "" || UID == "" || phone == "" || email == "" || isNaN(phone) || phone.length != 10) {
-                alert("Problem encountered with input, Kindly cross check!");
+            if (name == "" || UID == "") {
+                alert("Invalid data!");
                 clearall();
                 return;
             }
+            if (phone == "" || isNaN(phone) || phone.length != 10) {
+                alert("Phone number should be exactly 10 digits!");
+                clearall();
+                return;
+            }
+            if (email == "") {
+                alert("Problem encountered with email, Kindly cross check!");
+                clearall();
+                return;
+            }
+         
+            let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (!email.match(regexEmail)) {
+                alert("Invalid email!"); 
+                clearall();
+                return;
+            } 
             var x = new XMLHttpRequest();
             x.open("POST", "https://ms-attendancemonitor.herokuapp.com/addfaculty");
-            //x.open("POST", "http://localhost:8080/addfaculty");
             x.setRequestHeader("resId", sessionStorage.getItem('resId'));
             x.setRequestHeader("userType", sessionStorage.getItem('userType'));
             x.send(JSON.stringify({
@@ -53,7 +68,6 @@
         function validate() {
             var x1 = new XMLHttpRequest();
             x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
-            //x.open("GET", "http://localhost:8080/checkstatus/ADMIN");
             x1.send(JSON.stringify({
                 Sid: sessionStorage.getItem('resId'),
                 type: "ADMIN"
@@ -62,9 +76,7 @@
                 if (x1.status != 200) {
                     window.location.replace("./index.html");
                 } 
-                x1.abort();
             };
-
         }
         validate();
 
@@ -197,7 +209,7 @@
     <input name="cookieData" type="hidden" data-cookie-customDialogSelector='null' data-cookie-colorText='#424a4d'
         data-cookie-colorBg='rgba(234, 239, 241, 0.99)' data-cookie-textButton='Agree' data-cookie-colorButton=''
         data-cookie-colorLink='#424a4d' data-cookie-underlineLink='true'
-        data-cookie-text="We use cookies to give you the best experience. Read our <a href='privacy.html'>cookie policy</a>.">
+        data-cookie-text="We use cookies to give you the best experience.">
     <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i
                 class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
     <input name="animation" type="hidden">

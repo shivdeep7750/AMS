@@ -16,37 +16,57 @@
             document.getElementById("UID").value = "";
             document.getElementById("phone").value = "";
             document.getElementById("batch").value = "";
+            document.getElementById("email").value = "";
         }
         function add() {
             const name = (document.getElementById("name").value).toUpperCase();
             const UID = (document.getElementById("UID").value).toUpperCase();
             const phone = document.getElementById("phone").value;
             const batch = document.getElementById("batch").value;
-            if (name == "" || UID == "" || phone == "" || batch == "" || isNaN(phone) || phone.length != 10) {
-                alert("Problem encountered with input, Kindly cross check!");
+            const email = document.getElementById("email").value;
+
+            if (name == "" || UID == "" || batch == "") {
+                alert("Invalid data!");
+                clearall();
+                return;
+            }
+            if (phone == "" || isNaN(phone) || phone.length != 10) {
+                alert("Phone number should be exactly 10 digits!");
+                clearall();
+                return;
+            }
+            if (email == "") {
+                alert("Problem encountered with email, Kindly cross check!");
+                clearall();
+                return;
+            }
+
+            let regexEmail = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/;
+            if (!email.match(regexEmail)) {
+                alert("Invalid email!");
                 clearall();
                 return;
             }
             var x = new XMLHttpRequest();
             x.open("POST", "https://ms-attendancemonitor.herokuapp.com/addstudent");
             x.setRequestHeader("resId", sessionStorage.getItem('resId'));
-        x.setRequestHeader("userType", sessionStorage.getItem('userType'));
+            x.setRequestHeader("userType", sessionStorage.getItem('userType'));
             x.send(JSON.stringify({
                 name: name,
                 UID: UID,
                 mobile: phone,
-                batch: batch
+                batch: batch,
+                email: email
             }));
             x.onload = function () {
                 if (x.status != 200) {
                     alert("UID already taken up!");
                     document.getElementById("UID").value = "";
-            x.abort();
                     return;
                 }
                 else {
                     alert("Student added");
-            x.abort();
+                    x.abort();
                     clearall();
                 }
             };
@@ -55,7 +75,6 @@
             var x1 = new XMLHttpRequest();
 
             x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
-            //x.open("GET", "http://localhost:8080/checkstatus/ADMIN");
             x1.send(JSON.stringify({
                 Sid: sessionStorage.getItem('resId'),
                 type: "ADMIN"
@@ -89,12 +108,12 @@
     <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
     <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
     <style>
-        body{
+        body {
             background-color: #e6c63b;
         }
     </style>
-      
-      
+
+
 </head>
 
 <body>
@@ -143,6 +162,10 @@
                                 <input type="text" name="UID" placeholder="UID" data-form-field="UID"
                                     class="form-control" value="" id="UID">
                             </div>
+                            <div class="col-lg-12 col-md-12 col-sm-12 form-group mb-3" data-for="email">
+                                <input type="email" name="email" placeholder="Email" data-form-field="email"
+                                    class="form-control" value="" id="email">
+                            </div>
                             <div data-for="phone" class="col-lg-12 col-md-12 col-sm-12 form-group mb-3">
                                 <input type="tel" name="phone" placeholder="Phone" data-form-field="phone"
                                     class="form-control" value="" id="phone">
@@ -164,7 +187,8 @@
     </section>
 
 
-    <section data-bs-version="5.1" class="footer3 cid-sOqOmMGfPB mbr-reveal" once="footers" id="footer3-1g" style="position: absolute; bottom: 0%; width: 100%;">
+    <section data-bs-version="5.1" class="footer3 cid-sOqOmMGfPB mbr-reveal" once="footers" id="footer3-1g"
+        style="position: absolute; bottom: 0%; width: 100%;">
         <div class="container-fluid">
             <div class="media-container-row align-center mbr-white">
                 <div class="row row-copirayt">

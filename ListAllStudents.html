@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content="Mobirise v5.5.0, mobirise.com">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
     <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
@@ -27,13 +26,16 @@
         .odd {
             background-color: rgb(148, 148, 148);
         }
+        body {
+            background-color: #fafafa;
+        }
     </style>
 
 
     <script type="text/javascript">
         function newrow() {
             var tbr = document.getElementById('bdy');
-            var tblname = "students";///////////////////////////////
+            var tblname = "students";
             var x = new XMLHttpRequest();
             x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + tblname);
             x.send();
@@ -46,12 +48,11 @@
                     if (null == tbr)
                         console.log(0);
                     else {
-                        if(x.response==undefined){
-                            alert("Probably an OPTIONS ERROR, Please try refresh to see data!");
+                        if (x.response == undefined) {
                             return;
                         }
                         var result = JSON.parse(x.response).result;
-                      
+
                         console.log(x.response);
                         result.forEach(i => {
                             var newRow = tbr.insertRow();
@@ -62,7 +63,6 @@
                             else
                                 newRow.className = "odd";
                             var newCell = newRow.insertCell();
-                            newCell.className = "sorting_1";
                             var newText = document.createTextNode(i.Name);
                             newCell.appendChild(newText);
                             newCell = newRow.insertCell();
@@ -75,10 +75,8 @@
                             newText = document.createTextNode(i.Mobile);
                             newCell.appendChild(newText);
                         });
-
                     }
-
-                   }
+                }
             };
         }
 
@@ -121,16 +119,6 @@
     </noscript>
     <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
     <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-
-    <style>
-        body{
-            background-color: #fafafa;
-        }
-    </style>
-    
-    
-
-
 </head>
 
 <body>
@@ -160,15 +148,14 @@
             <thead>
                 <tr>
                     <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                        style="width: 133px;" aria-sort="ascending"
-                    >Name</th>
+                        style="width: 133px;" aria-sort="ascending">Name</th>
                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                        style="width: 212px;" >UID</th>
-                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                        style="width: 212px;" >Batch</th>
-                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                        style="width: 212px;" >Phone</th>
-                    
+                        style="width: 212px;">UID</th>
+                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                        style="width: 212px;">Batch</th>
+                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                        style="width: 212px;">Phone</th>
+
             </thead>
             <tbody id="bdy">
 
@@ -180,7 +167,8 @@
         </div>
         </div>
     </section>
-    <section data-bs-version="5.1" class="footer3 cid-sOrZB5Ms26 mbr-reveal" once="footers" id="footer3-1x"  style="position: absolute; bottom: 0%; width: 100%;">
+    <section data-bs-version="5.1" class="footer3 cid-sOrZB5Ms26 mbr-reveal" once="footers" id="footer3-1x"
+        style="position: absolute; bottom: 0%; width: 100%;">
         <div class="container-fluid">
             <div class="media-container-row align-center mbr-white">
 
@@ -208,7 +196,7 @@
     <input name="cookieData" type="hidden" data-cookie-customDialogSelector='null' data-cookie-colorText='#424a4d'
         data-cookie-colorBg='rgba(234, 239, 241, 0.99)' data-cookie-textButton='Agree' data-cookie-colorButton=''
         data-cookie-colorLink='#424a4d' data-cookie-underlineLink='true'
-        data-cookie-text="We use cookies to give you the best experience. Read our <a href='privacy.html'>cookie policy</a>.">
+        data-cookie-text="We use cookies to give you the best experience.">
     <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i
                 class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
     <input name="animation" type="hidden">
