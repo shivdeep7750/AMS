@@ -33,7 +33,7 @@
   <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 
   <script type="text/javascript">
-          var grapharray=[['Date', 'Count']];
+          var grapharray=[['Time Stamp', 'Head Count']];
           var sizeofres = 0;
 
     function newrow() {
@@ -125,7 +125,7 @@
           var result = JSON.parse(graphdata.response).result;
           result.forEach(i => {
             var temp=[];
-            temp.push((i.TimeStamp).toString());
+            temp.push(i.Date);
             
             temp.push(i.Present);
             if(document.getElementById('count_present').innerHTML=='NA'){
