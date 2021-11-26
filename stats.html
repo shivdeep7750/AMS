@@ -208,8 +208,7 @@
 
   <script type="text/javascript">
     $(window).resize(function () {
-      drawStuff();
-      assignvalue();
+      drawStuff().then(assignvalue());
     });
   </script>
   <style>
