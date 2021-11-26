@@ -4,7 +4,6 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content="Mobirise v5.5.0, mobirise.com">
     <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
     <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
     <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
@@ -27,12 +26,11 @@
         .odd {
             background-color: rgb(148, 148, 148);
         }
-
     </style>
 
     <script type="text/javascript">
         var remove = new Set();
-        var add = new Set();        
+        var add = new Set();
         $(document).ready(function () {
             $("#bdy").on('click', 'tr', function (e) {
                 e.preventDefault();
@@ -91,7 +89,7 @@
         });
 
 
-///////
+        ///////
         function send() {
             var tbr = Array.from(remove);
             var tba = Array.from(add);
@@ -112,20 +110,14 @@
                     alert("Something bad happened, Please try again!");
                 }
                 else
-                    window.location.replace("./teacher_controls.html");
-                }
-            };
-            
-
-       
-            
-        
-
+                    window.location.href = "./teacher_controls.html";
+            }
+        };
     </script>
 
     <script type="text/javascript">
         var temp = new Set();
-        function allstudentrows(){
+        function allstudentrows() {
             var tbrAll = document.getElementById('bdy1');
             var x6 = new XMLHttpRequest();
             x6.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/students");
@@ -139,29 +131,29 @@
                     if (null == tbrAll)
                         console.log(0);
                     else {
-                        if(x6.response==undefined){
-                            alert("Probably an OPTIONS ERROR, Please try refresh to see data!");
+                        if (x6.response == undefined) {
                             return;
                         }
                         var result = JSON.parse(x6.response).result;
-                            result.forEach(i => {
-                                if(!temp.has(i.UID)){
-                            var newRow = tbrAll.insertRow();
-                            newRow.setAttribute("value", i.UID, 0);
-                            var allrows = tbrAll.getElementsByTagName('tr');
-                            if (allrows.length % 2 == 0)
-                                newRow.className = "even";
-                            else
-                                newRow.className = "odd";
-                            var newCell = newRow.insertCell();
-                            var newText = document.createTextNode(i.Name);
-                            newCell.appendChild(newText);
-                            newCell = newRow.insertCell();
-                            newText = document.createTextNode(i.UID);
-                            newCell.appendChild(newText);
-                            newCell = newRow.insertCell();
-                            newText = document.createTextNode(i.Batch);
-                            newCell.appendChild(newText);}
+                        result.forEach(i => {
+                            if (!temp.has(i.UID)) {
+                                var newRow = tbrAll.insertRow();
+                                newRow.setAttribute("value", i.UID, 0);
+                                var allrows = tbrAll.getElementsByTagName('tr');
+                                if (allrows.length % 2 == 0)
+                                    newRow.className = "even";
+                                else
+                                    newRow.className = "odd";
+                                var newCell = newRow.insertCell();
+                                var newText = document.createTextNode(i.Name);
+                                newCell.appendChild(newText);
+                                newCell = newRow.insertCell();
+                                newText = document.createTextNode(i.UID);
+                                newCell.appendChild(newText);
+                                newCell = newRow.insertCell();
+                                newText = document.createTextNode(i.Batch);
+                                newCell.appendChild(newText);
+                            }
                         });
                     }
                 }
@@ -169,7 +161,7 @@
         }
         function newrow() {
             var tbr = document.getElementById('bdy');
-            var name_class = "class_"+sessionStorage.getItem('userID')+"_"+sessionStorage.getItem('curSection');
+            var name_class = "class_" + sessionStorage.getItem('userID') + "_" + sessionStorage.getItem('curSection');
             var x = new XMLHttpRequest();
             x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + name_class);
             x.send();
@@ -182,12 +174,10 @@
                     if (null == tbr)
                         console.log(0);
                     else {
-                        if(x.response==undefined){
-                            alert("Probably an OPTIONS ERROR, Please try refresh to see data!");
+                        if (x.response == undefined) {
                             return;
                         }
                         var result = JSON.parse(x.response).result;
-                     
                         console.log(x.response);
                         result.forEach(i => {
                             temp.add(i.UID);
@@ -207,14 +197,9 @@
                             newCell.appendChild(newText);
                         });
                         allstudentrows();
-
                     }
                 }
             };
-
-
-          
-
         }
 
         function validate() {
@@ -226,7 +211,7 @@
             }));
             x1.onload = function () {
                 if (x1.status != 200) {
-                   window.location.replace("./index.html");
+                    window.location.replace("./index.html");
                 } else {
                     document.getElementById('namebanner').innerHTML = "<strong>" + sessionStorage.getItem('curSection') + "</strong>";
                     newrow();
@@ -235,7 +220,7 @@
             };
         }
         validate();
-     
+
     </script>
 
     <title>Attendance List</title>
@@ -261,39 +246,44 @@
 
 
     <style>
-        body{
+        body {
             background-color: #fafafa;
         }
-        @media only screen and (min-width:1100px){
-#features9-13{ 
-display:flex;
-flex-direction:row;
-}
-#tbl1{ 
-    width:30%; 
-    padding-left: 1%;
-}
-#tbl2{ 
-    width:70%; 
-    padding-left: 1%;
-}
-}
-@media only screen and (max-width:1100px){
 
-#tbl1{ 
-width:100%;
-padding: 1%;
-}
-#tbl2{ 
-width:100%;
-padding: 1%;
-}}
+        @media only screen and (min-width:1100px) {
+            #features9-13 {
+                display: flex;
+                flex-direction: row;
+            }
 
+            #tbl1 {
+                width: 30%;
+                padding-left: 1%;
+            }
+
+            #tbl2 {
+                width: 70%;
+                padding-left: 1%;
+            }
+        }
+
+        @media only screen and (max-width:1100px) {
+
+            #tbl1 {
+                width: 100%;
+                padding: 1%;
+            }
+
+            #tbl2 {
+                width: 100%;
+                padding: 1%;
+            }
+        }
     </style>
-    
+
 </head>
 
-<body >
+<body>
 
     <section data-bs-version="5.1" class="menu cid-sOrZB2RGR5" once="menu" id="menu1-1w">
 
@@ -311,53 +301,57 @@ padding: 1%;
         </nav>
 
     </section>
-    <section id="features9-13" data-bs-version="5.1" class=" cid-sOhBxcVSZw"  >
-        <div   id="tbl1">
-            <h6 class="card-title mbr-fonts-style display-5" align="left" id="namebanner"><strong>Class List</strong></h6>
-            <h6 class="card-title mbr-fonts-style display-7" align="left" style="color: firebrick;">Select students to be removed from the class list</h6>
+    <section id="features9-13" data-bs-version="5.1" class=" cid-sOhBxcVSZw">
+        <div id="tbl1">
+            <h6 class="card-title mbr-fonts-style display-5" align="left" id="namebanner"><strong>Class List</strong>
+            </h6>
+            <h6 class="card-title mbr-fonts-style display-7" align="left" style="color: firebrick;">Select students to
+                be removed from the class list</h6>
 
 
-        <table class="display" style="width: 100%; ">
-            <thead>
-                <tr>
-                    <th class="sorting  sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                         aria-sort="ascending" style="width: 15%;">UID</th>
-                         <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                         aria-sort="ascending" style="width: 15%;">Name</th>
-            </thead>
-            <tbody id="bdy" class="" style="width:100%">
-              
-            </tbody>
-        </table>
-    </div>
-    <div   id="tbl2">
-        <h6 class="card-title mbr-fonts-style display-5" align="left"><strong>All Students List</strong></h6>
-        <h6 class="card-title mbr-fonts-style display-7" align="left" style="color: rgb(22, 230, 122);">Select students to be added to the class list</h6>
+            <table class="display" style="width: 100%; ">
+                <thead>
+                    <tr>
+                        <th class="sorting  sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                            aria-sort="ascending" style="width: 15%;">UID</th>
+                        <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                            aria-sort="ascending" style="width: 15%;">Name</th>
+                </thead>
+                <tbody id="bdy" class="" style="width:100%">
 
-    <table class="display" style="width: 100%;">
-        <thead>
-            <tr>
-                <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                    aria-sort="ascending" style="width: 25%;">Name</th>
-                <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"style="width: 25%;"
-                    >UID</th>
-                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"style="width: 20%;"
-                     >Batch</th>
-                 
-        </thead>
-        <tbody id="bdy1" class="">
-          
-        </tbody>
-    </table>
-</div>
-        
+                </tbody>
+            </table>
+        </div>
+        <div id="tbl2">
+            <h6 class="card-title mbr-fonts-style display-5" align="left"><strong>All Students List</strong></h6>
+            <h6 class="card-title mbr-fonts-style display-7" align="left" style="color: rgb(22, 230, 122);">Select
+                students to be added to the class list</h6>
+
+            <table class="display" style="width: 100%;">
+                <thead>
+                    <tr>
+                        <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                            aria-sort="ascending" style="width: 25%;">Name</th>
+                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                            style="width: 25%;">UID</th>
+                        <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                            style="width: 20%;">Batch</th>
+
+                </thead>
+                <tbody id="bdy1" class="">
+
+                </tbody>
+            </table>
+        </div>
+
     </section>
-    <div class=" align-center cid-sOhBxcVSZw" style="align-content: center; background-color: none;"> 
+    <div class=" align-center cid-sOhBxcVSZw" style="align-content: center; background-color: none;">
         <button type="cancel" class="btn btn-sescondary display-4"
             onclick="location.href = 'teacher_controls.html';">Cancel</button>
         <button type="submit" class="btn btn-primary display-4" onclick="send()">Update List</button>
     </div>
-    <section data-bs-version="5.1" class="footer3 cid-sOrZB5Ms26 mbr-reveal" once="footers" id="footer3-1x" style="position: absolute; bottom: 0%; width: 100%;">
+    <section data-bs-version="5.1" class="footer3 cid-sOrZB5Ms26 mbr-reveal" once="footers" id="footer3-1x"
+        style="position: absolute; bottom: 0%; width: 100%;">
         <div class="container-fluid">
             <div class="media-container-row align-center mbr-white">
 
@@ -369,8 +363,9 @@ padding: 1%;
             </div>
         </div>
     </section>
-    
-    <section style="display: none;background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; " >
+
+    <section
+        style="display: none;background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; ">
         <a href="https://mobirise.site/t" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
     </section>
     <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>

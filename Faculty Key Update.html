@@ -14,9 +14,7 @@
 
 
     function validate() {
-
         var x1 = new XMLHttpRequest();
-
         x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
         x1.send(JSON.stringify({
             Sid: sessionStorage.getItem('resId'),
@@ -28,19 +26,16 @@
             }
             x1.abort();
         };
-
     }
     validate();
 
-
     function keyupdate() {
-
          const old = document.getElementById("old_password").value;
             const newpass = document.getElementById("new_password").value;
             const newpass_rep = document.getElementById("password_repeat").value;
 
             if (old == "" || newpass_rep != newpass || newpass=="") {
-                alert("Problem encountered, Kindly cross check!");
+                alert("Invalid input!");
                 clearall();
                 return;
             }
@@ -48,21 +43,20 @@
             x.open("POST", "https://ms-attendancemonitor.herokuapp.com/keyupdate");
             x.setRequestHeader("resId", sessionStorage.getItem('resId'));
         x.setRequestHeader("userType", sessionStorage.getItem('userType'));
-            x.send(JSON.stringify({
+            x.send(btoa(JSON.stringify({
                 uid:  sessionStorage.getItem('userID'),
                 oldpass: CryptoJS.MD5(old).toString(CryptoJS.enc.Hex),
                 newpass: CryptoJS.MD5(newpass).toString(CryptoJS.enc.Hex)
-            }));
+            })));
             x.onload = function () {
                 if (x.status != 200) {
-                    alert("Something bad happened with network, Please try again!\n Error Code:" + x.status);
+                    alert("Something bad happened, Please try again!");
                     clearall();
                     x.abort();
                     return;
                 }
                 else {
-                    window.location.replace("./teacher_controls.html");
-                    /////////////////
+                    window.location.href = "./teacher_controls.html";
                 }
             };
     }
