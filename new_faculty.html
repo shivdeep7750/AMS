@@ -38,7 +38,7 @@
             }));
             x.onload = function () {
                 if (x.status != 200) {
-                    alert("Something bad happened with network, Please try again!\n Error Code:" + x.status);
+                    alert("UID already taken up!");
                     document.getElementById("UID").value = "";
                     x.abort();
                     return;
