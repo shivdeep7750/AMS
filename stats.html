@@ -2,455 +2,470 @@
 <html>
 
 <head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="generator" content="Mobirise v5.5.0, mobirise.com">
-    <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
-    <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
-    <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
-    <link rel="stylesheet" type="text/css" href="/media/css/site-examples.css?_=aadaa7a732793b5fe2d64919b0c6763c1">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
-    <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
+  <meta charset="UTF-8">
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="generator" content="Mobirise v5.5.0, mobirise.com">
+  <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1">
+  <link rel="shortcut icon" href="assets/images/logo.png" type="image/x-icon">
+  <link rel="alternate" type="application/rss+xml" title="RSS 2.0" href="http://www.datatables.net/rss.xml">
+  <link rel="stylesheet" type="text/css" href="/media/css/site-examples.css?_=aadaa7a732793b5fe2d64919b0c6763c1">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/1.11.3/css/jquery.dataTables.min.css">
+  <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/select/1.3.3/css/select.dataTables.min.css">
 
-    <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
-    <script type="text/javascript" language="javascript"
-        src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
-    <script type="text/javascript" language="javascript"
-        src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
+  <script type="text/javascript" language="javascript" src="https://code.jquery.com/jquery-3.5.1.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/1.11.3/js/jquery.dataTables.min.js"></script>
+  <script type="text/javascript" language="javascript"
+    src="https://cdn.datatables.net/select/1.3.3/js/dataTables.select.min.js"></script>
 
-    <meta name="description" content="">
-    <style>
-        tr {
-            height: 2.5em;
+  <meta name="description" content="">
+  <style>
+    tr {
+      height: 2.5em;
+    }
+
+    .odd {
+      background-color: rgb(148, 148, 148);
+    }
+  </style>
+
+
+  </script>
+
+  <script type="text/javascript">
+    function newrow() {
+      var tbr = document.getElementById('bdy');
+      var name_class = "class_" + sessionStorage.getItem('userID') + "_" + sessionStorage.getItem('curSection');
+
+      var totalclasses = new XMLHttpRequest();
+      totalclasses.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + sessionStorage.getItem('userID'));
+      totalclasses.send();
+      totalclasses.onload = function () {
+        if (totalclasses.status != 200) {
+          alert("Something bad happened, Please try again!");
+          totalclasses.abort();
         }
-
-        .odd {
-            background-color: rgb(148, 148, 148);
-        }
-    </style>
-
-  
-    </script>
-
-    <script type="text/javascript">
-        function newrow() {
-            var tbr = document.getElementById('bdy');
-            var name_class = "class_"+sessionStorage.getItem('userID')+"_"+sessionStorage.getItem('curSection');
-           
-            var totalclasses = new XMLHttpRequest();
-            totalclasses.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + sessionStorage.getItem('userID'));
-            totalclasses.send();
-            totalclasses.onload = function () {
-                if (totalclasses.status != 200) {
-                    alert("Something bad happened, Please try again!");
-                    totalclasses.abort();
-                }
-                else {
-                        if(totalclasses.response==undefined){
-                            return;
-                        }else{
-                        var result = JSON.parse(totalclasses.response).result;
-                        result.forEach(j => {
-                          if(j.Section==sessionStorage.getItem('curSection')){
-                            document.getElementById('count_classes').innerHTML = j.Total;
+        else {
+          if (totalclasses.response == undefined) {
+            return;
+          } else {
+            var result = JSON.parse(totalclasses.response).result;
+            result.forEach(j => {
+              if (j.Section == sessionStorage.getItem('curSection')) {
+                document.getElementById('count_classes').innerHTML = j.Total;
 
 
-                            var x = new XMLHttpRequest();
-            x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + name_class);
-            x.send();
-            x.onload = function () {
-                if (x.status != 200) {
+                var x = new XMLHttpRequest();
+                x.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchlist/" + name_class);
+                x.send();
+                x.onload = function () {
+                  if (x.status != 200) {
                     alert("Something bad happened, Please try again!");
                     x.abort();
-                }
-                else {
+                  }
+                  else {
                     if (null == tbr)
-                        console.log(0);
+                      console.log(0);
                     else {
-                        if(x.response==undefined){
-                            alert("Probably an OPTIONS ERROR, Please try refresh to see data!");
-                            return;
-                        }
-                        var result = JSON.parse(x.response).result;
+                      if (x.response == undefined) {
+                        alert("Probably an OPTIONS ERROR, Please try refresh to see data!");
+                        return;
+                      }
+                      var result = JSON.parse(x.response).result;
 
-                        var sizeofres=0;
-                        result.forEach(i => {
-                          sizeofres++;
-                            var newRow = tbr.insertRow();
-                            newRow.setAttribute("value", i.UID, 0);
-                            var allrows = tbr.getElementsByTagName('tr');
-                            if (allrows.length % 2 == 0)
-                                newRow.className = "even";
-                            else
-                                newRow.className = "odd";
-                            var newCell = newRow.insertCell();
-                            newCell.className = "sorting_1";
-                            var newText = document.createTextNode(i.Name);
-                            newCell.appendChild(newText);
-                            newCell = newRow.insertCell();
-                            newText = document.createTextNode(i.UID);
-                            newCell.appendChild(newText);
-                            newCell = newRow.insertCell();
-                            var val=100*((parseInt(i.Attendance)*1.0)/parseInt(j.Total));
-                            newText = document.createTextNode(val.toString());
-                            newCell.appendChild(newText);
-                            document.getElementById('count_reg').innerHTML = sizeofres;
-                        });
+                      var sizeofres = 0;
+                      result.forEach(i => {
+                        sizeofres++;
+                        var newRow = tbr.insertRow();
+                        newRow.setAttribute("value", i.UID, 0);
+                        var allrows = tbr.getElementsByTagName('tr');
+                        if (allrows.length % 2 == 0)
+                          newRow.className = "even";
+                        else
+                          newRow.className = "odd";
+                        var newCell = newRow.insertCell();
+                        newCell.className = "sorting_1";
+                        var newText = document.createTextNode(i.Name);
+                        newCell.appendChild(newText);
+                        newCell = newRow.insertCell();
+                        newText = document.createTextNode(i.UID);
+                        newCell.appendChild(newText);
+                        newCell = newRow.insertCell();
+                        var val = 100 * ((parseInt(i.Attendance) * 1.0) / parseInt(j.Total));
+                        if(parseInt(j.Total)==0)val=0;
+                        newText = document.createTextNode(val.toString());
+                        newCell.appendChild(newText);
+                        document.getElementById('count_reg').innerHTML = sizeofres;
+                      });
 
                     }
 
-                }
-            };
-                          }
-                        });
-                      }
-                }
-            };
+                  }
+                };
+              }
+            });
+          }
         }
+      };
+    }
 
-        function validate() {
-            var x1 = new XMLHttpRequest();
-            x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
-            x1.send(JSON.stringify({
-                Sid: sessionStorage.getItem('resId'),
-                type: "faculty"
-            }));
-            x1.onload = function () {
-                if (x1.status != 200) {
-                    window.location.replace("./index.html");
-                } else {
-                    document.getElementById('namebanner').innerHTML = "<strong>" + sessionStorage.getItem('curSection') + "</strong>";
-                    newrow();
-                }
-                x1.abort();
-            };
+    function validate() {
+      var x1 = new XMLHttpRequest();
+      x1.open("POST", "https://ms-attendancemonitor.herokuapp.com/checkstatus");
+      x1.send(JSON.stringify({
+        Sid: sessionStorage.getItem('resId'),
+        type: "faculty"
+      }));
+      x1.onload = function () {
+        if (x1.status != 200) {
+          window.location.replace("./index.html");
+        } else {
+          document.getElementById('namebanner').innerHTML = "<strong>" + sessionStorage.getItem('curSection') + "</strong>";
+          newrow();
         }
-        validate();
-    </script>
+        x1.abort();
+      };
+    }
+    validate();
+  </script>
 
-    <title>Stats</title>
+  <title>Stats</title>
 
-    <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
-    <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
-    <link rel="stylesheet" href="assets/animatecss/animate.css">
-    <link rel="stylesheet" href="assets/dropdown/css/style.css">
-    <link rel="stylesheet" href="assets/socicon/css/styles.css">
-    <link rel="stylesheet" href="assets/theme/css/style.css">
-    <link rel="preload"
-        href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
-        as="style" onload="this.onload=null;this.rel='stylesheet'">
-    <noscript>
-        <link rel="stylesheet"
-            href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap">
-    </noscript>
-    <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
-    <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
-    
-    
-    <style>
-        body{
-            background-color: #fafafa;
-        }
-    </style>
-    <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-    <script type="text/javascript">
-      google.charts.load('current', {'packages':['bar']});
-      google.charts.setOnLoadCallback(drawStuff);
-
-      function drawStuff() {
-        var height=70*20;
-        var data = new google.visualization.arrayToDataTable([
-          ['Date', 'Count'],
-          ["20/11/2021", 44],
-          ["20/11/2021", 92],
-          ["20/11/2021", 41],
-          ["20/11/2021", 70],
-          ["20/11/2021", 54],["20/11/2021", 44],
-          ["20/11/2021", 92],
-          ["20/11/2021", 41],
-          ["20/11/2021", 70],
-          ["20/11/2021", 54],["20/11/2021", 44],
-          ["20/11/2021", 92],
-          ["20/11/2021", 41],
-          ["20/11/2021", 70],
-          ["20/11/2021", 54],["20/11/2021", 44],
-          ["20/11/2021", 92],
-          ["20/11/2021", 41],
-          ["20/11/2021", 70],
-          ["20/11/2021", 54]
-        ]);
+  <link rel="stylesheet" href="assets/web/assets/mobirise-icons2/mobirise2.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-grid.min.css">
+  <link rel="stylesheet" href="assets/bootstrap/css/bootstrap-reboot.min.css">
+  <link rel="stylesheet" href="assets/animatecss/animate.css">
+  <link rel="stylesheet" href="assets/dropdown/css/style.css">
+  <link rel="stylesheet" href="assets/socicon/css/styles.css">
+  <link rel="stylesheet" href="assets/theme/css/style.css">
+  <link rel="preload"
+    href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap"
+    as="style" onload="this.onload=null;this.rel='stylesheet'">
+  <noscript>
+    <link rel="stylesheet"
+      href="https://fonts.googleapis.com/css?family=Jost:100,200,300,400,500,600,700,800,900,100i,200i,300i,400i,500i,600i,700i,800i,900i&display=swap">
+  </noscript>
+  <link rel="preload" as="style" href="assets/mobirise/css/mbr-additional.css">
+  <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
 
 
-        var options = {
-          title: 'Head Counts',
-          legend: { position: 'none' },
-          height: height,
-          chart: { title: 'Head Counts'},
-          bars: 'horizontal', // Required for Material Bar Charts.
-	        fontSize: 20,
-          axes: {
-            x: {
-              0: { side: 'top', label: 'Count'} // Top x-axis.
-            }
-          },
-          bar: { groupWidth: "90%" },
-        };
+  <style>
+    body {
+      background-color: #fafafa;
+    }
+  </style>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+    google.charts.load('current', { 'packages': ['bar'] });
+    google.charts.setOnLoadCallback(drawStuff);
 
-        var chart = new google.charts.Bar(document.getElementById('top_x_div'));
-        chart.draw(data, options);
+    function drawStuff() {
+      var height = 70 * 20;
+      var data = new google.visualization.arrayToDataTable([
+        ['Date', 'Count'],
+        ["20/11/2021", 44],
+        ["20/11/2021", 92],
+        ["20/11/2021", 41],
+        ["20/11/2021", 70],
+        ["20/11/2021", 54], ["20/11/2021", 44],
+        ["20/11/2021", 92],
+        ["20/11/2021", 41],
+        ["20/11/2021", 70],
+        ["20/11/2021", 54], ["20/11/2021", 44],
+        ["20/11/2021", 92],
+        ["20/11/2021", 41],
+        ["20/11/2021", 70],
+        ["20/11/2021", 54], ["20/11/2021", 44],
+        ["20/11/2021", 92],
+        ["20/11/2021", 41],
+        ["20/11/2021", 70],
+        ["20/11/2021", 54]
+      ]);
 
+
+      var options = {
+        title: 'Head Counts',
+        legend: { position: 'none' },
+        height: height,
+        chart: { title: 'Head Counts' },
+        bars: 'horizontal', // Required for Material Bar Charts.
+        fontSize: 20,
+        axes: {
+          x: {
+            0: { side: 'top', label: 'Count' } // Top x-axis.
+          }
+        },
+        bar: { groupWidth: "90%" },
       };
 
+      var chart = new google.charts.Bar(document.getElementById('top_x_div'));
+      chart.draw(data, options);
 
-
-    </script>
-<script type="text/javascript">
-  $(window).resize(function(){
-    drawStuff();
-  });
-  </script> 
+    };
+  </script>
+  <script type="text/javascript">
+    $(window).resize(function () {
+      drawStuff();
+    });
+  </script>
   <style>
-    
     .small-box {
-    position: relative;
-    display: block;
-    margin-bottom: 15px;
-  
+      position: relative;
+      display: block;
+      margin-bottom: 15px;
+
       border: none !important;
       border-radius: 5px !important;
       box-shadow: 2px 2px 2px 2px #999;
       outline: none;
-  }
-  .small-box > .inner {
-    padding: 10px;
-  }
-  .small-box > .small-box-footer {
-    position: relative;
-    text-align: center;
-    padding: 3px 0;
-    color: #fff;
-    color: rgba(255, 255, 255, 0.8);
-    display: block;
-    z-index: 10;
-    background: rgba(0, 0, 0, 0.1);
-    text-decoration: none;
-  }
-  .small-box h3 {
-    font-size: 38px;
-    font-weight: bold;
-    margin: 0 0 10px 0;
-    white-space: nowrap;
-    padding: 0;
-  }
-  .small-box p {
-    font-size: 15px;
-  }
-  .small-box p > small {
-    display: block;
-    color: #f9f9f9;
-    font-size: 13px;
-    margin-top: 5px;
-  }
-  .small-box h3,
-  .small-box p {
-    z-index: 5px;
-  }
-  .small-box{
-    top: auto;
-    bottom:8px;
-    right: 5px;
-    z-index: 0;
-    font-size: 70px;
-    color: rgba(0, 0, 0, 0.15);
-  }
-  .small-box:hover,:focus-visible {
-    text-decoration: none;
-    color: #f9f9f9;
-  }
-  .small-box:hover,:focus-visible {
-    animation-name: tansformAnimation;
-    animation-duration: .5s;
-    animation-iteration-count: 1;
-    animation-timing-function: ease;
-    animation-fill-mode: forwards;
-    -webkit-animation-name: tansformAnimation;
-    -webkit-animation-duration: .5s;
-    -webkit-animation-iteration-count: 1;
-    -webkit-animation-timing-function: ease;
-    -webkit-animation-fill-mode: forwards;
-    -moz-animation-name: tansformAnimation;
-    -moz-animation-duration: .5s;
-    -moz-animation-iteration-count: 1;
-    -moz-animation-timing-function: ease;
-    -moz-animation-fill-mode: forwards;
-  }
-  
-  @keyframes tansformAnimation {
-    from {
+    }
+
+    .small-box>.inner {
+      padding: 10px;
+    }
+
+    .small-box>.small-box-footer {
+      position: relative;
+      text-align: center;
+      padding: 3px 0;
+      color: #fff;
+      color: rgba(255, 255, 255, 0.8);
+      display: block;
+      z-index: 10;
+      background: rgba(0, 0, 0, 0.1);
+      text-decoration: none;
+    }
+
+    .small-box h3 {
+      font-size: 38px;
+      font-weight: bold;
+      margin: 0 0 10px 0;
+      white-space: nowrap;
+      padding: 0;
+    }
+
+    .small-box p {
+      font-size: 15px;
+    }
+
+    .small-box p>small {
+      display: block;
+      color: #f9f9f9;
+      font-size: 13px;
+      margin-top: 5px;
+    }
+
+    .small-box h3,
+    .small-box p {
+      z-index: 5px;
+    }
+
+    .small-box {
+      top: auto;
+      bottom: 8px;
+      right: 5px;
+      z-index: 0;
       font-size: 70px;
+      color: rgba(0, 0, 0, 0.15);
     }
-    to {
-      font-size: 76px;
+
+    .small-box:hover,
+    :focus-visible {
+      text-decoration: none;
+      color: #f9f9f9;
     }
-  }
-  @-webkit-keyframes tansformAnimation {
-    from {
-      font-size: 70px;
+
+    .small-box:hover,
+    :focus-visible {
+      animation-name: tansformAnimation;
+      animation-duration: .5s;
+      animation-iteration-count: 1;
+      animation-timing-function: ease;
+      animation-fill-mode: forwards;
+      -webkit-animation-name: tansformAnimation;
+      -webkit-animation-duration: .5s;
+      -webkit-animation-iteration-count: 1;
+      -webkit-animation-timing-function: ease;
+      -webkit-animation-fill-mode: forwards;
+      -moz-animation-name: tansformAnimation;
+      -moz-animation-duration: .5s;
+      -moz-animation-iteration-count: 1;
+      -moz-animation-timing-function: ease;
+      -moz-animation-fill-mode: forwards;
     }
-    to {
-      font-size: 76px;
+
+    @keyframes tansformAnimation {
+      from {
+        font-size: 70px;
+      }
+
+      to {
+        font-size: 76px;
+      }
     }
-  }
-  .bg-yellow{
-    background-color: #cbdd8d  !important;
-  }
-  
-  .bg-pink{
-    background-color: #cbdd8d  !important;
-  }
-  
-  
- 
-  svg > g > rect {  /*#salesChart is ID of your google chart*/
-    fill: #fafafa;
-}
-      </style>
-    
+
+    @-webkit-keyframes tansformAnimation {
+      from {
+        font-size: 70px;
+      }
+
+      to {
+        font-size: 76px;
+      }
+    }
+
+    .bg-yellow {
+      background-color: #cbdd8d !important;
+    }
+
+    .bg-pink {
+      background-color: #cbdd8d !important;
+    }
+
+
+
+    svg>g>rect {
+      /*#salesChart is ID of your google chart*/
+      fill: #fafafa;
+    }
+  </style>
+
 
 
 </head>
 
-  <body>
+<body>
 
- <section data-bs-version="5.1" class="menu cid-sOrZB2RGR5" once="menu" id="menu1-1w">
+  <section data-bs-version="5.1" class="menu cid-sOrZB2RGR5" once="menu" id="menu1-1w">
 
-        <nav class="navbar navbar-dropdown navbar-fixed-top collapsed">
-            <div class="container">
-                <div class="navbar-brand">
+    <nav class="navbar navbar-dropdown navbar-fixed-top collapsed">
+      <div class="container">
+        <div class="navbar-brand">
 
-                    <span class="navbar-caption-wrap"><a class="navbar-caption text-black text-primary display-7"
-                            href="index.html"><span
-                                class="mobi-mbri mobi-mbri-preview mbr-iconfont mbr-iconfont-btn"></span>Attendance
-                            Monitoring System</a></span>
-                </div>
+          <span class="navbar-caption-wrap"><a class="navbar-caption text-black text-primary display-7"
+              href="index.html"><span
+                class="mobi-mbri mobi-mbri-preview mbr-iconfont mbr-iconfont-btn"></span>Attendance
+              Monitoring System</a></span>
+        </div>
 
-            </div>
-        </nav>
+      </div>
+    </nav>
 
-    </section>
-  
-<div class="row" style="margin-bottom:5px; margin-top:40px;" align="center">
-  <div class="col-lg-2 col-xs-2"> 
-    <!-- small box -->
+  </section>
+
+  <div class="row" style="margin-bottom:5px; margin-top:40px;" align="center">
+    <div class="col-lg-2 col-xs-2">
+      <!-- small box -->
     </div>
 
-  <!-- ./col -->
-  <div class="col-lg-2 col-xs-12"> 
-    <!-- small box -->
-    <div class="small-box bg-yellow">
-      <div class="inner">            
-        <p> <b style="font-size:19px !important;"> Registered Students</b></p>
-  <h3 id="count_reg"></h3>
-  <div style="border-bottom:1px solid #525252; margin-bottom:5px; visibility:hidden;"></div>
-      </div></div>
-  </div>
-  <!-- ./col -->
-  <div class="col-lg-3 col-xs-12"> 
-    <!-- small box -->
-    <div class="small-box bg-pink">
-      <div class="inner">
-  <p><b>Present (Last Attendance)</b></p>
-        <h3 id="count_present">NA</h3>            
-  <div style="border-bottom:1px solid #525252; margin-bottom:5px;"></div>
-  <p><b>Absent (Last Attendance)</b> </p>
-  <h3 id="count_absent">NA</h3>
-      </div></div>
-  </div>
-<div class="col-lg-2 col-xs-12"> 
-    <!-- small box -->
-    <div class="small-box bg-yellow">
-      <div class="inner">            
-        <p><b style="font-size:19px !important;"> Total Classes</b></p>
-  <h3 id="count_classes"></h3>
-  <div style="border-bottom:1px solid #525252; margin-bottom:5px; visibility:hidden;"></div>
-      </div></div>
-  </div>
-  <!-- ./col -->
-  <div class="col-lg-2	 col-xs-2"> 
-    <!-- small box -->
-    
-</div>
-</div>
-<div>
-  <h6 class="card-title mbr-fonts-style display-5" align="center" id="namebanner"><strong></strong></h6>
-</div>
-
-<section id="features9-13" data-bs-version="5.1" class=" cid-sOhBxcVSZw">
- 
-<div style="padding-left: 1%; padding-right: 1%;">
-        <table id="example" class="display" style="width: 100%;">
-            <thead>
-                <tr>
-                    <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                        style="width: 133px;" aria-sort="ascending"
-                        aria-label="Name: activate to sort column descending">Name</th>
-                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                        style="width: 212px;" aria-label="Position: activate to sort column ascending">UID</th>
-                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
-                        style="width: 99px;" aria-label="Office: activate to sort column ascending">Presence %</th>
-            </thead>
-            <tbody id="bdy">
-	
-            </tbody>
-        </table>
+    <!-- ./col -->
+    <div class="col-lg-2 col-xs-12">
+      <!-- small box -->
+      <div class="small-box bg-yellow">
+        <div class="inner">
+          <p> <b style="font-size:19px !important;"> Registered Students</b></p>
+          <h3 id="count_reg"></h3>
+          <div style="border-bottom:1px solid #525252; margin-bottom:5px; visibility:hidden;"></div>
         </div>
-    </section>
-    <div class="col-auto mbr-section-btn align-center">
-      <button type="back" class="btn display-4"
-          onclick="location.href = 'teacher_controls.html';">Back</button>
+      </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-3 col-xs-12">
+      <!-- small box -->
+      <div class="small-box bg-pink">
+        <div class="inner">
+          <p><b>Present (Last Attendance)</b></p>
+          <h3 id="count_present">NA</h3>
+          <div style="border-bottom:1px solid #525252; margin-bottom:5px;"></div>
+          <p><b>Absent (Last Attendance)</b> </p>
+          <h3 id="count_absent">NA</h3>
+        </div>
+      </div>
+    </div>
+    <div class="col-lg-2 col-xs-12">
+      <!-- small box -->
+      <div class="small-box bg-yellow">
+        <div class="inner">
+          <p><b style="font-size:19px !important;"> Total Classes</b></p>
+          <h3 id="count_classes"></h3>
+          <div style="border-bottom:1px solid #525252; margin-bottom:5px; visibility:hidden;"></div>
+        </div>
+      </div>
+    </div>
+    <!-- ./col -->
+    <div class="col-lg-2	 col-xs-2">
+      <!-- small box -->
+    </div>
   </div>
-    <section class="cid-sOhBxcVSZw" style="background-color: #fafafa;">
-      <center>
-    <div id="top_x_div" style=" width: 100%; padding-left: 1%; padding-right: 1%;"></div></center>
-    </section>
-	
+  <div>
+    <h6 class="card-title mbr-fonts-style display-5" align="center" id="namebanner"><strong></strong></h6>
+  </div>
+  <section id="features9-13" data-bs-version="5.1" class=" cid-sOhBxcVSZw">
+
+    <div style="padding-left: 1%; padding-right: 1%;">
+      <table id="example" class="display" style="width: 100%;">
+        <thead>
+          <tr>
+            <th class="sorting sorting_asc" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+              style="width: 133px;" aria-sort="ascending" aria-label="Name: activate to sort column descending">Name
+            </th>
+            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 212px;"
+              aria-label="Position: activate to sort column ascending">UID</th>
+            <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1" style="width: 99px;"
+              aria-label="Office: activate to sort column ascending">Presence %</th>
+        </thead>
+        <tbody id="bdy">
+
+        </tbody>
+      </table>
+    </div>
+  </section>
+  <div class="col-auto mbr-section-btn align-center">
+    <button type="back" class="btn display-4" onclick="location.href = 'teacher_controls.html';">Back</button>
+  </div>
+  <section class="cid-sOhBxcVSZw" style="background-color: #fafafa;">
+    <center>
+      <div id="top_x_div" style=" width: 100%; padding-left: 1%; padding-right: 1%;"></div>
+    </center>
+  </section>
 
 
-<section data-bs-version="5.1" class="footer3 cid-sOhueoz4hE mbr-reveal" once="footers" id="footer3-y" style="position: absolute; bottom: 0%; width: 100%;">
-  <div class="container-fluid">
+
+  <section data-bs-version="5.1" class="footer3 cid-sOhueoz4hE mbr-reveal" once="footers" id="footer3-y"
+    style="position: absolute; bottom: 0%; width: 100%;">
+    <div class="container-fluid">
       <div class="media-container-row align-center mbr-white">
 
 
-          <div class="row row-copirayt">
-              <p class="mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7">Submitted by Shivdeep for
-                  Microsoft Engage'21</p>
-          </div>
+        <div class="row row-copirayt">
+          <p class="mbr-text mb-0 mbr-fonts-style mbr-white align-center display-7">Submitted by Shivdeep for
+            Microsoft Engage'21</p>
+        </div>
       </div>
-  </div>
-</section>
-<section
-  style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: none;">
-  <a href="https://mobirise.site/y" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
+    </div>
+  </section>
+  <section
+    style="background-color: #fff; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Helvetica Neue', Arial, sans-serif; color:#aaa; font-size:12px; padding: 0; align-items: center; display: none;">
+    <a href="https://mobirise.site/y" style="flex: 1 1; height: 3rem; padding-left: 1rem;"></a>
 
-</section>
-<script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
-<script src="assets/web/assets/cookies-alert-plugin/cookies-alert-core.js"></script>
-<script src="assets/web/assets/cookies-alert-plugin/cookies-alert-script.js"></script>
-<script src="assets/smoothscroll/smooth-scroll.js"></script>
-<script src="assets/ytplayer/index.js"></script>
-<script src="assets/dropdown/js/navbar-dropdown.js"></script>
-<script src="assets/theme/js/script.js"></script>
+  </section>
+  <script src="assets/bootstrap/js/bootstrap.bundle.min.js"></script>
+  <script src="assets/web/assets/cookies-alert-plugin/cookies-alert-core.js"></script>
+  <script src="assets/web/assets/cookies-alert-plugin/cookies-alert-script.js"></script>
+  <script src="assets/smoothscroll/smooth-scroll.js"></script>
+  <script src="assets/ytplayer/index.js"></script>
+  <script src="assets/dropdown/js/navbar-dropdown.js"></script>
+  <script src="assets/theme/js/script.js"></script>
 
 
-<input name="cookieData" type="hidden" data-cookie-customDialogSelector='null' data-cookie-colorText='#424a4d'
-  data-cookie-colorBg='rgba(234, 239, 241, 0.99)' data-cookie-textButton='Agree' data-cookie-colorButton=''
-  data-cookie-colorLink='#424a4d' data-cookie-underlineLink='true'
-  data-cookie-text="We use cookies to give you the best experience.">
-<div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i
-          class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
-<input name="animation" type="hidden">
+  <input name="cookieData" type="hidden" data-cookie-customDialogSelector='null' data-cookie-colorText='#424a4d'
+    data-cookie-colorBg='rgba(234, 239, 241, 0.99)' data-cookie-textButton='Agree' data-cookie-colorButton=''
+    data-cookie-colorLink='#424a4d' data-cookie-underlineLink='true'
+    data-cookie-text="We use cookies to give you the best experience.">
+  <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i
+        class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
+  <input name="animation" type="hidden">
 </body>
 
 </html>
