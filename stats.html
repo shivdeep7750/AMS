@@ -152,7 +152,8 @@
 
         var chart = new google.charts.Bar(document.getElementById('top_x_div'));
         chart.draw(data, options);
-        var paths = document.getElementsByTagName("path");
+        var paths = $(document).getElementsByTagName('path');
+        console.log(paths.length);
           var i;
           for (i = 0; i < paths.length; i++) {
             paths[i].setAttribute('value',grapharrayWH[i]);
