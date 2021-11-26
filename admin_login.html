@@ -48,11 +48,11 @@
             var x = new XMLHttpRequest();
             x.open("POST", "https://ms-attendancemonitor.herokuapp.com/login");
             x.addEventListener("error", ErrorHandler);
-            x.send(CryptoJS.AES.encrypt(JSON.stringify({
+            x.send(btoa(JSON.stringify({
                 id: id,
                 pass: CryptoJS.MD5(pass).toString(CryptoJS.enc.Hex),
                 type: type
-            }), "aabrakadabra"));
+            })));
             x.onload = function () {
                 if (x.status == 407) {
                     alert("Invalid Credentials!");
