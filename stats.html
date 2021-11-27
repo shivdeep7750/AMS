@@ -29,6 +29,13 @@
       var value = $(this).attr('value');
       window.open("https://ms-attendancemonitor.herokuapp.com/attendance/" + value, "_blank").focus();
     });
+    $(document).on('dblclick', 'path', function (e) {
+      var value = $(this).attr('value');
+      var confirmation=prompt("Enter 'CONFIRM' to confirm deletion process for "+value+". (Case Sensitive)");
+            if(confirmation!="CONFIRM")return;
+            else
+      window.open("https://ms-attendancemonitor.herokuapp.com/attendance/" + value, "_blank").focus();
+    });
 
     var grapharray = [['Date', 'Count']];
     var grapharrayWH = [];//without header
@@ -148,7 +155,7 @@
           title: 'Head Counts',
           legend: { position: 'none' },
           height: height,
-          chart: { title: 'Head Counts' },
+          chart: { title: 'Head Counts \n Click to see detailed view and double click to delete this entry permanently.' },
           bars: 'horizontal', // Required for Material Bar Charts.
           fontSize: 20,
           axes: {
