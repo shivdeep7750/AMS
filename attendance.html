@@ -161,6 +161,9 @@
             };
         }
         validate();
+        function color(){
+            document.getElementsByTagName('body')[0].style["background-color"]='#fafafa';
+        }
     </script>
 
     <title>Attendance List</title>
@@ -185,7 +188,7 @@
 
 </head>
 
-<body>
+<body onload="color()">
     <section data-bs-version="5.1" class="menu cid-sOrZB2RGR5" once="menu" id="menu1-1w">
         <nav class="navbar navbar-dropdown navbar-fixed-top collapsed">
             <div class="container">
