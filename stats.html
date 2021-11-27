@@ -124,7 +124,11 @@ var prevent = false;
                         newCell = newRow.insertCell();
                         var val = (100 * ((parseInt(i.Attendance) * 1.0) / parseInt(j.Total))).toFixed(2);
                         if (parseInt(j.Total) == 0) val = 0;
+                        else if(val<30){
+                          newRow.className="low_attendance";
+                        }
                         newText = document.createTextNode(val.toString());
+                        
                         newCell.appendChild(newText);
                         document.getElementById('count_reg').innerHTML = sizeofres;
                       });
@@ -261,7 +265,9 @@ var prevent = false;
     tr {
       height: 2.5em;
     }
-
+    .low_attendance{
+      background-color: antiquewhite;
+    }
     .odd {
       background-color: rgb(148, 148, 148);
     }
