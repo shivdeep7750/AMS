@@ -25,20 +25,21 @@
 
 
 
-    $(document).on('click', 'path', function (e) {
+    $(document).on('dblclick', 'path', function (e) {
       var value = $(this).attr('value');
       window.open("https://ms-attendancemonitor.herokuapp.com/attendance/" + value, "_blank").focus();
     });
-    $(document).on('dblclick', 'path', function (e) {
+    $(document).on('click', 'path', function (e) {
       var value = $(this).attr('value');
       var confirmation=prompt("Enter 'CONFIRM' to confirm deletion process for "+value+". (Case Sensitive)");
             if(confirmation!="CONFIRM")return;
             else{
               ////////////////////////////
               var delattend = new XMLHttpRequest();
+           
+              delattend.open("POST", "https://ms-attendancemonitor.herokuapp.com/delattendance");
               delattend.setRequestHeader("resId", sessionStorage.getItem('resId'));
               delattend.setRequestHeader("userType", sessionStorage.getItem('userType'));
-              delattend.open("POST", "https://ms-attendancemonitor.herokuapp.com/delattendance");
               delattend.send(JSON.stringify({
                 value: value,
                 UID: sessionStorage.getItem('userID'),
@@ -172,7 +173,7 @@
           title: 'Head Counts',
           legend: { position: 'none' },
           height: height,
-          chart: { title: 'Head Counts \n Click to see detailed view and double click to delete this entry permanently.' },
+          chart: { title: 'Head Counts \n Double to see detailed view and Single click to delete this entry permanently.' },
           bars: 'horizontal', // Required for Material Bar Charts.
           fontSize: 20,
           axes: {
