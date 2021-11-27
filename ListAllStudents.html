@@ -74,6 +74,9 @@
                             newCell = newRow.insertCell();
                             newText = document.createTextNode(i.Mobile);
                             newCell.appendChild(newText);
+                            newCell = newRow.insertCell();
+                            newText = document.createTextNode(i.Email);
+                            newCell.appendChild(newText);
                         });
                     }
                 }
@@ -98,6 +101,9 @@
 
         }
         validate();
+        function color(){
+            document.getElementsByTagName('body')[0].style["background-color"]='#fafafa';
+        }
     </script>
 
     <title>Student List</title>
@@ -121,7 +127,7 @@
     <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
 </head>
 
-<body>
+<body onload="color()">
 
     <section data-bs-version="5.1" class="menu cid-sOrZB2RGR5" once="menu" id="menu1-1w">
 
@@ -155,7 +161,8 @@
                         style="width: 212px;">Batch</th>
                     <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
                         style="width: 212px;">Phone</th>
-
+                    <th class="sorting" tabindex="0" aria-controls="example" rowspan="1" colspan="1"
+                        style="width: 212px;">Email</th>
             </thead>
             <tbody id="bdy">
 
