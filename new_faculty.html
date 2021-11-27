@@ -24,7 +24,7 @@
                 clearall();
                 return;
             }
-            let UIDreg =  /^[a-zA-Z]([._](?![._])|[a-zA-Z0-9]){4,18}[a-zA-Z0-9]$/;
+            let UIDreg =  /^[a-zA-Z]([._](?![._])|[a-zA-Z0-9]){2,16}[a-zA-Z0-9]$/;
             if (!UID.match(UIDreg)) {
                 alert("Invalid UID, Only '_' is allowed, UID can't start with an integer!\nLength should be between 4 to 18"); 
                 return;
