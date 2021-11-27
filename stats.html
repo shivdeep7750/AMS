@@ -27,18 +27,18 @@ var delay = 200;
 var prevent = false;
 
     $(document).on('click', 'path', function (e) {
+      var value = $(this).attr('value');
       timer = setTimeout(function() {
       if (!prevent) {
-        var value = $(this).attr('value');
       window.open("https://ms-attendancemonitor.herokuapp.com/attendance/" + value, "_blank").focus();
       }
       prevent = false;
     }, delay);
   });
     $(document).on('dblclick', 'path', function (e) {
+      var value = $(this).attr('value');
     clearTimeout(timer);
     prevent = true;
-      var value = $(this).attr('value');
       var confirmation=prompt("Enter 'CONFIRM' to confirm deletion process for "+value+". (Case Sensitive)");
             if(confirmation!="CONFIRM")return;
             else{
