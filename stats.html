@@ -63,7 +63,7 @@ var prevent = false;
 
     var grapharray = [['Date', 'Count']];
     var grapharrayWH = [];//without header
-
+    var lowattend = [];
     var sizeofres = 0;
 
     function newrow() {
@@ -126,6 +126,10 @@ var prevent = false;
                         if (parseInt(j.Total) == 0) val = 0;
                         else if(val<30){
                           newRow.className="low_attendance";
+                          var temp=[];
+                          temp.push(i.UID);
+                          temp.push(val);
+                          lowattend.push(temp);
                         }
                         newText = document.createTextNode(val.toString());
                         
@@ -215,7 +219,17 @@ var prevent = false;
       setTimeout(() => { assign(); }, 2000);//2sec timeoout
     }
 
-
+    function attendancealert(){
+            var notification = new XMLHttpRequest();
+            notification.open("POST", "https://ms-attendancemonitor.herokuapp.com/attendancenotify");
+            notification.setRequestHeader("resId", sessionStorage.getItem('resId'));
+            notification.setRequestHeader("userType", sessionStorage.getItem('userType'));
+            notification.send(JSON.stringify({
+                Username: sessionStorage.getItem('userID'),
+                section: sessionStorage.getItem('curSection'),
+                UIDdata: lowattend
+            }));
+    }
 
 
 
@@ -401,7 +415,7 @@ var prevent = false;
 
 </head>
 
-<body onload="assignvalue()">
+<body onload="assignvalue()" onload="attendancealert()">
   <script type="text/javascript">
 
     $(window).resize(function () {
