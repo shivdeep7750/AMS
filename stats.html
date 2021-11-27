@@ -25,24 +25,15 @@
 
 
 
-            $(document).on('click','path', function (e) {
-                // e.preventDefault();
-                 var value = $(this).attr('value');
-               // var attend = new XMLHttpRequest();
-                //attend.open("GET", "https://ms-attendancemonitor.herokuapp.com/attendance/" + value);
-                //attend.send();
-                //attend.onload = function () {
-                 // if(attend.response==undefined)return;
-                          window.open("https://ms-attendancemonitor.herokuapp.com/attendance/" + value ,"_blank").focus();
-                          //window.open("./display.html", '_blank').focus();
-                //};
-                //      });
-                  });
+    $(document).on('click', 'path', function (e) {
+      var value = $(this).attr('value');
+      window.open("https://ms-attendancemonitor.herokuapp.com/attendance/" + value, "_blank").focus();
+    });
 
-              var grapharray=[['Date', 'Count']];
-              var grapharrayWH=[];//without header
-              
-              var sizeofres = 0;
+    var grapharray = [['Date', 'Count']];
+    var grapharrayWH = [];//without header
+
+    var sizeofres = 0;
 
     function newrow() {
 
@@ -117,7 +108,7 @@
       google.charts.load('current', { 'packages': ['bar'] });
       google.charts.setOnLoadCallback(drawStuff);
       var graphdata = new XMLHttpRequest();
-      graphdata.open("GET", "https://ms-attendancemonitor.herokuapp.com/attendancelogs/" + sessionStorage.getItem('userID')+"/"+sessionStorage.getItem('curSection'));
+      graphdata.open("GET", "https://ms-attendancemonitor.herokuapp.com/attendancelogs/" + sessionStorage.getItem('userID') + "/" + sessionStorage.getItem('curSection'));
       graphdata.send();
       graphdata.onload = function () {
         if (graphdata.status != 200) {
@@ -131,25 +122,26 @@
           var result = JSON.parse(graphdata.response).result;
           console.log(result);
           result.forEach(i => {
-            var temp=[];
+            var temp = [];
             temp.push(i.TimeStamp);
             temp.push(i.Present);
             grapharrayWH.push(i.Name);
-            if(document.getElementById('count_present').innerHTML=='NA'){
-            document.getElementById('count_present').innerHTML = i.Present;
-            document.getElementById('count_absent').innerHTML = i.Absent;}
+            if (document.getElementById('count_present').innerHTML == 'NA') {
+              document.getElementById('count_present').innerHTML = i.Present;
+              document.getElementById('count_absent').innerHTML = i.Absent;
+            }
             grapharray.push(temp);
           });
           assignvalue();
         }
       };
-  
+
 
     }
-        
+
     function drawStuff() {
-       
-      if(grapharray.length>1){
+
+      if (grapharray.length > 1) {
         var height = 70 * (grapharray.length);
         var data = new google.visualization.arrayToDataTable(grapharray);
         var options = {
@@ -171,22 +163,22 @@
         chart.draw(data, options);
         console.log("Chart Drawn");
       }
-      
+
     }
 
-    function assign(){
+    function assign() {
       var paths = document.getElementsByTagName('path');
-        console.log(paths.length);
-          var i;
-          for (i = 0; i < paths.length; i++) {
-            paths[i].setAttribute('value',grapharrayWH[i]);
-          } 
+      console.log(paths.length);
+      var i;
+      for (i = 0; i < paths.length; i++) {
+        paths[i].setAttribute('value', grapharrayWH[i]);
+      }
     }
 
-       function assignvalue(){
-        drawStuff();
-        setTimeout(() => { assign(); }, 2000);//2sec timeoout
-      }
+    function assignvalue() {
+      drawStuff();
+      setTimeout(() => { assign(); }, 2000);//2sec timeoout
+    }
 
 
 
@@ -235,16 +227,18 @@
 
 
   <style>
-          tr {
+    tr {
       height: 2.5em;
     }
 
     .odd {
       background-color: rgb(148, 148, 148);
     }
+
     body {
       background-color: #fafafa;
     }
+
     .small-box {
       position: relative;
       display: block;
@@ -372,9 +366,9 @@
 
 <body onload="assignvalue()">
   <script type="text/javascript">
- 
+
     $(window).resize(function () {
-        assignvalue();
+      assignvalue();
 
     });
   </script>
@@ -506,9 +500,9 @@
     data-cookie-colorBg='rgba(234, 239, 241, 0.99)' data-cookie-textButton='Agree' data-cookie-colorButton=''
     data-cookie-colorLink='#424a4d' data-cookie-underlineLink='true'
     data-cookie-text="We use cookies to give you the best experience.">
-    <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i
-      class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
-<input name="animation" type="hidden">
+  <div id="scrollToTop" class="scrollToTop mbr-arrow-up"><a style="text-align: center;"><i
+        class="mbr-arrow-up-icon mbr-arrow-up-icon-cm cm-icon cm-icon-smallarrow-up"></i></a></div>
+  <input name="animation" type="hidden">
 </body>
 
 </html>
