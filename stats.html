@@ -25,7 +25,7 @@
 
 
 $(document).ready(function () {
-            $("path").on('click', function (e) {
+            $(document).on('click','path', function (e) {
                 e.preventDefault();
                 var value = $(this).attr('value');
                 var attend = new XMLHttpRequest();
