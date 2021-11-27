@@ -59,8 +59,8 @@
         function notify(page) {
             var notification = new XMLHttpRequest();
             notification.open("POST", "https://ms-attendancemonitor.herokuapp.com/notify");
-            x.setRequestHeader("resId", sessionStorage.getItem('resId'));
-            x.setRequestHeader("userType", sessionStorage.getItem('userType'));
+            notification.setRequestHeader("resId", sessionStorage.getItem('resId'));
+            notification.setRequestHeader("userType", sessionStorage.getItem('userType'));
             notification.send(JSON.stringify({
                 Username: sessionStorage.getItem('userID'),
                 section: page,
