@@ -33,8 +33,25 @@
       var value = $(this).attr('value');
       var confirmation=prompt("Enter 'CONFIRM' to confirm deletion process for "+value+". (Case Sensitive)");
             if(confirmation!="CONFIRM")return;
-            else
-      window.open("https://ms-attendancemonitor.herokuapp.com/attendance/" + value, "_blank").focus();
+            else{
+              ////////////////////////////
+              var delattend = new XMLHttpRequest();
+              delattend.setRequestHeader("resId", sessionStorage.getItem('resId'));
+              delattend.setRequestHeader("userType", sessionStorage.getItem('userType'));
+              delattend.open("POST", "https://ms-attendancemonitor.herokuapp.com/delattendance");
+              delattend.send(JSON.stringify({
+                value: value,
+                UID: sessionStorage.getItem('userID'),
+                Section: sessionStorage.getItem('curSection')
+            }));
+              delattend.onload = function () {
+                if(delattend.status==200){
+                  location.reload();
+                }else{
+                  alert("Attendance log deletion failed!");
+                }
+
+    };}
     });
 
     var grapharray = [['Date', 'Count']];
