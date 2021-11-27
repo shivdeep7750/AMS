@@ -157,14 +157,18 @@
       
     }
 
-       function assignvalue(){
-        drawStuff();
-        var paths = document.getElementsByTagName('path');
+    function assign(){
+      var paths = document.getElementsByTagName('path');
         console.log(paths.length);
           var i;
           for (i = 0; i < paths.length; i++) {
             paths[i].setAttribute('value',grapharrayWH[i]);
           } 
+    }
+
+       function assignvalue(){
+        drawStuff();
+        setTimeout(() => { assign(); }, 2000);//2sec timeoout
       }
 
 
