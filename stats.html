@@ -24,19 +24,19 @@
   <script type="text/javascript">
 
 
-$(document).ready(function () {
+
             $(document).on('click','path', function (e) {
-                e.preventDefault();
-                var value = $(this).attr('value');
-                var attend = new XMLHttpRequest();
-                attend.open("GET", "https://ms-attendancemonitor.herokuapp.com/attendance/" + value);
-                attend.send();
-                attend.onload = function () {
-                  if(attend.response==undefined)return;
-                          window.open("data:text/json," + encodeURIComponent(JSON.parse(attend.response).result),"_blank").focus();
+                // e.preventDefault();
+                // var value = $(this).attr('value');
+               // var attend = new XMLHttpRequest();
+                //attend.open("GET", "https://ms-attendancemonitor.herokuapp.com/attendance/" + value);
+                //attend.send();
+                //attend.onload = function () {
+                 // if(attend.response==undefined)return;
+                          window.open("https://ms-attendancemonitor.herokuapp.com/attendance/" + value ,"_blank").focus();
                           //window.open("./display.html", '_blank').focus();
-                };
-                      });
+                //};
+                //      });
                   });
 
               var grapharray=[['Date', 'Count']];
