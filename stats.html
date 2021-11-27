@@ -123,7 +123,6 @@
             document.getElementById('count_absent').innerHTML = i.Absent;}
             grapharray.push(temp);
           });
-          if(drawStuff())
           assignvalue();
         }
       };
@@ -132,8 +131,7 @@
     }
         
     function drawStuff() {
-    return new Promise((resolve,reject)=>{
- 
+       
       if(grapharray.length>1){
         var height = 70 * (grapharray.length);
         var data = new google.visualization.arrayToDataTable(grapharray);
@@ -154,12 +152,13 @@
 
         var chart = new google.charts.Bar(document.getElementById('top_x_div'));
         chart.draw(data, options);
+        console.log("Chart Drawn");
       }
-      });
+      
     }
 
-      async function assignvalue(){
-        await drawStuff();
+       function assignvalue(){
+        drawStuff();
         var paths = document.getElementsByTagName('path');
         console.log(paths.length);
           var i;
@@ -213,12 +212,7 @@
   <link rel="stylesheet" href="assets/mobirise/css/mbr-additional.css" type="text/css">
 
 
-  <script type="text/javascript">
- 
-    $(window).resize(function () {
-        assignvalue(); 
-    });
-  </script>
+
   <style>
           tr {
       height: 2.5em;
@@ -355,7 +349,14 @@
 
 </head>
 
-<body>
+<body onload="assignvalue()">
+  <script type="text/javascript">
+ 
+    $(window).resize(function () {
+        assignvalue();
+
+    });
+  </script>
 
   <section data-bs-version="5.1" class="menu cid-sOrZB2RGR5" once="menu" id="menu1-1w">
 
