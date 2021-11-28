@@ -39,7 +39,7 @@
                 }
                 else{
                     var tbr = document.getElementById('details');
-                    var result = JSON.parse(x.response).details;
+                    var result = JSON.parse(studatafetch.response).details;
                     result.forEach(i=>{
                         var newRow = tbr.insertRow();
                         var newCell = newRow.insertCell();
