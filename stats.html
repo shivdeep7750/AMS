@@ -25,7 +25,7 @@
 var timer = 0;
 var delay = 200;
 var prevent = false;
-
+document.addEventListener("load", attendancealert()); 
     $(document).on('click', 'path', function (e) {
       var value = $(this).attr('value');
       timer = setTimeout(function() {
@@ -64,7 +64,6 @@ var prevent = false;
     var grapharray = [['Date', 'Count']];
     var grapharrayWH = [];//without header
     var lowattend = [];
-    var percentage = [];
     var sizeofres = 0;
 
     function newrow() {
@@ -130,7 +129,6 @@ var prevent = false;
                           var temp=[];
                           temp.push(i.UID);
                           temp.push(val);
-                          //percentage.push(val);
                           lowattend.push(temp);
                         }
                         newText = document.createTextNode(val.toString());
@@ -230,8 +228,7 @@ var prevent = false;
             notification.send(JSON.stringify({
                 Username: sessionStorage.getItem('userID'),
                 section: sessionStorage.getItem('curSection'),
-                UIDdata: lowattend,
-                Percentage: percentage
+                UIDdata: lowattend
             }));
     }
 
@@ -418,7 +415,7 @@ var prevent = false;
 
 </head>
 
-<body onload="assignvalue()" onload="attendancealert()">
+<body onload="assignvalue()"">
   <script type="text/javascript">
 
     $(window).resize(function () {
