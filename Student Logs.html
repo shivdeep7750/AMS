@@ -28,7 +28,7 @@
 
         function send() {
             var studatafetch = new XMLHttpRequest();
-            studatafetch.open("GET", "https://ms-attendancemonitor.herokuapp.com/studentdetails/"+document.getElementById("UID").value);
+            studatafetch.open("GET", "https://ms-attendancemonitor.herokuapp.com/studentdetails/"+(document.getElementById("UID").value).toUpperCase());
             studatafetch.send();
             studatafetch.onload = function () {
                 document.getElementById("UID").value="";
@@ -39,6 +39,7 @@
                 }
                 else{
                     var tbr = document.getElementById('details');
+                    tbr.innerHTML="";
                     var result = JSON.parse(studatafetch.response).details;
                     result.forEach(i=>{
                         var newRow = tbr.insertRow();
@@ -53,7 +54,7 @@
                         newCell.appendChild(newText);
                     });
                     var stutablefetch = new XMLHttpRequest();
-                    stutablefetch.open("GET", "https://ms-attendancemonitor.herokuapp.com/stutablefetch/"+document.getElementById("UID").value);
+                    stutablefetch.open("GET", "https://ms-attendancemonitor.herokuapp.com/stutablefetch/"+(document.getElementById("UID").value).toUpperCase());
                     stutablefetch.send();
                     stutablefetch.onload = function () {
                     if (stutablefetch.status != 200) {
@@ -63,6 +64,7 @@
                     }
                     else{
                         var tbr = document.getElementById('bdy');
+                        tbr.innerHTML="";
                         var result = JSON.parse(stutablefetch.response).details;
                         result.forEach(classes=>{
                             var newRow = tbr.insertRow();
@@ -73,7 +75,7 @@
                             newText = document.createTextNode(classes.Section);
                             newCell.appendChild(newText);
                             var presencedetail = new XMLHttpRequest();
-                            presencedetail.open("GET", "https://ms-attendancemonitor.herokuapp.com/presencedetailsfetch/"+classes.Teacher+"/"+classes.Section+"/"+document.getElementById("UID").value);
+                            presencedetail.open("GET", "https://ms-attendancemonitor.herokuapp.com/presencedetailsfetch/"+classes.Teacher+"/"+classes.Section+"/"+(document.getElementById("UID").value).toUpperCase());
                             presencedetail.send();
                             presencedetail.onload = function () {
                             if (presencedetail.status != 200) {
