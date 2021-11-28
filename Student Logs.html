@@ -27,8 +27,9 @@
     <script type="text/javascript">
 
         function send() {
+            var UIDVALUE=(document.getElementById("UID").value).toUpperCase();
             var studatafetch = new XMLHttpRequest();
-            studatafetch.open("GET", "https://ms-attendancemonitor.herokuapp.com/studentdetails/"+(document.getElementById("UID").value).toUpperCase());
+            studatafetch.open("GET", "https://ms-attendancemonitor.herokuapp.com/studentdetails/"+UIDVALUE);
             studatafetch.send();
             studatafetch.onload = function () {
                 document.getElementById("UID").value="";
@@ -54,7 +55,7 @@
                         newCell.appendChild(newText);
                     });
                     var stutablefetch = new XMLHttpRequest();
-                    stutablefetch.open("GET", "https://ms-attendancemonitor.herokuapp.com/stutablefetch/"+(document.getElementById("UID").value).toUpperCase());
+                    stutablefetch.open("GET", "https://ms-attendancemonitor.herokuapp.com/stutablefetch/"+UIDVALUE);
                     stutablefetch.send();
                     stutablefetch.onload = function () {
                     if (stutablefetch.status != 200) {
@@ -75,7 +76,7 @@
                             newText = document.createTextNode(classes.Section);
                             newCell.appendChild(newText);
                             var presencedetail = new XMLHttpRequest();
-                            presencedetail.open("GET", "https://ms-attendancemonitor.herokuapp.com/presencedetailsfetch/"+classes.Teacher+"/"+classes.Section+"/"+(document.getElementById("UID").value).toUpperCase());
+                            presencedetail.open("GET", "https://ms-attendancemonitor.herokuapp.com/presencedetailsfetch/"+classes.Teacher+"/"+classes.Section+"/"+UIDVALUE);
                             presencedetail.send();
                             presencedetail.onload = function () {
                             if (presencedetail.status != 200) {
