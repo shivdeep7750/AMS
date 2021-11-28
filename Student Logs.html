@@ -57,7 +57,7 @@
                     stutablefetch.send();
                     stutablefetch.onload = function () {
                     if (stutablefetch.status != 200) {
-                        alert("Error fetching more details!");
+                        alert("Student is not registered in any course!");
                         document.getElementById("UID").value="";
                         return;
                     }
