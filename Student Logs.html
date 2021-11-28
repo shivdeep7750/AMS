@@ -28,9 +28,75 @@
 
         function send() {
             var studatafetch = new XMLHttpRequest();
-            studatafetch.open("GET", "https://ms-attendancemonitor.herokuapp.com/fetchstudentdata/"+document.getElementById("UID").value);
+            studatafetch.open("GET", "https://ms-attendancemonitor.herokuapp.com/studentdetails/"+document.getElementById("UID").value);
             studatafetch.send();
             studatafetch.onload = function () {
+                document.getElementById("UID").value="";
+                if (studatafetch.status != 200) {
+                    alert("UID Not Found!");
+                    document.getElementById("UID").value="";
+                    return;
+                }
+                else{
+                    var tbr = document.getElementById('details');
+                    var result = JSON.parse(x.response).details;
+                    result.forEach(i=>{
+                        var newRow = tbr.insertRow();
+                        var newCell = newRow.insertCell();
+                        var newText = document.createTextNode(i.Name);
+                        newCell.appendChild(newText);
+                        newCell = newRow.insertCell();
+                        newText = document.createTextNode(i.Email);
+                        newCell.appendChild(newText);
+                        newCell = newRow.insertCell();
+                        newText = document.createTextNode(i.Batch);
+                        newCell.appendChild(newText);
+                    });
+                    var stutablefetch = new XMLHttpRequest();
+                    stutablefetch.open("GET", "https://ms-attendancemonitor.herokuapp.com/stutablefetch/"+document.getElementById("UID").value);
+                    stutablefetch.send();
+                    stutablefetch.onload = function () {
+                    if (stutablefetch.status != 200) {
+                        alert("Error fetching more details!");
+                        document.getElementById("UID").value="";
+                        return;
+                    }
+                    else{
+                        var tbr = document.getElementById('bdy');
+                        var result = JSON.parse(stutablefetch.response).details;
+                        result.forEach(classes=>{
+                            var newRow = tbr.insertRow();
+                            var newCell = newRow.insertCell();
+                            var newText = document.createTextNode(classes.Teacher);
+                            newCell.appendChild(newText);
+                            newCell = newRow.insertCell();
+                            newText = document.createTextNode(classes.Section);
+                            newCell.appendChild(newText);
+                            var presencedetail = new XMLHttpRequest();
+                            presencedetail.open("GET", "https://ms-attendancemonitor.herokuapp.com/presencedetailsfetch/"+classes.Teacher+"/"+classes.Section+"/"+document.getElementById("UID").value);
+                            presencedetail.send();
+                            presencedetail.onload = function () {
+                            if (presencedetail.status != 200) {
+                                alert("Error fetching presence details!");
+                            }
+                            else{
+                            newCell = newRow.insertCell();
+                            newText = document.createTextNode(JSON.parse(presencedetail.response).present);
+                            newCell.appendChild(newText);
+                           newCell = newRow.insertCell();
+                            newText = document.createTextNode(JSON.parse(presencedetail.response).total);
+                            newCell.appendChild(newText);
+
+                            }
+                };
+
+
+
+                        });
+                    }
+                };
+
+                }
             };
         }
 
@@ -49,7 +115,6 @@
                     x.abort();
                 }
                 else {
-
                     if (x.response == undefined) {
                         return;
                     }
@@ -132,12 +197,38 @@
             </div>
         </div>
     </section>
-    <section id="list" data-bs-version="5.1" class=" cid-sOhBxcVSZw" style="display: none;">
+    <section id="list" data-bs-version="5.1" class=" cid-sOhBxcVSZw" >
         <div>
             <h6 class="card-title mbr-fonts-style display-5" align="center" id="namebanner"><strong></strong></h6>
         </div>
         <div style="padding: 1%;">
-            <table id="example" class="display" style="width: 100%;">
+            <table class="display" style="width: 100%; border-width: 1px;border-style: dotted;">
+                <thead>
+                    <tr>
+                        <th  aria-controls="example" rowspan="1" colspan="1"
+                            style="width: 25%;text-align: center;" >Name</th>
+                        <th  aria-controls="example" rowspan="1" colspan="1"
+                        style="width: 25%;text-align: center;">Email</th>
+                        <th  aria-controls="example" rowspan="1" colspan="1"
+                        style="width: 25%;text-align: center;">Batch</th>
+                </thead>
+                <tbody id="details">
+                </tbody>
+            </table>
+        </div>
+        <div style="padding: 1%;">
+            <table id="example" class="display" style="width: 100%; border-width: 1px;border-style: dotted;">
+                <thead>
+                    <tr>
+                        <th  aria-controls="example" rowspan="1" colspan="1"
+                            style="width: 25%;text-align: center;" >Faculty Name</th>
+                        <th  aria-controls="example" rowspan="1" colspan="1"
+                        style="width: 25%;text-align: center;">Section</th>
+                        <th  aria-controls="example" rowspan="1" colspan="1"
+                        style="width: 25%;text-align: center;">Lectures Attended</th>
+                        <th  aria-controls="example" rowspan="1" colspan="1"
+                        style="width: 25%;text-align: center;"  >Total Lectures</th>
+                </thead>
                 <tbody id="bdy">
 
                 </tbody>
