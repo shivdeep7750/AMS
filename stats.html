@@ -64,6 +64,7 @@ var prevent = false;
     var grapharray = [['Date', 'Count']];
     var grapharrayWH = [];//without header
     var lowattend = [];
+    var percentage = [];
     var sizeofres = 0;
 
     function newrow() {
@@ -129,6 +130,7 @@ var prevent = false;
                           var temp=[];
                           temp.push(i.UID);
                           temp.push(val);
+                          //percentage.push(val);
                           lowattend.push(temp);
                         }
                         newText = document.createTextNode(val.toString());
@@ -213,11 +215,11 @@ var prevent = false;
         paths[i].setAttribute('value', grapharrayWH[i]);
       }
     }
-    
+
 
     function assignvalue() {
       drawStuff();
-      setTimeout(() => { assign(); }, 2000);//2sec timeoout
+      setTimeout(() => { assign(); }, 1500);//1.5sec timeoout
     }
 
     function attendancealert(){
@@ -228,10 +230,10 @@ var prevent = false;
             notification.send(JSON.stringify({
                 Username: sessionStorage.getItem('userID'),
                 section: sessionStorage.getItem('curSection'),
-                UIDdata: lowattend
+                UIDdata: lowattend,
+                Percentage: percentage
             }));
     }
-
 
 
     function validate() {
