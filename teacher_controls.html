@@ -129,9 +129,9 @@
                     return;
                 }
             }
-            let sqlnameregix =  /^[a-zA-Z]([._](?![._])|[a-zA-Z0-9]){1,18}[a-zA-Z0-9]$/;
+            let sqlnameregix =  /^[a-zA-Z0-9]([._](?![._])|[a-zA-Z0-9]){1,16}[a-zA-Z0-9]$/;
             if (!ClassName.match(sqlnameregix)) {
-                alert("Invalid Class Name, Only '_' is allowed, Name can't start with an integer!\nLength should be between 1 to 18"); 
+                alert("Invalid Class Name, Only '_' is allowed, Name can't start with an integer!\nLength should be between 3 to 18"); 
                 return;
             } 
             var x4 = new XMLHttpRequest();
@@ -148,7 +148,8 @@
                 }
                 else {
                     document.getElementById("ClassName").value = "";
-                    location.reload();
+                    edit(ClassName);
+                    //location.reload();
                 }
             };
         }
